@@ -22,6 +22,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "DaggerRoomRetrofitPagingTesting"
+rootProject.name = "BestPractices"
 include(":app")
  
