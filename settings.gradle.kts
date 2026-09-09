@@ -24,4 +24,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "BestPractices"
 include(":app")
+
+includeBuild("build-logic")
  
