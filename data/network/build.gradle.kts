@@ -31,7 +31,7 @@ android {
         }
     }
 
-    flavorDimensions += "httpclient"
+    flavorDimensions += listOf("httpclient", "di")
 
     productFlavors {
         create("retrofit") {
@@ -40,6 +40,14 @@ android {
 
         create("okhttp") {
             dimension = "httpclient"
+        }
+
+        create("dagger") {
+            dimension = "di"
+        }
+
+        create("hilt") {
+            dimension = "di"
         }
     }
 
