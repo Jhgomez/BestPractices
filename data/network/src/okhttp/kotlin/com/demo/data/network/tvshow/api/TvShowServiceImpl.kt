@@ -2,9 +2,11 @@ package com.demo.data.network.tvshow.api
 
 import com.demo.data.network.common.dto.PaginatedResponseDto
 import com.demo.data.network.tvshow.dto.TvShowDto
+import kotlinx.serialization.json.Json
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import okhttp3.Response
 import okhttp3.coroutines.executeAsync
 
 class TvShowServiceImpl(private val okHttpClient: OkHttpClient): TvShowService {
@@ -22,8 +24,27 @@ class TvShowServiceImpl(private val okHttpClient: OkHttpClient): TvShowService {
 
         val call = okHttpClient.newCall(request)
 
-        call.executeAsync().use {
-            // https://github.com/lysine-dev/okhttp/blob/1f04bf8028b0fd9471ba9a77eba0ad913f86705a/samples/tlssurvey/src/main/kotlin/okhttp3/survey/Iana.kt#L21
+        return call.executeAsync().use { response ->
+            when(response.code) {
+                200 -> {
+                    Json.decodeFromString<PaginatedResponseDto<TvShowDto>>(response.body.string())
+                }
+                400 -> {
+                    // bad request
+                    throw Exception("")
+                }
+                401 -> {
+                    // unauthorized
+                    throw Exception("")
+                }
+                500 -> {
+                    // internal server error
+                    throw Exception("")
+                }
+                else -> {
+                    throw Exception("")
+                }
+            }
         }
     }
 }
