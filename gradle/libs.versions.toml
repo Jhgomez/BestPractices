@@ -37,6 +37,7 @@ ktx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-seri
 okhttp-bom = { group = "com.squareup.okhttp3", name = "okhttp-bom", version.ref = "okhttpBom" }
 okhttp = { group = "com.squareup.okhttp3", name = "okhttp" }
 okhttp-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor" }
+okhttp-coroutines = { group = "com.squareup.okhttp3", name = "okhttp-coroutines" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
