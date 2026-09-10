@@ -46,3 +46,9 @@ android {
         buildConfig = true
     }
 }
+
+dependencies {
+    "okhttpImplementation"(platform(libs.okhttp.bom))
+    "okhttpImplementation"(libs.okhttp)
+    "okhttpImplementation"(libs.okhttp.logging.interceptor)
+}
