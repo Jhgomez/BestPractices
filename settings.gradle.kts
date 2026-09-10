@@ -25,6 +25,7 @@ dependencyResolutionManagement {
 rootProject.name = "BestPractices"
 include(":app")
 include(":data:client")
+include(":data:api:common")
 include(":data:api:tvshow")
 include(":data:database")
 
