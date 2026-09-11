@@ -38,6 +38,15 @@ val clientDep =  OkHttpClient
     .callTimeout(Duration.ofSeconds(16))
     .build()
 
+val json = Json {
+    explicitNulls = false
+    prettyPrint = true
+    ignoreUnknownKeys = true
+    coerceInputValues = true
+    allowTrailingComma = true
+    allowComments = true
+    isLenient = true
+}
 
 suspend fun <T: Any> OkHttpClient.get(
     path: String,
@@ -64,7 +73,7 @@ suspend fun <T: Any> OkHttpClient.get(
             200 -> {
                 val serializer = serializer(kType) as KSerializer<T>
 
-                Json.decodeFromString(string = response.body.string(), deserializer = serializer)
+                json.decodeFromString(string = response.body.string(), deserializer = serializer)
             }
             400 -> {
                 // bad request
