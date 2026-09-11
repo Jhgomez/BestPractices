@@ -40,8 +40,8 @@ class OkhttpClientImpl: AppHttpClient {
 
     override suspend fun <T> get(
         path: String,
-        vararg params: Pair<String, String>,
-        kType: KType
+        kType: KType,
+        vararg params: Pair<String, String>
     ): T {
         val url = HttpUrl.Builder().apply {
             addPathSegment("/trending/tv/")
