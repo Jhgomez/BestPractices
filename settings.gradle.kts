@@ -31,6 +31,7 @@ include(":core:domain:common")
 
 include(":feature:tvshow:data")
 include(":feature:tvshow:domain")
+include(":feature:tvshow:presentation")
 
 includeBuild("build-logic")
  
