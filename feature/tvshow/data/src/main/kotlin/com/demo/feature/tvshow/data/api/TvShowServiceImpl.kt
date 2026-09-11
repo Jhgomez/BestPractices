@@ -1,8 +1,8 @@
 package com.demo.feature.tvshow.data.api
 
+import com.demo.core.data.api.common.dto.PaginatedResponseDto
 import com.demo.data.client.AppHttpClient
-import com.demo.data.api.common.dto.PaginatedResponseDto
-import com.demo.data.network.tvshow.dto.TvShowDto
+import com.demo.feature.tvshow.data.dto.TvShowDto
 import kotlin.reflect.typeOf
 
 class TvShowServiceImpl(private val httpClient: AppHttpClient): TvShowService {
