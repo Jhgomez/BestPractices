@@ -70,7 +70,7 @@ dependencies {
     "okhttpImplementation"(okhttpLoggingInterceptor)
     "okhttpImplementation"(libs.okhttp.coroutines)
 
-    "retrofitImplementation"(libs.retrofit)
+    "retrofitApi"(libs.retrofit)
     "retrofitImplementation"( "$okhttpLoggingInterceptor:$okhttpLoggingInterceptorVersion")
 
     implementation(libs.ktx.serialization.json)
