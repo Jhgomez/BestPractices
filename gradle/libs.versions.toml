@@ -14,6 +14,7 @@ material = "1.14.0"
 okhttpBom = "5.5.0"
 ktxSerialization = "2.4.20"
 ktxSerializationJson = "1.11.0"
+jetbrainsKotlinJvm = "2.4.20"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -45,4 +46,5 @@ android-library = { id = "com.android.library", version.ref = "agp" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 secrets = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secrets" }
 ktx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "ktxSerialization" }
+jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
 
