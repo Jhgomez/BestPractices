@@ -23,6 +23,7 @@ class RetrofitClientImpl: AppHttpClient {
         timeUnit = TimeUnit.SECONDS
     )
 
+    // retrofit includes okhttp as a transient dependency(built on top of okhttp)
     val client =  OkHttpClient
         .Builder()
         .addInterceptor(AuthInterceptor())
@@ -39,6 +40,6 @@ class RetrofitClientImpl: AppHttpClient {
         .client(client)
         .build()
 
-    override fun <T> createService(serviceClass: Class<T>): T =
+    override fun <T: Any> createService(serviceClass: Class<T>): T =
         retrofit.create(serviceClass)
 }
