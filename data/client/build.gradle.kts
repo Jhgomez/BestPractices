@@ -65,4 +65,5 @@ dependencies {
     "okhttpImplementation"(libs.okhttp)
     "okhttpImplementation"(libs.okhttp.logging.interceptor)
     "okhttpImplementation"(libs.okhttp.coroutines)
+    implementation(libs.ktx.serialization.json)
 }
