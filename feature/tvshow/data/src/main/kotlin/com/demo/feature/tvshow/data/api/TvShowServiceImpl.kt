@@ -1,4 +1,4 @@
-package com.demo.data.api.tvshow.api
+package com.demo.feature.tvshow.data.api
 
 import com.demo.data.client.AppHttpClient
 import com.demo.data.api.common.dto.PaginatedResponseDto

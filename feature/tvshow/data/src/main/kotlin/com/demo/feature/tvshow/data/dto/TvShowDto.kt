@@ -1,4 +1,4 @@
-package com.demo.data.network.tvshow.dto
+package com.demo.feature.tvshow.data.dto
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

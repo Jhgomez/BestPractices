@@ -52,6 +52,6 @@ android {
 
 dependencies {
     implementation(libs.ktx.serialization.json)
-    implementation(project(":data:client"))
-    implementation(project(":data:api:common"))
+    implementation(project(":core:data:client"))
+    implementation(project(":core:data:api:common"))
 }
