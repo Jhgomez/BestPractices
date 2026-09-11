@@ -26,7 +26,7 @@ rootProject.name = "BestPractices"
 include(":app")
 
 include(":core:data:client")
-include(":core:data:api:common")
+include(":core:data:api-common")
 include(":core:domain:common")
 
 include(":feature:tvshow:data")
