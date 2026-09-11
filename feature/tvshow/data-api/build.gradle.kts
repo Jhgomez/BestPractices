@@ -51,6 +51,6 @@ android {
 
 dependencies {
     implementation(project(":core:data-client"))
-    implementation(project(":core:data-api-common"))
+    implementation(project(":core:data-model-common"))
     implementation(project(":feature:tvshow:data-model"))
 }

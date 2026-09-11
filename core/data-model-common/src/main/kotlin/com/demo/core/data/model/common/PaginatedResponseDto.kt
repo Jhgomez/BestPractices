@@ -1,4 +1,4 @@
-package com.demo.core.data.api.common.model
+package com.demo.core.data.model.common
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
