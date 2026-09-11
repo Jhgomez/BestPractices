@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.secrets)
+    alias(libs.plugins.ktx.serialization)
 }
 
 android {
@@ -70,8 +71,9 @@ dependencies {
     "okhttpImplementation"(okhttpLoggingInterceptor)
     "okhttpImplementation"(libs.okhttp.coroutines)
 
+    "retrofitApi"(platform(libs.retrofit.bom))
     "retrofitApi"(libs.retrofit)
+    "retrofitImplementation"(libs.retrofit.kotlinx.serialization)
+    "retrofitImplementation"(libs.ktx.serialization.json)
     "retrofitImplementation"( "$okhttpLoggingInterceptor:$okhttpLoggingInterceptorVersion")
-
-    implementation(libs.ktx.serialization.json)
 }
