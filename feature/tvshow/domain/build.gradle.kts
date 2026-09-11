@@ -50,6 +50,6 @@ android {
 }
 
 dependencies {
-    implementation(project(":data:api:tvshow"))
-    implementation(project(":domain:common"))
+    implementation(project(":feature:tvshow:data"))
+    implementation(project(":core:domain:common"))
 }

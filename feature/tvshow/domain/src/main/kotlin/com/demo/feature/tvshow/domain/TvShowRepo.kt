@@ -1,4 +1,4 @@
-package com.demo.domain.tvshow
+package com.demo.feature.tvshow.domain
 
 import com.demo.domain.common.model.Page
 
