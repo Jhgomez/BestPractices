@@ -61,9 +61,17 @@ android {
 }
 
 dependencies {
+    val okhttpLoggingInterceptor = libs.okhttp.logging.interceptor.get().toString()
+    // only used in build variants using Retrofit
+    val okhttpLoggingInterceptorVersion = libs.versions.okhttpLoggingInterceptor.get()
+
     "okhttpImplementation"(platform(libs.okhttp.bom))
     "okhttpImplementation"(libs.okhttp)
-    "okhttpImplementation"(libs.okhttp.logging.interceptor)
+    "okhttpImplementation"(okhttpLoggingInterceptor)
     "okhttpImplementation"(libs.okhttp.coroutines)
+
+    "retrofitImplementation"(libs.retrofit)
+    "retrofitImplementation"( "$okhttpLoggingInterceptor:$okhttpLoggingInterceptorVersion")
+
     implementation(libs.ktx.serialization.json)
 }
