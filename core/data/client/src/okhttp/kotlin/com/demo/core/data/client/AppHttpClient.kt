@@ -1,4 +1,4 @@
-package com.demo.data.client
+package com.demo.core.data.client
 
 import kotlin.reflect.KType
 
@@ -11,14 +11,5 @@ interface AppHttpClient {
         path: String,
         kType: KType,
         vararg params: Pair<String, String>
-    ): T {
-        throw UnsupportedOperationException()
-    }
-
-    /**
-     * This function only purpose is to hide retrofit behind our own http client interface
-     */
-    fun <T: Any> createService(serviceClass: Class<T>): T {
-        throw UnsupportedOperationException()
-    }
+    ): T
 }

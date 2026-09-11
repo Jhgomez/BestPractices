@@ -1,6 +1,5 @@
 package com.demo.core.data.client
 
-import com.demo.data.client.AppHttpClient
 import com.demo.data.client.AuthInterceptor
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.json.Json
@@ -16,6 +15,13 @@ import java.time.Duration
 import java.util.concurrent.TimeUnit
 import kotlin.reflect.KType
 
+/**
+ * Wrapping okhttp client around my own interface allows me to test the consuming services
+ * with my own mock but also removes need to add okhttp dependencies in modules where services
+ * consuming the client live, centralizing okhttp dependencies in this module and decoupling
+ * http client managing the network communication from the API that our client uses to interact
+ * with the backend
+ */
 class OkhttpClientImpl: AppHttpClient {
     val dispatcher = Dispatcher().apply {
         maxRequestsPerHost = 128
@@ -39,7 +45,7 @@ class OkhttpClientImpl: AppHttpClient {
         .callTimeout(Duration.ofSeconds(16))
         .build()
 
-    override suspend fun <T> get(
+    override suspend fun <T: Any> get(
         path: String,
         kType: KType,
         vararg params: Pair<String, String>
