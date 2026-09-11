@@ -1,4 +1,4 @@
-package com.demo.data.network.common.dto
+package com.demo.data.api.common.dto
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
