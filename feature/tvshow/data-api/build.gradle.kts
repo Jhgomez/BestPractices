@@ -1,6 +1,5 @@
 plugins {
     alias(libs.plugins.android.library)
-    alias(libs.plugins.ktx.serialization)
 }
 
 android {
@@ -51,7 +50,7 @@ android {
 }
 
 dependencies {
-    implementation(libs.ktx.serialization.json)
-    implementation(project(":core:data:client"))
-    implementation(project(":core:data:api:common"))
+    implementation(project(":core:data-client"))
+    implementation(project(":core:data-api-common"))
+    implementation(project(":feature:tvshow:data-model"))
 }

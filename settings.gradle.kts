@@ -29,7 +29,8 @@ include(":core:data-client")
 include(":core:data-api-common")
 include(":core:domain:common")
 
-include(":feature:tvshow:data")
+include(":feature:tvshow:data-api")
+include(":feature:tvshow:data-model")
 include(":feature:tvshow:domain")
 include(":feature:tvshow:presentation")
 
