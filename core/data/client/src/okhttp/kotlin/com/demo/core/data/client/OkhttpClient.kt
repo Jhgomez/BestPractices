@@ -1,0 +1,86 @@
+package com.demo.core.data.client
+
+import com.demo.data.client.AuthInterceptor
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.serializer
+import okhttp3.ConnectionPool
+import okhttp3.Dispatcher
+import okhttp3.HttpUrl
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.coroutines.executeAsync
+import okhttp3.logging.HttpLoggingInterceptor
+import java.time.Duration
+import java.util.concurrent.TimeUnit
+import kotlin.reflect.KType
+
+
+val dispatcher = Dispatcher().apply {
+    maxRequestsPerHost = 128
+    maxRequests = 128
+}
+
+val connectionPool = ConnectionPool(
+    maxIdleConnections = 16,
+    keepAliveDuration = 60,
+    timeUnit = TimeUnit.SECONDS
+)
+
+val clientDep =  OkHttpClient
+    .Builder()
+    .addInterceptor(HttpLoggingInterceptor())
+    .addInterceptor(BaseUrlInterceptor())
+    .addInterceptor(AuthInterceptor())
+    .dispatcher(dispatcher)
+    .connectionPool(connectionPool)
+    .connectTimeout(Duration.ofSeconds(4))
+    .callTimeout(Duration.ofSeconds(16))
+    .build()
+
+
+suspend fun <T: Any> OkHttpClient.get(
+    path: String,
+    kType: KType,
+    vararg params: Pair<String, String>
+): T {
+    val url = HttpUrl.Builder().apply {
+        addPathSegment(path)
+
+        for (param in params) {
+            addQueryParameter(param.first, param.second)
+        }
+    }.build()
+
+    val request = Request
+        .Builder()
+        .url(url)
+        .build()
+
+    val call = newCall(request)
+
+    return call.executeAsync().use { response ->
+        when(response.code) {
+            200 -> {
+                val serializer = serializer(kType) as KSerializer<T>
+
+                Json.decodeFromString(string = response.body.string(), deserializer = serializer)
+            }
+            400 -> {
+                // bad request
+                throw Exception("")
+            }
+            401 -> {
+                // unauthorized
+                throw Exception("")
+            }
+            500 -> {
+                // internal server error
+                throw Exception("")
+            }
+            else -> {
+                throw Exception("")
+            }
+        }
+    }
+}
