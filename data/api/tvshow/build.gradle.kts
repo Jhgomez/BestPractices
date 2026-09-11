@@ -24,9 +24,17 @@ android {
         }
     }
 
-    flavorDimensions += "di"
+    flavorDimensions += listOf("httpclient", "di")
 
     productFlavors {
+        create("retrofit") {
+            dimension = "httpclient"
+        }
+
+        create("okhttp") {
+            dimension = "httpclient"
+        }
+
         create("dagger") {
             dimension = "di"
         }
@@ -44,4 +52,6 @@ android {
 
 dependencies {
     implementation(libs.ktx.serialization.json)
+    implementation(project(":data:client"))
+    implementation(project(":data:api:common"))
 }
