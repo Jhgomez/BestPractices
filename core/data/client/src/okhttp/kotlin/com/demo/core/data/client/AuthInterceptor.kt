@@ -1,5 +1,6 @@
-package com.demo.data.client;
+package com.demo.core.data.client
 
+import com.demo.data.client.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.Response
 

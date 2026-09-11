@@ -1,5 +1,6 @@
-package com.demo.data.client
+package com.demo.core.data.client
 
+import com.demo.data.client.AppHttpClient
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.serializer
@@ -12,7 +13,6 @@ import okhttp3.coroutines.executeAsync
 import okhttp3.logging.HttpLoggingInterceptor
 import java.time.Duration
 import java.util.concurrent.TimeUnit
-import kotlin.reflect.KClass
 import kotlin.reflect.KType
 
 class OkhttpClientImpl: AppHttpClient {
