@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.demo.data.domain.tvshow"
+    namespace = "com.demo.domain.tvshow"
     compileSdk {
         version = release(37) {
             minorApiLevel = 1
@@ -47,4 +47,9 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+}
+
+dependencies {
+    implementation(project(":data:api:tvshow"))
+    implementation(project(":domain:common"))
 }
