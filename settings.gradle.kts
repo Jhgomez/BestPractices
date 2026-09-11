@@ -28,6 +28,8 @@ include(":data:client")
 include(":data:api:common")
 include(":data:api:tvshow")
 include(":data:database")
+
+include(":domain:common")
 include(":domain:tvshow")
 
 includeBuild("build-logic")
