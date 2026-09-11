@@ -1,6 +1,7 @@
 package com.demo.core.data.client
 
 import com.demo.data.client.AppHttpClient
+import com.demo.data.client.AuthInterceptor
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.serializer

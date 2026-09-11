@@ -11,5 +11,10 @@ interface AppHttpClient {
         path: String,
         kType: KType,
         vararg params: Pair<String, String>
-    ): T
+    ): T? = null
+
+    /**
+     * This function only purpose is to hide retrofit behind our own http client interface
+     */
+    fun <T> createService(serviceClass: Class<T>): T? = null
 }
