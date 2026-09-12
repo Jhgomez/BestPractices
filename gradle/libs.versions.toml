@@ -18,6 +18,8 @@ jetbrainsKotlinJvm = "2.4.20"
 composeViewmodel = "2.11.0"
 retrofit = "3.0.0"
 okhttpLoggingInterceptor = "5.5.0"
+dagger = "2.60.1"
+ksp = "2.3.12"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -47,6 +49,9 @@ okhttp = { group = "com.squareup.okhttp3", name = "okhttp" }
 okhttp-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor" }
 okhttp-coroutines = { group = "com.squareup.okhttp3", name = "okhttp-coroutines" }
 
+dagger = { group = "com.google.dagger", name = "dagger", version.ref = "dagger" }
+dagger-compiler = { group = "com.google.dagger", name = "dagger-compiler", version.ref = "dagger" }
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
@@ -54,4 +59,4 @@ kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "ko
 secrets = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secrets" }
 ktx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "ktxSerialization" }
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
-
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
