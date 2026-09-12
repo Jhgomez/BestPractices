@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.secrets)
     alias(libs.plugins.ktx.serialization)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -76,4 +77,7 @@ dependencies {
     "retrofitImplementation"(libs.retrofit.kotlinx.serialization)
     "retrofitImplementation"(libs.ktx.serialization.json)
     "retrofitImplementation"( "$okhttpLoggingInterceptor:$okhttpLoggingInterceptorVersion")
+
+    "daggerImplementation"(libs.dagger)
+    "kspDagger"(libs.dagger.compiler)
 }

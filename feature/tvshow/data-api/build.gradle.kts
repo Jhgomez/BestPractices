@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.library)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -53,4 +54,6 @@ dependencies {
     implementation(project(":core:data-client"))
     implementation(project(":core:data-model-common"))
     implementation(project(":feature:tvshow:data-model"))
+    "daggerImplementation"(libs.dagger)
+    "kspDagger"(libs.dagger.compiler)
 }

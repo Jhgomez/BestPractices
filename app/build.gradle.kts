@@ -1,8 +1,10 @@
 import com.android.tools.r8.internal.im
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -65,6 +67,16 @@ android {
     }
 }
 
+tasks.withType<KotlinCompilationTask<*>>().configureEach {
+    if (name.contains("dagger", ignoreCase = true)) {
+        compilerOptions {
+            // https://dagger.dev/dev-guide/compiler-options
+            // Adagger.fullBindingGraphValidation=ERROR
+            freeCompilerArgs.add("Adagger.fullBindingGraphValidation=WARNING")
+        }
+    }
+}
+
 dependencies {
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.activity.compose)
@@ -74,6 +86,8 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
+    "daggerImplementation"(libs.dagger)
+    "kspDagger"(libs.dagger.compiler)
     implementation(project(":feature:tvshow:data-api"))
     testImplementation(libs.junit)
     androidTestImplementation(platform(libs.androidx.compose.bom))
