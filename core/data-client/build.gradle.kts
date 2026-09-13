@@ -75,8 +75,9 @@ dependencies {
     "retrofitApi"(platform(libs.retrofit.bom))
     "retrofitApi"(libs.retrofit)
     "retrofitImplementation"(libs.retrofit.kotlinx.serialization)
-    "retrofitImplementation"(libs.ktx.serialization.json)
     "retrofitImplementation"( "$okhttpLoggingInterceptor:$okhttpLoggingInterceptorVersion")
+
+    implementation(libs.ktx.serialization.json)
 
     "daggerImplementation"(libs.dagger)
     "kspDagger"(libs.dagger.compiler)
