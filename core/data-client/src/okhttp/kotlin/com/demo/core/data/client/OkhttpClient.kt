@@ -16,12 +16,12 @@ import java.util.concurrent.TimeUnit
 import kotlin.reflect.KType
 
 
-val dispatcher = Dispatcher().apply {
+private val dispatcher = Dispatcher().apply {
     maxRequestsPerHost = 128
     maxRequests = 128
 }
 
-val connectionPool = ConnectionPool(
+private val connectionPool = ConnectionPool(
     maxIdleConnections = 16,
     keepAliveDuration = 60,
     timeUnit = TimeUnit.SECONDS
