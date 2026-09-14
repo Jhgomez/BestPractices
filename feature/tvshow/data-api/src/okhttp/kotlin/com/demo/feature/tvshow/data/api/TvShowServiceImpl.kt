@@ -4,9 +4,12 @@ import com.demo.core.data.client.utils.get
 import com.demo.core.data.model.common.PaginatedResponseDto
 import com.demo.feature.tvshow.data.model.TvShowDto
 import okhttp3.OkHttpClient
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlin.reflect.typeOf
 
-class TvShowServiceImpl(private val httpClient: OkHttpClient): TvShowService {
+@Singleton
+class TvShowServiceImpl @Inject constructor(private val httpClient: OkHttpClient): TvShowService {
 
     override suspend fun getTvShows(page: Int): PaginatedResponseDto<TvShowDto> =
         httpClient.get(
