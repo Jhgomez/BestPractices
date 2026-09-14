@@ -72,7 +72,7 @@ tasks.withType<KotlinCompilationTask<*>>().configureEach {
         compilerOptions {
             // https://dagger.dev/dev-guide/compiler-options
             // Adagger.fullBindingGraphValidation=ERROR
-            freeCompilerArgs.add("Adagger.fullBindingGraphValidation=WARNING")
+            freeCompilerArgs.add("-Adagger.fullBindingGraphValidation=WARNING")
         }
     }
 }
