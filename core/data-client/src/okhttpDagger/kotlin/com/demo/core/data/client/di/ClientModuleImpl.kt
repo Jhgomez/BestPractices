@@ -7,12 +7,13 @@ import dagger.Provides
 import okhttp3.OkHttpClient
 import javax.inject.Singleton
 
+interface yo
 @Module(includes = [OkhttpBaseModule::class])
-interface OkhttpModule {
+object ClientModule {
 
     @Singleton
     @Provides
-    fun providesOkhttpClient(builder: OkHttpClient.Builder): OkHttpClient =
+    fun provideClient(builder: OkHttpClient.Builder): OkHttpClient =
         builder
             .addInterceptor(BaseUrlInterceptor())
             .build()
