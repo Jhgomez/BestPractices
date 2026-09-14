@@ -9,10 +9,12 @@ import okhttp3.OkHttpClient.Builder
 import okhttp3.logging.HttpLoggingInterceptor
 import java.time.Duration
 import java.util.concurrent.TimeUnit
+import javax.inject.Singleton
 
 @Module
-interface OkhttpBaseModule {
+internal interface OkhttpBaseModule {
 
+    @Singleton
     @Provides
     fun providesOkhttpConfiguredBaseBuilder(): Builder {
         val dispatcher = Dispatcher().apply {
