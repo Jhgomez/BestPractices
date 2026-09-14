@@ -51,9 +51,13 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:data-client"))
+    implementation(project(":core:data-client-utils"))
     implementation(project(":core:data-model-common"))
     implementation(project(":feature:tvshow:data-model"))
+
+    "okhttpImplementation"(platform(libs.okhttp.bom))
+    "okhttpImplementation"(libs.okhttp)
+
     "daggerImplementation"(libs.dagger)
     "kspDagger"(libs.dagger.compiler)
 }
