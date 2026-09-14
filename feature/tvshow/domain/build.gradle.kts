@@ -1,55 +1,21 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
-    alias(libs.plugins.android.library)
+    id("java-library")
+    alias(libs.plugins.jetbrains.kotlin.jvm)
 }
 
-android {
-    namespace = "com.demo.domain.tvshow"
-    compileSdk {
-        version = release(37) {
-            minorApiLevel = 1
-        }
-    }
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
 
-    defaultConfig {
-        minSdk = 28
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = true
-//            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-        }
-    }
-
-    flavorDimensions += listOf("httpclient", "di")
-
-    productFlavors {
-        create("retrofit") {
-            dimension = "httpclient"
-        }
-
-        create("okhttp") {
-            dimension = "httpclient"
-        }
-
-        create("dagger") {
-            dimension = "di"
-        }
-
-        create("hilt") {
-            dimension = "di"
-        }
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+kotlin {
+    compilerOptions {
+        jvmTarget = JvmTarget.JVM_11
     }
 }
 
 dependencies {
-    implementation(project(":feature:tvshow:data-api"))
     implementation(project(":core:domain:common"))
 }
