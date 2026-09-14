@@ -51,6 +51,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:data-model-common"))
     implementation(project(":feature:tvshow:data-model"))
     implementation(project(":feature:tvshow:data-api"))
     implementation(project(":feature:tvshow:domain"))
