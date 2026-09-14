@@ -5,7 +5,9 @@ import com.demo.feature.tvshow.data.api.TvShowService
 import com.demo.feature.tvshow.domain.TvShow
 import com.demo.feature.tvshow.domain.TvShowRepo
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class TvShowRepoImpl @Inject constructor(private val service: TvShowService): TvShowRepo {
     override suspend fun getTvShow(page: Int): Page<TvShow> {
         val response = service.getTvShows(page)
