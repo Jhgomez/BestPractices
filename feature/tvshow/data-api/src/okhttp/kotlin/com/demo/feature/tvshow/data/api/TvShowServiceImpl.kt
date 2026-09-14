@@ -1,6 +1,6 @@
 package com.demo.feature.tvshow.data.api
 
-import com.demo.core.data.client.get
+import com.demo.core.data.client.utils.get
 import com.demo.core.data.model.common.PaginatedResponseDto
 import com.demo.feature.tvshow.data.model.TvShowDto
 import okhttp3.OkHttpClient
