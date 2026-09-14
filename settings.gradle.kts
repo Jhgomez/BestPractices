@@ -26,6 +26,7 @@ rootProject.name = "BestPractices"
 include(":app")
 
 include(":core:data-client")
+include(":core:data-client-utils")
 include(":core:data-model-common")
 include(":core:domain:common")
 

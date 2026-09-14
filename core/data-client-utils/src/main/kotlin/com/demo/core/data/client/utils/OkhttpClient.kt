@@ -1,42 +1,35 @@
-package com.demo.core.data.client
+package com.demo.core.data.client.utils
 
-import com.demo.data.client.AuthInterceptor
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.serializer
-import okhttp3.ConnectionPool
-import okhttp3.Dispatcher
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.coroutines.executeAsync
-import okhttp3.logging.HttpLoggingInterceptor
-import java.time.Duration
-import java.util.concurrent.TimeUnit
 import kotlin.reflect.KType
 
-
-private val dispatcher = Dispatcher().apply {
-    maxRequestsPerHost = 128
-    maxRequests = 128
-}
-
-private val connectionPool = ConnectionPool(
-    maxIdleConnections = 16,
-    keepAliveDuration = 60,
-    timeUnit = TimeUnit.SECONDS
-)
-
-val clientDep =  OkHttpClient
-    .Builder()
-    .addInterceptor(HttpLoggingInterceptor())
-    .addInterceptor(BaseUrlInterceptor())
-    .addInterceptor(AuthInterceptor())
-    .dispatcher(dispatcher)
-    .connectionPool(connectionPool)
-    .connectTimeout(Duration.ofSeconds(4))
-    .callTimeout(Duration.ofSeconds(16))
-    .build()
+//private val dispatcher = Dispatcher().apply {
+//    maxRequestsPerHost = 128
+//    maxRequests = 128
+//}
+//
+//private val connectionPool = ConnectionPool(
+//    maxIdleConnections = 16,
+//    keepAliveDuration = 60,
+//    timeUnit = TimeUnit.SECONDS
+//)
+//
+//val clientDep =  OkHttpClient
+//    .Builder()
+//    .addInterceptor(HttpLoggingInterceptor())
+//    .addInterceptor(BaseUrlInterceptor())
+//    .addInterceptor(AuthInterceptor())
+//    .dispatcher(dispatcher)
+//    .connectionPool(connectionPool)
+//    .connectTimeout(Duration.ofSeconds(4))
+//    .callTimeout(Duration.ofSeconds(16))
+//    .build()
 
 val json = Json {
     explicitNulls = false
