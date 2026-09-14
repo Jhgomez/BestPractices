@@ -7,6 +7,7 @@ import dagger.Component
 
 @Component(modules = [
     ClientModuleImpl::class,
+    FeatureTvShowDataModuleImpl::class,
     FeatureTvShowDataModuleImpl::class
 ])
 interface ApplicationComponent {

@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.demo.data.api.tvshow"
+    namespace = "com.demo.data.api.tvshow.repository"
     compileSdk {
         version = release(37) {
             minorApiLevel = 1
