@@ -67,13 +67,13 @@ dependencies {
     // only used in build variants using Retrofit
     val okhttpLoggingInterceptorVersion = libs.versions.okhttpLoggingInterceptor.get()
 
-    "okhttpApi"(platform(libs.okhttp.bom))
-    "okhttpApi"(libs.okhttp)
+    "okhttpImplementation"(platform(libs.okhttp.bom))
+    "okhttpImplementation"(libs.okhttp)
     "okhttpImplementation"(okhttpLoggingInterceptor)
     "okhttpImplementation"(libs.okhttp.coroutines)
 
-    "retrofitApi"(platform(libs.retrofit.bom))
-    "retrofitApi"(libs.retrofit)
+    "retrofitImplementation"(platform(libs.retrofit.bom))
+    "retrofitImplementation"(libs.retrofit)
     "retrofitImplementation"(libs.retrofit.kotlinx.serialization)
     "retrofitImplementation"( "$okhttpLoggingInterceptor:$okhttpLoggingInterceptorVersion")
 
