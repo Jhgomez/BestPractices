@@ -5,7 +5,7 @@ import com.demo.feature.tvshow.data.api.TvShowServiceImpl
 import com.demo.feature.tvshow.data.repository.TvShowRepoImpl
 import com.demo.feature.tvshow.domain.TvShowRepo
 
-internal interface FeatureTvShowDataModule {
+internal interface TvShowDataModule {
     fun bindsService(service: TvShowServiceImpl): TvShowService
     fun bindTvShowRepository(reop: TvShowRepoImpl): TvShowRepo
 }
