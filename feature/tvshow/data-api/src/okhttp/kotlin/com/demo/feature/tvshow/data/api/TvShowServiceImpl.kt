@@ -9,7 +9,7 @@ import javax.inject.Singleton
 import kotlin.reflect.typeOf
 
 @Singleton
-class TvShowServiceImpl @Inject constructor(private val httpClient: OkHttpClient): TvShowService {
+internal class TvShowServiceImpl @Inject constructor(private val httpClient: OkHttpClient): TvShowService {
 
     override suspend fun getTvShows(page: Int): PaginatedResponseDto<TvShowDto> =
         httpClient.get(
