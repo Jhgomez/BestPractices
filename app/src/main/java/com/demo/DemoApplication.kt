@@ -5,7 +5,7 @@ import com.demo.di.ApplicationComponent
 import com.demo.di.DaggerApplicationComponent
 
 class DemoApplication: Application() {
-    var appComponent: ApplicationComponent? = null
+    private var appComponent: ApplicationComponent? = null
 
     fun getAppComponent(): ApplicationComponent = if (appComponent == null)
         DaggerApplicationComponent.create().also {

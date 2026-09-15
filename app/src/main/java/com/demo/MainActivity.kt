@@ -17,6 +17,9 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        (applicationContext as DemoApplication).getAppComponent().inject(this)
+
         setContent {
             DaggerRoomRetrofitPagingTestingTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
