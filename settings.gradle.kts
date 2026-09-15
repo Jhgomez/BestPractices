@@ -24,6 +24,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "BestPractices"
 include(":app")
+include(":core:di")
 
 include(":core:data-client")
 include(":core:data-client-utils")
