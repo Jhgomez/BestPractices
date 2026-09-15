@@ -2,7 +2,7 @@ package com.demo.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.demo.MyViewModel
+import com.demo.MainViewModel
 import dagger.Binds
 import dagger.MapKey
 import dagger.Module
@@ -11,7 +11,7 @@ import javax.inject.Inject
 import javax.inject.Provider
 import kotlin.reflect.KClass
 
-class DemoAppModelFactory @Inject constructor(
+class DemoAppViewModelFactory @Inject constructor(
     private val creators: @JvmSuppressWildcards Map<Class<out ViewModel>, Provider<ViewModel>>
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -41,13 +41,13 @@ abstract class ViewModelBuilderModule {
 
     @Binds
     abstract fun bindViewModelFactory(
-        factory: DemoAppModelFactory
+        factory: DemoAppViewModelFactory
     ): ViewModelProvider.Factory
 
     @Binds
     @IntoMap
-    @ViewModelKey(MyViewModel::class)
-    abstract fun bindViewModel(viewmodel: MyViewModel): ViewModel
+    @ViewModelKey(MainViewModel::class)
+    abstract fun bindViewModel(viewmodel: MainViewModel): ViewModel
 }
 
 @Target(

@@ -1,7 +1,9 @@
 package com.demo.feature.tvshow.presentation
 
+import androidx.lifecycle.ViewModel
 import com.demo.feature.tvshow.domain.TvShowRepo
+import javax.inject.Inject
 
-class TvShowViewModel(private val repo: TvShowRepo) {
+class TvShowViewModel (): ViewModel() {
 
 }
