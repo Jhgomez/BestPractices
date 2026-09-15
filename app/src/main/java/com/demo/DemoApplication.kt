@@ -1,9 +1,14 @@
 package com.demo
 
 import android.app.Application
-import di.ApplicationComponent
-import di.DaggerApplicationComponent
+import com.demo.di.ApplicationComponent
+import com.demo.di.DaggerApplicationComponent
 
 class DemoApplication: Application() {
-    val appComponent: ApplicationComponent = DaggerApplicationComponent.create()
+    var appComponent: ApplicationComponent? = null
+
+    fun getAppComponent(): ApplicationComponent = if (appComponent == null)
+        DaggerApplicationComponent.create().also {
+            appComponent = it
+        } else appComponent!!
 }
