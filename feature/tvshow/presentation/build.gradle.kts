@@ -55,7 +55,6 @@ android {
 
 dependencies {
     implementation(project(":core:domain:common"))
-    implementation(project(":core:di"))
     implementation(project(":feature:tvshow:domain"))
 
     implementation(platform(libs.androidx.compose.bom))
@@ -67,5 +66,6 @@ dependencies {
     implementation(libs.androidx.compose.viewmodel)
 
     "daggerImplementation"(libs.dagger)
+    "daggerImplementation"(project(":core:di"))
     "kspDagger"(libs.dagger.compiler)
 }
