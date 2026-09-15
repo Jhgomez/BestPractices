@@ -32,7 +32,6 @@ include(":core:domain:common")
 
 include(":feature:tvshow:data-api")
 include(":feature:tvshow:data-model")
-include(":feature:tvshow:data-repository")
 include(":feature:tvshow:domain")
 include(":feature:tvshow:presentation")
 

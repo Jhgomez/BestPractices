@@ -53,7 +53,9 @@ android {
 dependencies {
     implementation(project(":core:data-client-utils"))
     implementation(project(":core:data-model-common"))
+    implementation(project(":core:domain:common"))
     implementation(project(":feature:tvshow:data-model"))
+    implementation(project(":feature:tvshow:domain"))
 
     "okhttpImplementation"(platform(libs.okhttp.bom))
     "okhttpImplementation"(libs.okhttp)

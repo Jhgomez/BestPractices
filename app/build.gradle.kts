@@ -92,7 +92,6 @@ dependencies {
     "okhttpImplementation"(libs.okhttp)
     implementation(project(":core:data-client"))
     implementation(project(":feature:tvshow:data-api"))
-    implementation(project(":feature:tvshow:data-repository"))
     implementation(project(":feature:tvshow:domain"))
     testImplementation(libs.junit)
     androidTestImplementation(platform(libs.androidx.compose.bom))
