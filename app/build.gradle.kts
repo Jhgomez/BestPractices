@@ -78,6 +78,18 @@ tasks.withType<KotlinCompilationTask<*>>().configureEach {
 }
 
 dependencies {
+    implementation(project(":core:data-client"))
+    implementation(project(":feature:tvshow:data-api"))
+    implementation(project(":feature:tvshow:presentation"))
+    implementation(project(":feature:tvshow:domain"))
+
+    "daggerImplementation"(project(":core:di"))
+    "daggerImplementation"(libs.dagger)
+    "kspDagger"(libs.dagger.compiler)
+
+    "okhttpImplementation"(platform(libs.okhttp.bom))
+    "okhttpImplementation"(libs.okhttp)
+
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.material3)
@@ -86,13 +98,7 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
-    "daggerImplementation"(libs.dagger)
-    "kspDagger"(libs.dagger.compiler)
-    "okhttpImplementation"(platform(libs.okhttp.bom))
-    "okhttpImplementation"(libs.okhttp)
-    implementation(project(":core:data-client"))
-    implementation(project(":feature:tvshow:data-api"))
-    implementation(project(":feature:tvshow:domain"))
+
     testImplementation(libs.junit)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
