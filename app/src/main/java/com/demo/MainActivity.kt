@@ -19,7 +19,7 @@ import javax.inject.Inject
 class MainActivity : ComponentActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-    private val vm: MainViewModel by viewModels { viewModelFactory }
+//    private val vm: MainViewModel by viewModels { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

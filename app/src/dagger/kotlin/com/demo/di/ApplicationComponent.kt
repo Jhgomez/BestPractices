@@ -2,14 +2,16 @@ package com.demo.di
 
 import com.demo.MainActivity
 import com.demo.core.data.client.di.ClientModuleImpl
-import com.demo.feature.tvshow.data.PublicFeatureTvShowDataModule
+import com.demo.feature.tvshow.data.di.PublicTvShowDataModule
+import com.demo.feature.tvshow.presentation.di.PublicTvShowPresentationModule
 import dagger.Component
 import javax.inject.Singleton
 
 @Component(modules = [
     ClientModuleImpl::class,
-    PublicFeatureTvShowDataModule::class,
-    ViewModelBuilderModule::class
+    ViewModelBuilderModule::class,
+    PublicTvShowDataModule::class,
+    PublicTvShowPresentationModule::class
 ])
 @Singleton
 interface ApplicationComponent {

@@ -2,15 +2,15 @@ package com.demo.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.demo.MainViewModel
 import dagger.Binds
-import dagger.MapKey
 import dagger.Module
-import dagger.multibindings.IntoMap
 import javax.inject.Inject
 import javax.inject.Provider
-import kotlin.reflect.KClass
 
+/**
+ * Class defined here to make app responsible for providing a factory for each of the
+ * ViewModel's Factory living throughout the app
+ */
 class DemoAppViewModelFactory @Inject constructor(
     private val creators: @JvmSuppressWildcards Map<Class<out ViewModel>, Provider<ViewModel>>
 ) : ViewModelProvider.Factory {
@@ -43,16 +43,4 @@ abstract class ViewModelBuilderModule {
     abstract fun bindViewModelFactory(
         factory: DemoAppViewModelFactory
     ): ViewModelProvider.Factory
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(MainViewModel::class)
-    abstract fun bindViewModel(viewmodel: MainViewModel): ViewModel
 }
-
-@Target(
-    AnnotationTarget.FUNCTION, AnnotationTarget.PROPERTY_GETTER, AnnotationTarget.PROPERTY_SETTER
-)
-@Retention(AnnotationRetention.RUNTIME)
-@MapKey
-annotation class ViewModelKey(val value: KClass<out ViewModel>)
