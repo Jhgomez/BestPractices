@@ -54,7 +54,10 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:domain:common"))
+    implementation(project(":core:di"))
     implementation(project(":feature:tvshow:domain"))
+
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.graphics)
@@ -62,6 +65,7 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.viewmodel)
+
     "daggerImplementation"(libs.dagger)
     "kspDagger"(libs.dagger.compiler)
 }
