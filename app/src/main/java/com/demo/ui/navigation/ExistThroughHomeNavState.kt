@@ -1,12 +1,10 @@
 package com.demo.ui.navigation
 
-import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -53,28 +51,28 @@ class AppBarState @OptIn(ExperimentalMaterial3Api::class) constructor(
 
 
 
-    fun setShouldShowTopBar(shouldShowTopBar: Boolean) {
+    fun updateShouldShowTopBar(shouldShowTopBar: Boolean) {
         this.shouldShowTopBar = shouldShowTopBar
     }
 
-    fun setTopBarTitle(topBarTitle: @Composable () -> Unit) {
+    fun updateTopBarTitle(topBarTitle: @Composable () -> Unit) {
         this.topBarTitle = topBarTitle
     }
 
-    fun setTopBarDefaults(topBarDefaults: TopAppBarColors) {
+    fun updateTopBarDefaults(topBarDefaults: TopAppBarColors) {
         this.topBarDefaults = topBarDefaults
     }
 
     @OptIn(ExperimentalMaterial3Api::class)
-    fun setScrollBehavior(scrollBehavior: TopAppBarScrollBehavior?) {
+    fun updateScrollBehavior(scrollBehavior: TopAppBarScrollBehavior?) {
         this.scrollBehavior = scrollBehavior
     }
 
-    fun setTopBarActions(topBarActions: @Composable RowScope.() -> Unit) {
+    fun updateTopBarActions(topBarActions: @Composable RowScope.() -> Unit) {
         this.topBarActions = topBarActions
     }
 
-    fun setTopBarExpandedHeight(topBarExpandedHeight: Int) {
+    fun updateTopBarExpandedHeight(topBarExpandedHeight: Int) {
         this.topBarExpandedHeight = topBarExpandedHeight
     }
 }

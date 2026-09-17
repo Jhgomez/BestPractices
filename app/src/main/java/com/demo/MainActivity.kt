@@ -68,7 +68,7 @@ private fun Count(count: Int, add: () -> Unit, modifier: Modifier) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "count.toString()")
+        Text(text = count.toString())
 
         Spacer(Modifier.height(8.dp))
 
