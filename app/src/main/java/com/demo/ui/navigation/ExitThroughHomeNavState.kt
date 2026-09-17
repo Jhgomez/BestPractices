@@ -29,6 +29,7 @@ fun rememberAppNavState(
     homeKey: NavKey,
     topLevelKeys: Array<NavKey>,
 ): ExitThroughHomeNavState {
+    val currentTopLevel = rememberSaveable {  mutableStateOf(homeKey) }
     val currentStack = rememberSaveable { mutableStateListOf(homeKey) }
     val nestedNavStacks = Array(topLevelKeys.size) { index ->
         NestedNav(
@@ -40,6 +41,7 @@ fun rememberAppNavState(
     return remember {
         ExitThroughHomeNavState(
             homeKey = homeKey,
+            currentTopLevel = currentTopLevel,
             topLevelKeys = topLevelKeys,
             currentStack = currentStack,
             nestedNavStacks = nestedNavStacks
@@ -49,10 +51,12 @@ fun rememberAppNavState(
 
 class ExitThroughHomeNavState @OptIn(ExperimentalMaterial3Api::class) constructor(
     val homeKey: NavKey,
+    val currentTopLevel: MutableState<NavKey>,
     val topLevelKeys: Array<NavKey>,
     val currentStack: SnapshotStateList<NavKey>,
     val nestedNavStacks: Array<NestedNav>
 ) {
+
     @Composable
     fun decorateAndRememberNavEntries(
         provider: (NavKey) -> NavEntry<NavKey>
