@@ -1,4 +1,3 @@
-import com.android.tools.r8.internal.im
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
 plugins {
@@ -64,6 +63,12 @@ android {
 
     buildFeatures {
         compose = true
+    }
+}
+
+kotlin {
+    compilerOptions {
+        freeCompilerArgs.set(listOf("-Xexplicit-backing-fields"))
     }
 }
 
