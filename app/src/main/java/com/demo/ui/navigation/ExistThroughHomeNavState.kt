@@ -25,7 +25,7 @@ class ExistThroughHomeNavState @OptIn(ExperimentalMaterial3Api::class) construct
 )
 
 class AppBarState @OptIn(ExperimentalMaterial3Api::class) constructor(
-    shouldShowTopBar: Boolean,
+    shouldShowTopBar: Boolean = true,
     topBarTitle: @Composable () -> Unit = {},
     topBarDefaults: TopAppBarColors,
     scrollBehavior: TopAppBarScrollBehavior? = null,

@@ -2,8 +2,10 @@ package com.demo.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.demo.MainViewModel
 import dagger.Binds
 import dagger.Module
+import dagger.multibindings.IntoMap
 import javax.inject.Inject
 import javax.inject.Provider
 
@@ -37,10 +39,15 @@ class DemoAppViewModelFactory @Inject constructor(
 }
 
 @Module
-abstract class ViewModelBuilderModule {
+interface ViewModelBuilderModule {
 
     @Binds
-    abstract fun bindViewModelFactory(
+    fun bindViewModelFactory(
         factory: DemoAppViewModelFactory
     ): ViewModelProvider.Factory
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MainViewModel::class)
+    fun bindMainViewModel(viewModel: MainViewModel): ViewModel
 }
