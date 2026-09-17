@@ -67,18 +67,26 @@ class ExitThroughHomeNavState @OptIn(ExperimentalMaterial3Api::class) constructo
     @Composable
     fun decorateAndRememberNavEntries(
         provider: (NavKey) -> NavEntry<NavKey>
-    ): SnapshotStateList<NavEntry<NavKey>> = nestedNavStacks.flatMap { nestedStack ->
+    ): SnapshotStateList<NavEntry<NavKey>> {
+        val decoratedNestedNav = nestedNavStacks.map { nestedStack ->
             val decorators = listOf(
                 rememberSaveableStateHolderNavEntryDecorator<NavKey>(),
                 rememberViewModelStoreNavEntryDecorator<NavKey>(),
             )
 
-            rememberDecoratedNavEntries(
+            nestedStack to rememberDecoratedNavEntries(
                 backStack = nestedStack.nestedStack,
                 entryDecorators = decorators,
                 entryProvider = provider
             )
+        }
+
+        return currentTopLevelKeys.flatMap { key ->
+            decoratedNestedNav.find { (topLevelKey, _) ->
+                topLevelKey == key
+            }?.second ?: throw IllegalStateException("Nav state configured incorrectly")
         }.toMutableStateList()
+    }
 }
 
 class AppBarState @OptIn(ExperimentalMaterial3Api::class) constructor(
