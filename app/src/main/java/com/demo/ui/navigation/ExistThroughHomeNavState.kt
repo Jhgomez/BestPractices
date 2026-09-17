@@ -8,8 +8,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshots.SnapshotStateList
+import androidx.compose.runtime.toMutableStateList
+import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
+import androidx.navigation3.runtime.EntryProviderScope
 import androidx.navigation3.runtime.NavBackStack
+import androidx.navigation3.runtime.NavEntry
 import androidx.navigation3.runtime.NavKey
+import androidx.navigation3.runtime.rememberDecoratedNavEntries
+import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 
 data class NestedStack(
     val topLevelKey: NavKey,
@@ -17,10 +24,27 @@ data class NestedStack(
 )
 
 class ExistThroughHomeNavState @OptIn(ExperimentalMaterial3Api::class) constructor(
+    val homeKey: NavKey,
     val topLevelKeys: Array<NavKey>,
     val currentStack: NavBackStack<NavKey>,
     val nestedStacks: Array<NestedStack>
-)
+) {
+    @Composable
+    fun decorateAndRememberNavEntries(
+        provider: (NavKey) -> NavEntry<NavKey>
+    ): SnapshotStateList<NavEntry<NavKey>> = nestedStacks.flatMap { nestedStack ->
+            val decorators = listOf(
+                rememberSaveableStateHolderNavEntryDecorator<NavKey>(),
+                rememberViewModelStoreNavEntryDecorator<NavKey>(),
+            )
+
+            rememberDecoratedNavEntries(
+                backStack = nestedStack.nestedStack,
+                entryDecorators = decorators,
+                entryProvider = provider
+            )
+        }.toMutableStateList()
+}
 
 class AppBarState @OptIn(ExperimentalMaterial3Api::class) constructor(
     shouldShowTopBar: Boolean = true,
