@@ -5,6 +5,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
@@ -29,8 +30,7 @@ fun rememberAppNavState(
     homeKey: NavKey,
     topLevelKeys: Array<NavKey>,
 ): ExitThroughHomeNavState {
-    val currentTopLevel = rememberSaveable {  mutableStateOf(homeKey) }
-    val currentStack = rememberSaveable { mutableStateListOf(homeKey) }
+    val currentTopLevelKeys = rememberSaveable {  mutableStateListOf(homeKey) }
     val nestedNavStacks = Array(topLevelKeys.size) { index ->
         NestedNav(
             topLevelKey = topLevelKeys[index],
@@ -40,22 +40,29 @@ fun rememberAppNavState(
 
     return remember {
         ExitThroughHomeNavState(
-            homeKey = homeKey,
-            currentTopLevel = currentTopLevel,
-            topLevelKeys = topLevelKeys,
-            currentStack = currentStack,
-            nestedNavStacks = nestedNavStacks
+            nestedNavStacks = nestedNavStacks,
+            currentTopLevelKeys = currentTopLevelKeys
         )
     }
 }
 
+/**
+ * @param nestedNavStacks Contains each top level's nested navigation back stack, I use a combination
+ *  of a Custom object and an array to avoid instantiating a Map just for a simple task, its elements
+ *  order is not important, changes in the nested nav stack modifies the back stack Nav display
+ *  receives due to the logic in function [decorateAndRememberNavEntries]
+ * @param currentTopLevelKeys Used to keep track of what top level key is on top, notice that
+ *  home key should(will) always be at the bottom of the stack, thereby the class name. Changes in
+ *  this list modifies the back stack Nav display receives due to the logic in
+ *  function [decorateAndRememberNavEntries]
+ * @param currentStack Used for merging all the nested nav stack, they are all decorated and
+ *  sent to NavDisplay, this is the actual screens the user navigates on pressing back
+ */
 class ExitThroughHomeNavState @OptIn(ExperimentalMaterial3Api::class) constructor(
-    val homeKey: NavKey,
-    val currentTopLevel: MutableState<NavKey>,
-    val topLevelKeys: Array<NavKey>,
-    val currentStack: SnapshotStateList<NavKey>,
-    val nestedNavStacks: Array<NestedNav>
+    val nestedNavStacks: Array<NestedNav>,
+    val currentTopLevelKeys: SnapshotStateList<NavKey>
 ) {
+    val selectedTopLevelKey = derivedStateOf { currentTopLevelKeys.last() }
 
     @Composable
     fun decorateAndRememberNavEntries(
