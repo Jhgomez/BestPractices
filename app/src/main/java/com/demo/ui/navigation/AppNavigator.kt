@@ -5,41 +5,44 @@ import androidx.navigation3.runtime.NavKey
 class AppNavigator(private val state: ExitThroughHomeNavState) {
 
     fun navigate(navKey: NavKey) {
-        if (navKey == state.homeKey) {
-            state.currentStack.clear()
-            // careful here, I do this because I know home key is the first index
-            state.currentStack.addAll(
-                state.nestedNavStacks.first().nestedStack
-            )
+        val isTopLevel = state.nestedNavStacks
+            .find { (topLevelKey, _) -> topLevelKey == navKey } != null
 
-            state.currentTopLevel.value = navKey
+        if (isTopLevel) {
+            val isHomeKey = navKey == state.currentTopLevelKeys.first()
 
-            return
-        }
-
-        // impossible to be null
-        val nestedStack = state.nestedNavStacks.find { stack ->
-            stack.topLevelKey == navKey
-        }?.nestedStack!!
-
-        // Means is top level but is not home key
-        if (state.topLevelKeys.contains(navKey)) {
-            state.currentStack.clear()
-            state.currentStack.addAll(
-                state.nestedNavStacks.first().nestedStack
-            )
-
-            state.currentStack.addAll(nestedStack)
-
-            state.currentTopLevel.value = navKey
+            // only leave home key stack
+            if (isHomeKey) {
+                state.currentTopLevelKeys.removeRange(1, state.currentTopLevelKeys.size)
+            } else {
+                state.currentTopLevelKeys.remove(navKey)
+                state.currentTopLevelKeys.add(navKey)
+            }
 
             return
         }
 
-        // At this point this is a nested navigation
+        val currentTopLevelNestedNav = state.nestedNavStacks.find { (topLevelKey, _) ->
+            topLevelKey == state.selectedTopLevelKey
+        } ?: throw IllegalStateException("Nav state configured incorrectly")
+
+        currentTopLevelNestedNav.nestedStack.add(navKey)
     }
 
-    fun toTopLevel(navKey: NavKey) {
+    fun onBack() {
+        val currentTopLevelNestedNav = state.nestedNavStacks.find { (topLevelKey, _) ->
+            topLevelKey == state.selectedTopLevelKey
+        } ?: throw IllegalStateException("Nav state configured incorrectly")
 
+        // means we need to remove a top level nested nav stack but we should not remove home key
+        if (currentTopLevelNestedNav.nestedStack.size == 1 && state.currentTopLevelKeys.size > 1) {
+            state.currentTopLevelKeys.removeAt(state.currentTopLevelKeys.size)
+
+            return
+        }
+
+        currentTopLevelNestedNav.nestedStack.removeAt(
+            currentTopLevelNestedNav.nestedStack.size
+        )
     }
 }

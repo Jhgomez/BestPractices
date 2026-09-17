@@ -108,8 +108,6 @@ class AppBarState @OptIn(ExperimentalMaterial3Api::class) constructor(
     var topBarExpandedHeight by mutableStateOf(topBarExpandedHeight)
         private set
 
-
-
     fun updateShouldShowTopBar(shouldShowTopBar: Boolean) {
         this.shouldShowTopBar = shouldShowTopBar
     }
