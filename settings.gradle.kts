@@ -35,7 +35,8 @@ include(":core:navigation")
 include(":feature:home:data-api")
 include(":feature:home:data-model")
 include(":feature:home:domain")
-include(":feature:home:presentation")
+include(":feature:home:presentation:impl")
+include(":feature:home:presentation:api")
 
 includeBuild("build-logic")
  
