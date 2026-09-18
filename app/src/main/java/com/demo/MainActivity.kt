@@ -5,6 +5,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatCallback
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.view.ActionMode
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -12,25 +15,30 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.os.LocaleListCompat
 import androidx.lifecycle.ViewModelProvider
 import com.demo.ui.theme.DaggerRoomRetrofitPagingTestingTheme
 import javax.inject.Inject
 
-class MainActivity : ComponentActivity() {
+class MainActivity : ComponentActivity(), AppCompatCallback {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private val vm: MainViewModel by viewModels { viewModelFactory }
 
+    private lateinit var mDelegate: AppCompatDelegate
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        mDelegate = AppCompatDelegate.create(this, this)
+//        mDelegate.installViewFactory()
+        mDelegate.onCreate(savedInstanceState)
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
@@ -53,12 +61,44 @@ class MainActivity : ComponentActivity() {
                             .fillMaxHeight(1f)
                             .fillMaxWidth()
                     )
+
                 }
             }
         }
     }
 
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
+        mDelegate.onPostCreate(savedInstanceState)
+    }
 
+    override fun onStart() {
+        super.onStart()
+        mDelegate.onStart()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        mDelegate.onStop()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mDelegate.onDestroy()
+    }
+
+    // I probably don't need this because we are not working with Views
+    override fun setContentView(layoutResID: Int) {
+        mDelegate.setContentView(layoutResID)
+    }
+
+    override fun onSupportActionModeStarted(mode: ActionMode?) {
+    }
+
+    override fun onSupportActionModeFinished(mode: ActionMode?) {
+    }
+
+    override fun onWindowStartingSupportActionMode(callback: ActionMode.Callback?) = null
 }
 
 @Composable
@@ -68,12 +108,22 @@ private fun Count(count: Int, add: () -> Unit, modifier: Modifier) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        val appLocales = AppCompatDelegate.getApplicationLocales()
+        val currentLocaleTag = appLocales.get(0)?.toLanguageTag() ?: "en"
+
         Text(text = count.toString())
 
         Spacer(Modifier.height(8.dp))
 
-        Button(onClick = add) {
-            Text(text = "Add")
+        Button(onClick = {
+            val newLanguageTag = if (currentLocaleTag == "en") "es" else "en"
+            val localeList = LocaleListCompat.forLanguageTags(newLanguageTag)
+
+            // Setting the locale re-creates the Activity by default,
+            // which automatically applies the new configuration to Compose.
+            AppCompatDelegate.setApplicationLocales(localeList)
+        }) {
+            Text(text = "chagne Local")
         }
     }
 }
@@ -85,7 +135,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = name)
+        Text(text = stringResource(R.string.profile))
     }
 }
 
