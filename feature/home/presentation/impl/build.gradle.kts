@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.demo.feature.home.presentation"
+    namespace = "com.demo.feature.home.presentation.impl"
 
     compileSdk {
         version = release(36) {
