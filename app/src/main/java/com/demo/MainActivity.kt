@@ -65,8 +65,7 @@ class MainActivity : ComponentActivity(), AppCompatCallback {
 //
 //                }
                 DemoAppScreen(
-                    modifier = Modifier.fillMaxSize(),
-                    onNavigate = {}
+                    modifier = Modifier.fillMaxSize()
                 )
             }
         }
