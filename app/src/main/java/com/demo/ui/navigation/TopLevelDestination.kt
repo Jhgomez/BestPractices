@@ -4,11 +4,12 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.navigation3.runtime.NavKey
 import com.demo.R
+import com.demo.core.navigation.AppNavKey
 
-object PlaceholderKey: NavKey
+object PlaceholderKey: AppNavKey
 
 enum class TopLevelDestination(
-    val navKey: NavKey,
+    val navKey: AppNavKey,
     @DrawableRes val icon: Int,
     @StringRes val  title: Int
 ) {
