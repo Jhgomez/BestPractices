@@ -25,6 +25,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.os.LocaleListCompat
 import androidx.lifecycle.ViewModelProvider
+import com.demo.ui.DemoAppScreen
 import com.demo.ui.theme.DaggerRoomRetrofitPagingTestingTheme
 import javax.inject.Inject
 
@@ -46,23 +47,27 @@ class MainActivity : ComponentActivity(), AppCompatCallback {
 
         setContent {
             DaggerRoomRetrofitPagingTestingTheme {
-                Column(modifier = Modifier.fillMaxSize()) {
-                    Count(
-                        count = vm.state.value.count,
-                        add = { vm.addCounter() },
-                        modifier = Modifier
-                            .fillMaxHeight(0.5f)
-                            .fillMaxWidth()
-                    )
-
-                    Greeting(
-                        name = vm.state.value.message,
-                        modifier = Modifier
-                            .fillMaxHeight(1f)
-                            .fillMaxWidth()
-                    )
-
-                }
+//                Column(modifier = Modifier.fillMaxSize()) {
+//                    Count(
+//                        count = vm.state.value.count,
+//                        add = { vm.addCounter() },
+//                        modifier = Modifier
+//                            .fillMaxHeight(0.5f)
+//                            .fillMaxWidth()
+//                    )
+//
+//                    Greeting(
+//                        name = vm.state.value.message,
+//                        modifier = Modifier
+//                            .fillMaxHeight(1f)
+//                            .fillMaxWidth()
+//                    )
+//
+//                }
+                DemoAppScreen(
+                    modifier = Modifier.fillMaxSize(),
+                    onNavigate = {}
+                )
             }
         }
     }
