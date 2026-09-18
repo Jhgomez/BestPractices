@@ -64,6 +64,12 @@ android {
     buildFeatures {
         compose = true
     }
+
+    androidResources {
+        generateLocaleConfig = true
+        localeFilters.add("en")
+        localeFilters.add("es")
+    }
 }
 
 kotlin {
