@@ -55,6 +55,8 @@ android {
 
 dependencies {
     implementation(project(":core:domain:common"))
+    implementation(project(":core:navigation"))
+    implementation(project(":feature:home:presentation:api"))
     implementation(project(":feature:home:domain"))
 
     implementation(platform(libs.androidx.compose.bom))
@@ -64,6 +66,7 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.viewmodel)
+    implementation(libs.androidx.navigation3.runtime)
 
     "daggerImplementation"(libs.dagger)
     "daggerImplementation"(project(":core:di"))
