@@ -90,9 +90,11 @@ tasks.withType<KotlinCompilationTask<*>>().configureEach {
 
 dependencies {
     implementation(project(":core:data-client"))
+    implementation(project(":core:navigation"))
     implementation(project(":feature:home:data-api"))
-    implementation(project(":feature:home:presentation"))
     implementation(project(":feature:home:domain"))
+    implementation(project(":feature:home:presentation:api"))
+    implementation(project(":feature:home:presentation:impl"))
 
     "daggerImplementation"(project(":core:di"))
     "daggerImplementation"(libs.dagger)
