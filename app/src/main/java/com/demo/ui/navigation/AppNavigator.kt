@@ -1,10 +1,11 @@
 package com.demo.ui.navigation
 
 import androidx.navigation3.runtime.NavKey
+import com.demo.core.navigation.AppNavKey
 
 class AppNavigator(private val state: ExitThroughHomeNavState) {
 
-    fun navigate(navKey: NavKey) {
+    fun navigate(navKey: AppNavKey) {
         val isTopLevel = state.nestedNavStacks
             .find { (topLevelKey, _) -> topLevelKey == navKey } != null
 
