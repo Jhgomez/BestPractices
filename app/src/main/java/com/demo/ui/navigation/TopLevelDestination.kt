@@ -2,7 +2,6 @@ package com.demo.ui.navigation
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import androidx.navigation3.runtime.NavKey
 import com.demo.R
 import com.demo.core.navigation.AppNavKey
 

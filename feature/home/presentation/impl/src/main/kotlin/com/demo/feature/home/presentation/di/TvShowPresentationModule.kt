@@ -1,4 +1,4 @@
-package com.demo.feature.tvshow.presentation.di
+package com.demo.feature.home.presentation.di
 
 import androidx.lifecycle.ViewModel
 import com.demo.feature.tvshow.presentation.TvShowViewModel
