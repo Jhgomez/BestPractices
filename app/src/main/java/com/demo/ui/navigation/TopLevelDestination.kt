@@ -4,6 +4,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.demo.R
 import com.demo.core.navigation.AppNavKey
+import com.demo.feature.home.presentation.api.navigation.HomeTopLevel
 
 object PlaceholderKey: AppNavKey
 
@@ -13,7 +14,7 @@ enum class TopLevelDestination(
     @StringRes val  title: Int
 ) {
     HOME(
-        navKey = PlaceholderKey,
+        navKey = HomeTopLevel,
         icon = R.drawable.home,
         title = R.string.home
     ),
