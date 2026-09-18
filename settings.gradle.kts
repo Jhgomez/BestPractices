@@ -31,10 +31,10 @@ include(":core:data-client-utils")
 include(":core:data-model-common")
 include(":core:domain:common")
 
-include(":feature:tvshow:data-api")
-include(":feature:tvshow:data-model")
-include(":feature:tvshow:domain")
-include(":feature:tvshow:presentation")
+include(":feature:home:data-api")
+include(":feature:home:data-model")
+include(":feature:home:domain")
+include(":feature:home:presentation")
 
 includeBuild("build-logic")
  

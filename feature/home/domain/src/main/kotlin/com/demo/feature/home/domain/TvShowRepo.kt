@@ -1,0 +1,7 @@
+package com.demo.feature.home.domain
+
+import com.demo.core.domain.common.model.Page
+
+interface TvShowRepo {
+    suspend fun getTvShow(page: Int): Page<TvShow>
+}
