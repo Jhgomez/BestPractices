@@ -19,16 +19,17 @@ import androidx.navigation3.runtime.NavEntry
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.rememberDecoratedNavEntries
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
+import com.demo.core.navigation.AppNavKey
 
 data class NestedNav(
-    val topLevelKey: NavKey,
-    val nestedStack: SnapshotStateList<NavKey>
+    val topLevelKey: AppNavKey,
+    val nestedStack: SnapshotStateList<AppNavKey>
 )
 
 @Composable
 fun rememberAppNavState(
-    homeKey: NavKey,
-    topLevelKeys: Array<NavKey>,
+    homeKey: AppNavKey,
+    topLevelKeys: Array<AppNavKey>,
 ): ExitThroughHomeNavState {
     val currentTopLevelKeys = rememberSaveable {  mutableStateListOf(homeKey) }
     val nestedNavStacks = Array(topLevelKeys.size) { index ->
@@ -60,18 +61,18 @@ fun rememberAppNavState(
  */
 class ExitThroughHomeNavState @OptIn(ExperimentalMaterial3Api::class) constructor(
     val nestedNavStacks: Array<NestedNav>,
-    val currentTopLevelKeys: SnapshotStateList<NavKey>
+    val currentTopLevelKeys: SnapshotStateList<AppNavKey>
 ) {
     val selectedTopLevelKey = derivedStateOf { currentTopLevelKeys.last() }
 
     @Composable
     fun decorateAndRememberNavEntries(
-        provider: (NavKey) -> NavEntry<NavKey>
-    ): SnapshotStateList<NavEntry<NavKey>> {
+        provider: (AppNavKey) -> NavEntry<AppNavKey>
+    ): SnapshotStateList<NavEntry<AppNavKey>> {
         val decoratedNestedNav = nestedNavStacks.map { nestedStack ->
             val decorators = listOf(
-                rememberSaveableStateHolderNavEntryDecorator<NavKey>(),
-                rememberViewModelStoreNavEntryDecorator<NavKey>(),
+                rememberSaveableStateHolderNavEntryDecorator<AppNavKey>(),
+                rememberViewModelStoreNavEntryDecorator<AppNavKey>(),
             )
 
             nestedStack to rememberDecoratedNavEntries(
