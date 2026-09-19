@@ -47,6 +47,9 @@ suspend fun <T: Any> OkHttpClient.get(
     vararg params: Pair<String, String>
 ): T {
     val url = HttpUrl.Builder().apply {
+        scheme("https")
+        host("api.themoviedb.org")
+        addPathSegment("3")
         addPathSegment(path)
 
         for (param in params) {
@@ -81,7 +84,7 @@ suspend fun <T: Any> OkHttpClient.get(
                 throw Exception("")
             }
             else -> {
-                throw Exception("")
+                throw Exception(response.body.string())
             }
         }
     }
