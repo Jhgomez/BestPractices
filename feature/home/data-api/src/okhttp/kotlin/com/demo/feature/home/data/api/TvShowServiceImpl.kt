@@ -14,7 +14,7 @@ internal class TvShowServiceImpl @Inject constructor(private val httpClient: OkH
 
     override suspend fun getTvShows(page: Int): PaginatedResponseDto<TvShowDto> =
         httpClient.get(
-            path = "/trending/tv/",
+            path = "movie/now_playing",
             kType = typeOf<PaginatedResponseDto<TvShowDto>>(),
             Pair("page", page.toString())
         )
