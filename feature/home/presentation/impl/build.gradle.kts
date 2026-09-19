@@ -55,7 +55,6 @@ android {
 
 dependencies {
     implementation(project(":core:domain:common"))
-    implementation(project(":core:feature-common"))
     implementation(project(":core:navigation"))
     implementation(project(":feature:home:presentation:api"))
     implementation(project(":feature:home:domain"))

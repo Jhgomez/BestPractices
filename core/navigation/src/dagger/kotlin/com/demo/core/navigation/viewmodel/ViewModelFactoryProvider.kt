@@ -1,4 +1,4 @@
-package com.demo.core.feature.common
+package com.demo.core.navigation.viewmodel
 
 import androidx.compose.runtime.compositionLocalOf
 import androidx.lifecycle.ViewModelProvider

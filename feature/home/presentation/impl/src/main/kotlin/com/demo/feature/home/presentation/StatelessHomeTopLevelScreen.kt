@@ -7,26 +7,12 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.demo.core.feature.common.AppViewModelFactory
 import com.demo.feature.home.domain.TvShow
 
 @Composable
-fun HomeTopLevelScreen(modifier: Modifier) {
-    val vm = viewModel<TvShowViewModel>(factory = AppViewModelFactory.current)
-
-    LaunchedEffect(null) {
-        vm.getTvShows()
-    }
-
-    HomeTopLevelScreen(page = vm.movies.value)
-}
-
-@Composable
-private fun HomeTopLevelScreen(page: List<TvShow>) {
+internal fun HomeTopLevelScreen(page: List<TvShow>) {
 
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
