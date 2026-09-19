@@ -1,9 +1,12 @@
 package com.demo.core.data.client.utils
 
+import com.demo.data.client.utils.BuildConfig
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.serializer
 import okhttp3.HttpUrl
+import okhttp3.HttpUrl.Companion.toHttpUrl
+import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.coroutines.executeAsync
@@ -39,27 +42,27 @@ val json = Json {
     allowTrailingComma = true
     allowComments = true
     isLenient = true
+    encodeDefaults = true
 }
+
+val urlBuilder = BuildConfig.BASE_URL.toHttpUrl().newBuilder()
 
 suspend fun <T: Any> OkHttpClient.get(
     path: String,
     kType: KType,
     vararg params: Pair<String, String>
 ): T {
-    val url = HttpUrl.Builder().apply {
-        scheme("https")
-        host("api.themoviedb.org")
-        addPathSegment("3")
+    urlBuilder.apply {
         addPathSegment(path)
 
         for (param in params) {
             addQueryParameter(param.first, param.second)
         }
-    }.build()
+    }
 
     val request = Request
         .Builder()
-        .url(url)
+        .url(urlBuilder.build())
         .build()
 
     val call = newCall(request)

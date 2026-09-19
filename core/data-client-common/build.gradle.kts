@@ -1,10 +1,11 @@
 plugins {
     alias(libs.plugins.android.library)
-    alias(libs.plugins.ksp)
+    alias(libs.plugins.secrets)
+    alias(libs.plugins.ktx.serialization)
 }
 
 android {
-    namespace = "com.demo.data.api.home"
+    namespace = "com.demo.data.client.utils"
     compileSdk {
         version = release(37) {
             minorApiLevel = 1
@@ -15,6 +16,12 @@ android {
         minSdk = 28
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField(
+            "String",
+            "BASE_URL",
+            "\"https://api.themoviedb.org/3\""
+        )
     }
 
     buildTypes {
@@ -48,18 +55,16 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
+    buildFeatures {
+        buildConfig = true
+    }
 }
 
 dependencies {
-    implementation(project(":core:data-client-common"))
-    implementation(project(":core:data-model-common"))
-    implementation(project(":core:domain:common"))
-    implementation(project(":feature:home:data-model"))
-    implementation(project(":feature:home:domain"))
+    implementation(platform(libs.okhttp.bom))
+    implementation(libs.okhttp)
+    implementation(libs.okhttp.coroutines)
 
-    "okhttpImplementation"(platform(libs.okhttp.bom))
-    "okhttpImplementation"(libs.okhttp)
-
-    "daggerImplementation"(libs.dagger)
-    "kspDagger"(libs.dagger.compiler)
+    implementation(libs.ktx.serialization.json)
 }
