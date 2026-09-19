@@ -17,7 +17,7 @@ android {
     defaultConfig {
         applicationId = "com.demo"
         minSdk = 28
-        targetSdk = 36
+        targetSdk = 37
         versionCode = 1
         versionName = "1.0"
 
@@ -69,12 +69,6 @@ android {
         generateLocaleConfig = true
         localeFilters.add("en")
         localeFilters.add("es")
-    }
-}
-
-kotlin {
-    compilerOptions {
-        freeCompilerArgs.set(listOf("-Xexplicit-backing-fields"))
     }
 }
 
