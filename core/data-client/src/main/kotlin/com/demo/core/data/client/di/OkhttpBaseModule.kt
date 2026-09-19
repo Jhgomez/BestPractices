@@ -1,6 +1,6 @@
-package com.demo.data.client.di
+package com.demo.core.data.client.di
 
-import com.demo.data.client.AuthInterceptor
+import com.demo.core.data.client.AuthInterceptor
 import dagger.Module
 import dagger.Provides
 import okhttp3.ConnectionPool

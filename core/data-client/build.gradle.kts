@@ -17,12 +17,6 @@ android {
         minSdk = 28
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
-        buildConfigField(
-            "String",
-            "BASE_URL",
-            "\"https://api.themoviedb.org/3\""
-        )
     }
 
     buildTypes {

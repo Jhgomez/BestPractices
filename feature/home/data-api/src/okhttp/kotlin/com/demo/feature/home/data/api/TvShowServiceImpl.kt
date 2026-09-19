@@ -1,6 +1,6 @@
 package com.demo.feature.home.data.api
 
-import com.demo.core.data.client.utils.get
+import com.demo.core.data.client.common.get
 import com.demo.core.data.model.common.PaginatedResponseDto
 import com.demo.feature.home.data.model.TvShowDto
 import okhttp3.OkHttpClient
