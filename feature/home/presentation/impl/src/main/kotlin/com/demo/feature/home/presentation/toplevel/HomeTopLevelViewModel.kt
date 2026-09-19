@@ -1,4 +1,4 @@
-package com.demo.feature.home.presentation
+package com.demo.feature.home.presentation.toplevel
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -8,7 +8,7 @@ import com.demo.feature.home.domain.TvShowRepo
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-internal class TvShowViewModel @Inject constructor(private val repo: TvShowRepo): ViewModel() {
+internal class HomeTopLevelViewModel @Inject constructor(private val repo: TvShowRepo): ViewModel() {
     val movies = mutableStateOf(emptyList<TvShow>())
 
     fun getTvShows() {

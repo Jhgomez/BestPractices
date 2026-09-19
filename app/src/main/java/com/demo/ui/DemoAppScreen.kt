@@ -17,13 +17,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
 import androidx.navigation3.ui.defaultPredictivePopTransitionSpec
-import com.demo.core.navigation.AppNavKey
-import com.demo.feature.home.presentation.addHomeTopLevel
+import com.demo.feature.home.presentation.navigation.addHomeTopLevel
 import com.demo.feature.home.presentation.api.navigation.HomeTopLevel
 import com.demo.ui.navigation.AppNavigator
 import com.demo.ui.navigation.TopLevelDestination
