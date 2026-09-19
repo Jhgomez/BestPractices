@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.demo.core.navigation"
+    namespace = "com.demo.core.feature.common"
 
     compileSdk {
         version = release(36) {
@@ -53,6 +53,7 @@ android {
 }
 
 dependencies {
+    implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.viewmodel)
 }
