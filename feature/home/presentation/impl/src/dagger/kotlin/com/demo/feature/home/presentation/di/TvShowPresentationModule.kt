@@ -1,7 +1,7 @@
 package com.demo.feature.tvshow.com.demo.feature.home.presentation.di
 
 import androidx.lifecycle.ViewModel
-import com.demo.feature.tvshow.presentation.TvShowViewModel
+import com.demo.feature.home.presentation.TvShowViewModel
 import com.demo.di.ViewModelKey
 import com.demo.feature.home.presentation.di.TvShowPresentationModule
 import dagger.Binds

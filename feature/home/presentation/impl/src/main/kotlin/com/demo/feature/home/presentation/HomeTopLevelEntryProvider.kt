@@ -17,7 +17,7 @@ fun EntryProviderScope<AppNavKey>.addHomeTopLevel() {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text("Home")
+            HomeTopLevelScreen(modifier = Modifier.fillMaxSize())
         }
     }
 }
