@@ -1,6 +1,5 @@
 package com.demo.core.data.client.di
 
-import com.demo.core.data.client.BaseUrlInterceptor
 import com.demo.data.client.di.ClientModule
 import com.demo.data.client.di.OkhttpBaseModule
 import dagger.Module
@@ -13,8 +12,5 @@ object ClientModuleImpl: ClientModule<OkHttpClient> {
 
     @Singleton
     @Provides
-    override fun provideClient(builder: OkHttpClient.Builder): OkHttpClient =
-        builder
-            .addInterceptor(BaseUrlInterceptor())
-            .build()
+    override fun provideClient(builder: OkHttpClient.Builder): OkHttpClient = builder.build()
 }
