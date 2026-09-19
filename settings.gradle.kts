@@ -31,6 +31,7 @@ include(":core:data-client-utils")
 include(":core:data-model-common")
 include(":core:domain:common")
 include(":core:navigation")
+include(":core:feature-common")
 
 include(":feature:home:data-api")
 include(":feature:home:data-model")
