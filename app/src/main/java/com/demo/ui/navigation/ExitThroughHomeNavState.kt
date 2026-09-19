@@ -75,7 +75,7 @@ class ExitThroughHomeNavState @OptIn(ExperimentalMaterial3Api::class) constructo
                 rememberViewModelStoreNavEntryDecorator<AppNavKey>(),
             )
 
-            nestedStack to rememberDecoratedNavEntries(
+            nestedStack.topLevelKey to rememberDecoratedNavEntries(
                 backStack = nestedStack.nestedStack,
                 entryDecorators = decorators,
                 entryProvider = provider

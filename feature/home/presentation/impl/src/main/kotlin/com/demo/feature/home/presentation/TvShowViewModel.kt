@@ -1,4 +1,4 @@
-package com.demo.feature.tvshow.presentation
+package com.demo.feature.home.presentation
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
