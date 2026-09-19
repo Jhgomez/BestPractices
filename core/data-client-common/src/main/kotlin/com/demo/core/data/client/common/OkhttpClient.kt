@@ -47,7 +47,7 @@ val urlBuilder = BuildConfig.BASE_URL.toHttpUrl().newBuilder()
 
 suspend fun <T: Any> OkHttpClient.get(
     path: String,
-    kType: KType,
+    serializer: KSerializer<T>,
     vararg params: Pair<String, String>
 ): T {
     urlBuilder.apply {
@@ -68,8 +68,6 @@ suspend fun <T: Any> OkHttpClient.get(
     return call.executeAsync().use { response ->
         when(response.code) {
             200 -> {
-                val serializer = serializer(kType) as KSerializer<T>
-
                 json.decodeFromString(string = response.body.string(), deserializer = serializer)
             }
             400 -> {

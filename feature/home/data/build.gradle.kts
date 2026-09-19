@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.library)
+    alias(libs.plugins.ktx.serialization)
     alias(libs.plugins.ksp)
 }
 
@@ -54,7 +55,6 @@ dependencies {
     implementation(project(":core:data-client-common"))
     implementation(project(":core:data-model-common"))
     implementation(project(":core:domain:common"))
-    implementation(project(":feature:home:data-model"))
     implementation(project(":feature:home:domain"))
 
     "okhttpImplementation"(platform(libs.okhttp.bom))
@@ -62,4 +62,6 @@ dependencies {
 
     "daggerImplementation"(libs.dagger)
     "kspDagger"(libs.dagger.compiler)
+
+    implementation(libs.ktx.serialization.json)
 }
