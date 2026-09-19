@@ -10,7 +10,7 @@ class AuthInterceptor : Interceptor {
 
         val request = originalRequest
                 .newBuilder()
-                .header("Authorization: Bearer", BuildConfig.ACCESS_TOKEN)
+                .header("Authorization", "Bearer ${BuildConfig.ACCESS_TOKEN}")
                 .method(originalRequest.method, originalRequest.body)
                 .build()
 
