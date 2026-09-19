@@ -90,6 +90,7 @@ tasks.withType<KotlinCompilationTask<*>>().configureEach {
 
 dependencies {
     implementation(project(":core:data-client"))
+    implementation(project(":core:feature-common"))
     implementation(project(":core:navigation"))
     implementation(project(":feature:home:data-api"))
     implementation(project(":feature:home:domain"))
