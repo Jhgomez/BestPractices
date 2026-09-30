@@ -63,6 +63,9 @@ okhttp-coroutines = { group = "com.squareup.okhttp3", name = "okhttp-coroutines"
 dagger = { group = "com.google.dagger", name = "dagger", version.ref = "dagger" }
 dagger-compiler = { group = "com.google.dagger", name = "dagger-compiler", version.ref = "dagger" }
 
+# Build-logic included build dependencies
+android-gradle-plugin-api = { group = "com.android.tools.build", name = "gradle-api", version.ref = "agp" }
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
