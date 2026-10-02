@@ -1,5 +1,7 @@
 package com.demo.buildlogic
 
+import org.gradle.api.JavaVersion
+
 // I prefer to declare it here instead of the version catalog as if I declare it on the version
 // catalog and for any reason these values change then the entire project(e.i all subprojects)
 // will run all Gradle phases again, while if I do it here in theory it should only invalidate
@@ -23,6 +25,9 @@ val DEFAULT_TARGET_SDK = 37
 val DEFAULT_TEST_INSTRUMENTATION_RUNNER = "androidx.test.runner.AndroidJUnitRunner"
 // first entry is the default
 val DEFAULT_RELEASE_PROGUARD_FILES = arrayOf("proguard-android-optimize.txt", "proguard-rules.pro")
+
+val DEFAULT_SOURCE_COMPATIBILITY = JavaVersion.VERSION_26
+val DEFAULT_TARGET_COMPATIBILITY = JavaVersion.VERSION_26
 
 
 // Below two are not common to all android modules(app and libraries), is only used in the app

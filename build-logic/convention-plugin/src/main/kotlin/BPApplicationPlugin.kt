@@ -7,12 +7,15 @@ import com.demo.buildlogic.COMPILE_SDK
 import com.demo.buildlogic.COMPILE_SDK_MINOR_API_LEVEL
 import com.demo.buildlogic.DEFAULT_MIN_SDK
 import com.demo.buildlogic.DEFAULT_RELEASE_PROGUARD_FILES
+import com.demo.buildlogic.DEFAULT_SOURCE_COMPATIBILITY
+import com.demo.buildlogic.DEFAULT_TARGET_COMPATIBILITY
 import com.demo.buildlogic.DEFAULT_TARGET_SDK
 import com.demo.buildlogic.DEFAULT_TEST_INSTRUMENTATION_RUNNER
 import com.demo.buildlogic._libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
+import org.gradle.kotlin.dsl.configure
 
 interface BPApplicationPlugin: Plugin<Project> {
 
@@ -26,7 +29,7 @@ interface BPApplicationPlugin: Plugin<Project> {
             apply(plugin = libs.findPlugin("android.application").get().get().pluginId)
 
             // this would be the "android" DSL block
-            extensions.getByType(ApplicationExtension::class.java).apply {
+            extensions.configure<ApplicationExtension> {
                 compileSdk {
                     version = release(COMPILE_SDK) {
                         minorApiLevel = COMPILE_SDK_MINOR_API_LEVEL
@@ -58,6 +61,11 @@ interface BPApplicationPlugin: Plugin<Project> {
                     }
                 }
 
+                compileOptions {
+                    sourceCompatibility = DEFAULT_SOURCE_COMPATIBILITY
+                    targetCompatibility = DEFAULT_TARGET_COMPATIBILITY
+                }
+
                 flavorDimensions += APP_DIMENSIONS_WITH_FLAVORS.keys
 
                 productFlavors {
@@ -68,6 +76,13 @@ interface BPApplicationPlugin: Plugin<Project> {
                             }
                         }
                     }
+                }
+
+                // enable localization
+                androidResources {
+                    generateLocaleConfig = true
+                    localeFilters.add("en")
+                    localeFilters.add("es")
                 }
             }
 

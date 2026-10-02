@@ -9,20 +9,10 @@ plugins {
 android {
     namespace = "com.demo"
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-
     buildFeatures {
         compose = true
     }
 
-    androidResources {
-        generateLocaleConfig = true
-        localeFilters.add("en")
-        localeFilters.add("es")
-    }
 }
 
 tasks.withType<KotlinCompilationTask<*>>().configureEach {
