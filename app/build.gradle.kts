@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.bp.application)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
 }
