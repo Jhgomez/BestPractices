@@ -1,3 +1,5 @@
+import com.android.build.api.dsl.ApplicationExtension
+import com.android.build.api.variant.AndroidComponentsExtension
 import com.demo.buildlogic._libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -13,6 +15,15 @@ interface BPApplicationPlugin: Plugin<Project> {
             val libs = _libs
 
             apply(plugin = libs.findPlugin("android.application").get().get().pluginId)
+
+            val application = extensions.getByType(ApplicationExtension::class.java)
+            application.buildTypes {
+
+            }
+
+//            val components = extensions.getByType(AndroidComponentsExtension::class.java)
+//
+//            components.
         }
     }
 }
