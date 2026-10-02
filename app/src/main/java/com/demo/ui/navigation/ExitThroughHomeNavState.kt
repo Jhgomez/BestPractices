@@ -26,6 +26,12 @@ data class NestedNav(
     val nestedStack: SnapshotStateList<AppNavKey>
 )
 
+/**
+ * Adding navigation in app's module because creating a new Gradle module/project just
+ * for that will add more time to the configuration phase, and our app is already very
+ * modularized and also I feel like is the app's responsibility itself to handle
+ * navigation so this code here feels very cohesive.
+ */
 @Composable
 fun rememberAppNavState(
     homeKey: AppNavKey,
