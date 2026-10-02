@@ -8,53 +8,6 @@ plugins {
 
 android {
     namespace = "com.demo"
-    compileSdk {
-        version = release(37) {
-            minorApiLevel = 1
-        }
-    }
-
-    defaultConfig {
-        applicationId = "com.demo"
-        minSdk = 28
-        targetSdk = 37
-        versionCode = 1
-        versionName = "1.0"
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    buildTypes {
-        release {
-            optimization {
-                enable = false
-            }
-
-            isMinifyEnabled = true
-            isShrinkResources = true
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-        }
-    }
-
-    flavorDimensions += listOf("httpclient", "di")
-
-    productFlavors {
-        create("retrofit") {
-            dimension = "httpclient"
-        }
-
-        create("okhttp") {
-            dimension = "httpclient"
-        }
-
-        create("dagger") {
-            dimension = "di"
-        }
-
-        create("hilt") {
-            dimension = "di"
-        }
-    }
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
