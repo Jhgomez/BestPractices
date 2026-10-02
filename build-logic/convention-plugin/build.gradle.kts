@@ -12,6 +12,11 @@ gradlePlugin {
             id = libs.plugins.bp.application.get().pluginId
             implementationClass = "BPApplicationPlugin"
         }
+
+        register("BPAndroidLibraryPlugin") {
+            id = libs.plugins.bp.android.library.get().pluginId
+            implementationClass = "BPAndroidLibraryPlugin"
+        }
     }
 }
 

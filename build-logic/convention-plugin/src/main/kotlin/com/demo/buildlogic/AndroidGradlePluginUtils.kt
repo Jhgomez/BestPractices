@@ -2,12 +2,12 @@ package com.demo.buildlogic
 
 import org.gradle.api.JavaVersion
 
-// I prefer to declare it here instead of the version catalog as if I declare it on the version
-// catalog and for any reason these values change then the entire project(e.i all subprojects)
-// will run all Gradle phases again, while if I do it here in theory it should only invalidate
-// the modules that consume the convention plugin that is consuming the value that has changed,
-// and since these are just android configurations it means that all java and kotlin only
-// modules should be able to use the gradle cache
+// I could've declared the numeric configuration values in the version catalog, but I prefer to
+// declare them here instead as if I declare it on the version catalog and for any reason these
+// values change then the entire project(therefore all subprojects) will run all Gradle phases
+// again, while if I do it here in theory it should only invalidate the modules that consume the
+// convention plugin that is consuming the value that has changed, and since these are just android
+// configurations it means that all java and kotlin only modules should be able to use the gradle cache
 
 val APP_DIMENSIONS_WITH_FLAVORS = hashMapOf(
     "httpclient" to arrayOf("retrofit", "okhttp"),
