@@ -76,4 +76,5 @@ jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrai
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 
 # Convention Plugins
-bp-application = { id = "bp.application", version = "unspecified" }
+bp-application = { id = "bp.application" }
+bp-android-library = { id = "bp.android.library" }
