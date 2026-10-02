@@ -7,7 +7,12 @@ plugins {
 }
 
 gradlePlugin {
-
+    plugins {
+        register("BPApplicationPlugin") {
+            id = libs.plugins.bp.application.get().pluginId
+            implementationClass = "BPApplicationPlugin"
+        }
+    }
 }
 
 dependencies {

@@ -74,3 +74,6 @@ secrets = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugi
 ktx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "ktxSerialization" }
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+
+# Convention Plugins
+bp-application = { id = "bp.application", version = "unspecified" }
