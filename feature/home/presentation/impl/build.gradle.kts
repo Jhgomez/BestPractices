@@ -6,51 +6,6 @@ plugins {
 
 android {
     namespace = "com.demo.feature.home.presentation.impl"
-
-    compileSdk {
-        version = release(36) {
-            minorApiLevel = 1
-        }
-    }
-
-    defaultConfig {
-        minSdk = 28
-    }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = true
-        }
-    }
-
-    buildFeatures {
-        compose = true
-    }
-
-    flavorDimensions += listOf("httpclient", "di")
-
-    productFlavors {
-        create("retrofit") {
-            dimension = "httpclient"
-        }
-
-        create("okhttp") {
-            dimension = "httpclient"
-        }
-
-        create("dagger") {
-            dimension = "di"
-        }
-
-        create("hilt") {
-            dimension = "di"
-        }
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
 }
 
 dependencies {
