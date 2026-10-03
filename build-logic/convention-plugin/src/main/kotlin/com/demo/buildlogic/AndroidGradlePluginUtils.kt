@@ -27,8 +27,8 @@ val DEFAULT_TEST_INSTRUMENTATION_RUNNER = "androidx.test.runner.AndroidJUnitRunn
 // first entry is the default
 val DEFAULT_RELEASE_PROGUARD_FILES = arrayOf("proguard-android-optimize.txt", "proguard-rules.pro")
 
-val DEFAULT_SOURCE_COMPATIBILITY = JavaVersion.VERSION_26
-val DEFAULT_TARGET_COMPATIBILITY = JavaVersion.VERSION_26
+val DEFAULT_SOURCE_COMPATIBILITY = JavaVersion.VERSION_21
+val DEFAULT_TARGET_COMPATIBILITY = JavaVersion.VERSION_21
 
 
 // Below two are not common to all android modules(app and libraries), is only used in the app
