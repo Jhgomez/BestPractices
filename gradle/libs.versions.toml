@@ -65,10 +65,13 @@ dagger-compiler = { group = "com.google.dagger", name = "dagger-compiler", versi
 
 # Build-logic(Included build) dependencies
 android-gradle-plugin-api = { group = "com.android.tools.build", name = "gradle-api", version.ref = "agp" }
+# without it I can not access the kotlin extensions from build-logic
+android-kotlin-plugin = { group = "org.jetbrains.kotlin.android" , name = "org.jetbrains.kotlin.android.gradle.plugin", version.ref = "kotlin" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
+# Compose compiler is now merged into kotlin
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 secrets = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secrets" }
 ktx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "ktxSerialization" }
