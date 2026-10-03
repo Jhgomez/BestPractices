@@ -9,7 +9,7 @@ import org.gradle.api.JavaVersion
 // convention plugin that is consuming the value that has changed, and since these are just android
 // configurations it means that all java and kotlin only modules should be able to use the gradle cache
 
-val APP_DIMENSIONS_WITH_FLAVORS = hashMapOf(
+val APP_DIMENSIONS_WITH_FLAVORS = arrayOf(
     "httpclient" to arrayOf("retrofit", "okhttp"),
     "di" to arrayOf("dagger", "hilt")
 )
