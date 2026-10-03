@@ -1,6 +1,7 @@
 package com.demo.buildlogic
 
 import org.gradle.api.JavaVersion
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 // I could've declared the numeric configuration values in the version catalog, but I prefer to
 // declare them here instead as if I declare it on the version catalog and for any reason these
@@ -29,6 +30,10 @@ val DEFAULT_RELEASE_PROGUARD_FILES = arrayOf("proguard-android-optimize.txt", "p
 
 val DEFAULT_SOURCE_COMPATIBILITY = JavaVersion.VERSION_21
 val DEFAULT_TARGET_COMPATIBILITY = JavaVersion.VERSION_21
+// This is specific for kotlin but is "related" to DEFAULT_SOURCE_COMPATIBILITY and also
+// common in any module that is using kotlin(application and library plugins use kotlin implicitly)
+// and it is best for them to match
+val KOTLIN_JVM_TARGET = JvmTarget.JVM_21
 
 
 // Below two are not common to all android modules(app and libraries), is only used in the app
