@@ -8,11 +8,6 @@ plugins {
 
 android {
     namespace = "com.demo"
-
-    buildFeatures {
-        compose = true
-    }
-
 }
 
 tasks.withType<KotlinCompilationTask<*>>().configureEach {
