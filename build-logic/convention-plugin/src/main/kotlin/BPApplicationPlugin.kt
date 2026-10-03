@@ -1,4 +1,5 @@
 import com.android.build.api.dsl.ApplicationExtension
+import com.demo.buildlogic.APP_DIMENSIONS
 import com.demo.buildlogic.APP_DIMENSIONS_WITH_FLAVORS
 import com.demo.buildlogic.APP_VERSION_CODE
 import com.demo.buildlogic.APP_VERSION_NAME
@@ -66,7 +67,7 @@ interface BPApplicationPlugin: Plugin<Project> {
                     targetCompatibility = DEFAULT_TARGET_COMPATIBILITY
                 }
 
-                flavorDimensions += APP_DIMENSIONS_WITH_FLAVORS.keys
+                flavorDimensions += APP_DIMENSIONS
 
                 productFlavors {
                     APP_DIMENSIONS_WITH_FLAVORS.forEach { (dimension, flavors) ->

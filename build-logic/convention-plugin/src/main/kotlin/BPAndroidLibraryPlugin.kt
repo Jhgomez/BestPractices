@@ -1,4 +1,5 @@
 import com.android.build.api.dsl.LibraryExtension
+import com.demo.buildlogic.APP_DIMENSIONS
 import com.demo.buildlogic.APP_DIMENSIONS_WITH_FLAVORS
 import com.demo.buildlogic.COMPILE_SDK
 import com.demo.buildlogic.COMPILE_SDK_MINOR_API_LEVEL
@@ -40,7 +41,6 @@ interface BPAndroidLibraryPlugin: Plugin<Project> {
                 buildTypes {
                     release {
                         isMinifyEnabled = true
-                        isShrinkResources = true
 
                         proguardFiles(
                             getDefaultProguardFile(DEFAULT_RELEASE_PROGUARD_FILES[0]),
@@ -54,7 +54,7 @@ interface BPAndroidLibraryPlugin: Plugin<Project> {
                     targetCompatibility = DEFAULT_TARGET_COMPATIBILITY
                 }
 
-                flavorDimensions += APP_DIMENSIONS_WITH_FLAVORS.keys
+                flavorDimensions += APP_DIMENSIONS
 
                 productFlavors {
                     APP_DIMENSIONS_WITH_FLAVORS.forEach { (dimension, flavors) ->
