@@ -13,6 +13,7 @@ val APP_DIMENSIONS_WITH_FLAVORS = arrayOf(
     "httpclient" to arrayOf("retrofit", "okhttp"),
     "di" to arrayOf("dagger", "hilt")
 )
+val APP_DIMENSIONS = APP_DIMENSIONS_WITH_FLAVORS.map(Pair<String, Array<String>>::first)
 
 val COMPILE_SDK = 37
 val COMPILE_SDK_MINOR_API_LEVEL = 1
