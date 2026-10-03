@@ -1,4 +1,5 @@
 import com.android.build.api.dsl.ApplicationExtension
+import com.android.build.api.dsl.CommonExtension
 import com.demo.buildlogic.APP_DIMENSIONS
 import com.demo.buildlogic.APP_DIMENSIONS_WITH_FLAVORS
 import com.demo.buildlogic.APP_VERSION_CODE
@@ -12,11 +13,16 @@ import com.demo.buildlogic.DEFAULT_SOURCE_COMPATIBILITY
 import com.demo.buildlogic.DEFAULT_TARGET_COMPATIBILITY
 import com.demo.buildlogic.DEFAULT_TARGET_SDK
 import com.demo.buildlogic.DEFAULT_TEST_INSTRUMENTATION_RUNNER
+import com.demo.buildlogic.KOTLIN_JVM_TARGET
 import com.demo.buildlogic._libs
+import com.demo.buildlogic.configureAndroidAndKotlinSourceCodeCompilation
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.plugins.ExtensionContainer
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.dsl.KotlinJvmExtension
 
 interface BPApplicationPlugin: Plugin<Project> {
 
@@ -55,16 +61,12 @@ interface BPApplicationPlugin: Plugin<Project> {
 
                         isMinifyEnabled = true
                         isShrinkResources = true
+
                         proguardFiles(
                             getDefaultProguardFile(DEFAULT_RELEASE_PROGUARD_FILES[0]),
                             *DEFAULT_RELEASE_PROGUARD_FILES.copyOfRange(1, DEFAULT_RELEASE_PROGUARD_FILES.size)
                         )
                     }
-                }
-
-                compileOptions {
-                    sourceCompatibility = DEFAULT_SOURCE_COMPATIBILITY
-                    targetCompatibility = DEFAULT_TARGET_COMPATIBILITY
                 }
 
                 flavorDimensions += APP_DIMENSIONS
@@ -85,6 +87,8 @@ interface BPApplicationPlugin: Plugin<Project> {
                     localeFilters.add("en")
                     localeFilters.add("es")
                 }
+
+                configureAndroidAndKotlinSourceCodeCompilation()
             }
 
 //            val components = extensions.getByType(AndroidComponentsExtension::class.java)
