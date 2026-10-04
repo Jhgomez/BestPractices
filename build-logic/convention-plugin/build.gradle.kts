@@ -28,6 +28,11 @@ gradlePlugin {
             id = libs.plugins.bp.compose.get().pluginId
             implementationClass = "BPComposePlugin"
         }
+
+        register("BPDependencyInjectionPlugin") {
+            id = libs.plugins.bp.di.get().pluginId
+            implementationClass = "BPDependencyInjectionPlugin"
+        }
     }
 }
 
