@@ -6,6 +6,12 @@ plugins {
     `kotlin-dsl`
 }
 
+kotlin {
+    compilerOptions {
+        freeCompilerArgs.addAll("-Xcontext-parameters")
+    }
+}
+
 gradlePlugin {
     plugins {
         register("BPApplicationPlugin") {
