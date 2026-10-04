@@ -1,13 +1,16 @@
 package com.demo.buildlogic
 
 import com.android.build.api.dsl.CommonExtension
+import org.gradle.api.Project
+import org.gradle.internal.serialize.codecs.core.NodeOwner
 import org.gradle.kotlin.dsl.configure
 import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
 
 // this could have lived in separate functions, one for android and one for kotlin since they actually
 // use different extensions(DSLs) but since they are kind of related I will centralize it here
-fun CommonExtension.configureAndroidAndKotlinSourceCodeCompilation() {
-    compileOptions.apply {
+context(common: CommonExtension)
+fun Project.configureAndroidAndKotlinSourceCodeCompilation() {
+    common.compileOptions.apply {
         sourceCompatibility = DEFAULT_SOURCE_COMPATIBILITY
         targetCompatibility = DEFAULT_TARGET_COMPATIBILITY
     }
