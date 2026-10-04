@@ -38,6 +38,11 @@ gradlePlugin {
             id = libs.plugins.bp.feature.impl.get().pluginId
             implementationClass = "BPFeatureImplPlugin"
         }
+
+        register("BPFeatureApiPlugin") {
+            id = libs.plugins.bp.feature.api.get().pluginId
+            implementationClass = "BPFeatureApiPlugin"
+        }
     }
 }
 
