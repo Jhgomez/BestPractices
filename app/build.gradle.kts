@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 plugins {
     alias(libs.plugins.bp.application)
     alias(libs.plugins.bp.compose)
-    alias(libs.plugins.ksp)
+    alias(libs.plugins.bp.di)
 }
 
 android {
@@ -27,10 +27,6 @@ dependencies {
     implementation(project(":feature:home:domain"))
     implementation(project(":feature:home:presentation:api"))
     implementation(project(":feature:home:presentation:impl"))
-
-    "daggerImplementation"(project(":core:di"))
-    "daggerImplementation"(libs.dagger)
-    "kspDagger"(libs.dagger.compiler)
 
     "okhttpImplementation"(platform(libs.okhttp.bom))
     "okhttpImplementation"(libs.okhttp)

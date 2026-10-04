@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.bp.android.library)
     alias(libs.plugins.bp.compose)
-    alias(libs.plugins.ksp)
+    alias(libs.plugins.bp.di)
 }
 
 android {
@@ -17,8 +17,4 @@ dependencies {
     implementation(libs.androidx.compose.viewmodel)
 
     implementation(libs.androidx.navigation3.runtime)
-
-    "daggerImplementation"(project(":core:di"))
-    "daggerImplementation"(libs.dagger)
-    "kspDagger"(libs.dagger.compiler)
 }
