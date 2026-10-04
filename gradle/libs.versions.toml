@@ -82,3 +82,4 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 bp-application = { id = "bp.application" }
 bp-android-library = { id = "bp.android.library" }
 bp-compose = { id = "bp.compose" }
+bp-di = { id = "bp.di" }
