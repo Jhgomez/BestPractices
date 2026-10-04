@@ -23,6 +23,11 @@ gradlePlugin {
             id = libs.plugins.bp.android.library.get().pluginId
             implementationClass = "BPAndroidLibraryPlugin"
         }
+
+        register("BPComposePlugin") {
+            id = libs.plugins.bp.compose.get().pluginId
+            implementationClass = "BPComposePlugin"
+        }
     }
 }
 
