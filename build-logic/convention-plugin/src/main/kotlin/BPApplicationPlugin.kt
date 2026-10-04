@@ -1,5 +1,4 @@
 import com.android.build.api.dsl.ApplicationExtension
-import com.android.build.api.dsl.CommonExtension
 import com.demo.buildlogic.APP_DIMENSIONS
 import com.demo.buildlogic.APP_DIMENSIONS_WITH_FLAVORS
 import com.demo.buildlogic.APP_VERSION_CODE
@@ -9,20 +8,14 @@ import com.demo.buildlogic.COMPILE_SDK
 import com.demo.buildlogic.COMPILE_SDK_MINOR_API_LEVEL
 import com.demo.buildlogic.DEFAULT_MIN_SDK
 import com.demo.buildlogic.DEFAULT_RELEASE_PROGUARD_FILES
-import com.demo.buildlogic.DEFAULT_SOURCE_COMPATIBILITY
-import com.demo.buildlogic.DEFAULT_TARGET_COMPATIBILITY
 import com.demo.buildlogic.DEFAULT_TARGET_SDK
 import com.demo.buildlogic.DEFAULT_TEST_INSTRUMENTATION_RUNNER
-import com.demo.buildlogic.KOTLIN_JVM_TARGET
 import com.demo.buildlogic._libs
-import com.demo.buildlogic.configureAndroidAndKotlinSourceCodeCompilation
+import com.demo.buildlogic.configureKotlinAndAndroidSourceCodeCompilation
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.plugins.ExtensionContainer
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jetbrains.kotlin.gradle.dsl.KotlinJvmExtension
 
 interface BPApplicationPlugin: Plugin<Project> {
 
@@ -88,7 +81,7 @@ interface BPApplicationPlugin: Plugin<Project> {
                     localeFilters.add("es")
                 }
 
-                configureAndroidAndKotlinSourceCodeCompilation()
+                configureKotlinAndAndroidSourceCodeCompilation()
             }
 
 //            val components = extensions.getByType(AndroidComponentsExtension::class.java)
