@@ -14,8 +14,17 @@ interface BPComposePlugin: Plugin<Project> {
             val libs = _libs
             apply(plugin = libs.findPlugin("kotlin.compose").get().get().pluginId)
 
-            configure<CommonExtension> {
-                configureCompose(libs)
+            val pluginAppliedInsideCorrectSetup =
+                pluginManager.hasPlugin(libs.findPlugin("bp.android.library").get().get().pluginId) ||
+                        pluginManager.hasPlugin(libs.findPlugin("bp.application").get().get().pluginId)
+
+
+            if (pluginAppliedInsideCorrectSetup) {
+                configure<CommonExtension> {
+                    configureCompose(libs)
+                }
+            } else {
+                throw IllegalStateException("Apply Application or Library plugin before compose plugin")
             }
         }
     }
@@ -30,7 +39,7 @@ interface BPComposePlugin: Plugin<Project> {
                 "implementation"(libs.findLibrary("androidx.compose.ui.tooling").get())
                 "implementation"(libs.findLibrary("androidx.compose.ui.tooling.preview").get())
                 "implementation"(libs.findLibrary("androidx.compose.material3").get())
-                "implementation"(libs.findLibrary("androidx.compose.viewmodel").get())
+
             }
         }
     }
