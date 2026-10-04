@@ -21,25 +21,17 @@ interface BPComposePlugin: Plugin<Project> {
 
             if (pluginAppliedInsideCorrectSetup) {
                 configure<CommonExtension> {
-                    configureCompose(libs)
+                    dependencies {
+                        "implementation"(platform(libs.findLibrary("androidx.compose.bom").get()))
+                        "implementation"(libs.findLibrary("androidx.compose.ui").get())
+                        "implementation"(libs.findLibrary("androidx.compose.ui.graphics").get())
+                        "implementation"(libs.findLibrary("androidx.compose.ui.tooling").get())
+                        "implementation"(libs.findLibrary("androidx.compose.ui.tooling.preview").get())
+                        "implementation"(libs.findLibrary("androidx.compose.material3").get())
+                    }
                 }
             } else {
                 throw IllegalStateException("Apply Application or Library plugin before compose plugin")
-            }
-        }
-    }
-
-    context(commonExtension: CommonExtension)
-    fun Project.configureCompose(libs: VersionCatalog) {
-        commonExtension.apply {
-            dependencies {
-                "implementation"(platform(libs.findLibrary("androidx.compose.bom").get()))
-                "implementation"(libs.findLibrary("androidx.compose.ui").get())
-                "implementation"(libs.findLibrary("androidx.compose.ui.graphics").get())
-                "implementation"(libs.findLibrary("androidx.compose.ui.tooling").get())
-                "implementation"(libs.findLibrary("androidx.compose.ui.tooling.preview").get())
-                "implementation"(libs.findLibrary("androidx.compose.material3").get())
-
             }
         }
     }
