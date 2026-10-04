@@ -18,12 +18,10 @@ interface BPDependencyInjectionPlugin: Plugin<Project> {
                         pluginManager.hasPlugin(libs.findPlugin("bp.application").get().get().pluginId)
 
             if (pluginAppliedInsideCorrectSetup) {
-                configure<CommonExtension> {
-                    dependencies {
-                        "daggerImplementation"(project(":core:di"))
-                        "daggerImplementation"(libs.findLibrary("dagger").get())
-                        "kspDagger"(libs.findLibrary("dagger.compiler").get())
-                    }
+                dependencies {
+                    "daggerImplementation"(project(":core:di"))
+                    "daggerImplementation"(libs.findLibrary("dagger").get())
+                    "kspDagger"(libs.findLibrary("dagger.compiler").get())
                 }
             } else {
                 throw IllegalStateException("Apply Application or Library plugin before DI plugin")

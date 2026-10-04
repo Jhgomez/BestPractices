@@ -24,7 +24,7 @@ interface BPAndroidLibraryPlugin: Plugin<Project> {
             apply(plugin = libs.findPlugin("android.library").get().get().pluginId)
 
             // this would be the "android" DSL block
-            extensions.configure<LibraryExtension> {
+            configure<LibraryExtension> {
                 compileSdk {
                     version = release(COMPILE_SDK) {
                         minorApiLevel = COMPILE_SDK_MINOR_API_LEVEL

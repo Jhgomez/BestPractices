@@ -16,14 +16,12 @@ interface BPFeatureImplPlugin: Plugin<Project> {
             apply(plugin = libs.findPlugin("bp.compose").get().get().pluginId)
             apply(plugin = libs.findPlugin("bp.di").get().get().pluginId)
 
-            configure<CommonExtension> {
-                dependencies {
-                    "implementation"(project(":core:domain:common"))
-                    "implementation"(project(":core:navigation"))
+            dependencies {
+                "implementation"(project(":core:domain:common"))
+                "implementation"(project(":core:navigation"))
 
-                    "implementation"(libs.findLibrary("androidx.compose.viewmodel").get())
-                    "implementation"(libs.findLibrary("androidx.navigation3.runtime").get())
-                }
+                "implementation"(libs.findLibrary("androidx.compose.viewmodel").get())
+                "implementation"(libs.findLibrary("androidx.navigation3.runtime").get())
             }
         }
     }
