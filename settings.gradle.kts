@@ -23,19 +23,21 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "BestPractices"
+
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
+includeBuild("build-logic")
+
 include(":app")
 include(":core:di")
-
 include(":core:data-client")
 include(":core:data-client-common")
 include(":core:data-model-common")
 include(":core:domain:common")
-include(":core:navigation")
 
+include(":core:navigation")
 include(":feature:home:data")
 include(":feature:home:domain")
 include(":feature:home:presentation:impl")
-include(":feature:home:presentation:api")
 
-includeBuild("build-logic")
- 
+include(":feature:home:presentation:api")
