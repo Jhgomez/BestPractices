@@ -21,8 +21,8 @@ interface BPDependencyInjectionPlugin: Plugin<Project> {
                 configure<CommonExtension> {
                     dependencies {
                         "daggerImplementation"(project(":core:di"))
-                        "daggerImplementation"(libs.findLibrary("dagger"))
-                        "kspDagger"(libs.findLibrary("dagger.compiler"))
+                        "daggerImplementation"(libs.findLibrary("dagger").get())
+                        "kspDagger"(libs.findLibrary("dagger.compiler").get())
                     }
                 }
             } else {
