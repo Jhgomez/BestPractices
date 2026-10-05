@@ -86,3 +86,4 @@ bp-di = { id = "bp.di" }
 bp-feature-impl = { id = "bp.feature.impl" }
 bp-feature-api = { id = "bp.feature.api" }
 bp-domain = { id = "bp.domain" }
+bp-data = { id = "bp.data" }
