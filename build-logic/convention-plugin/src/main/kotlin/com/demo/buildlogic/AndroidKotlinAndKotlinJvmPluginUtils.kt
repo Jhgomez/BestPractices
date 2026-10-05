@@ -11,7 +11,7 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinBaseExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 
 context(common: CommonExtension)
-fun Project.configureKotlinAndAndroidSourceCodeCompilation() {
+fun Project.configureAndroidKotlinAndJavaSourceCodeCompilation() {
     common.compileOptions.apply {
         sourceCompatibility = DEFAULT_SOURCE_COMPATIBILITY
         targetCompatibility = DEFAULT_TARGET_COMPATIBILITY
@@ -37,11 +37,12 @@ fun Project.configureKotlinAndJavaSourceCodeCompilation() {
     configureKotlin<KotlinJvmProjectExtension>()
 }
 
-inline fun <reified T: KotlinBaseExtension> Project.configureKotlin() {
+private inline fun <reified T: KotlinBaseExtension> Project.configureKotlin() {
     if (this is KotlinJvmProjectExtension || this is KotlinAndroidExtension) {
         //  AGP now includes Kotlin, it provides KotlinAndroidProjectExtension in android app
-        //  modules and KotlinJvmProjectExtension in library modules. "kotlinOptions" was
-        //  replaced recently by "compilerOptions". Below configurations are the "kotlin" DSL
+        //  and libraries modules and KotlinJvmProjectExtension in pure Kotlin modules.
+        //  "kotlinOptions" was replaced recently by "compilerOptions". Below configurations
+        //  are the "kotlin" DSL
         configure<T> {
             // jvmTarget.set(JvmTarget.JVM_21) // jvm target was (in the previous extension) set like this line
             // jvmToolchain(21) // this does the same as setting jvmTarget but also does a lot more

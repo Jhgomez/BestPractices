@@ -9,7 +9,7 @@ import com.demo.buildlogic.DEFAULT_SOURCE_COMPATIBILITY
 import com.demo.buildlogic.DEFAULT_TARGET_COMPATIBILITY
 import com.demo.buildlogic.DEFAULT_TEST_INSTRUMENTATION_RUNNER
 import com.demo.buildlogic._libs
-import com.demo.buildlogic.configureKotlinAndAndroidSourceCodeCompilation
+import com.demo.buildlogic.configureAndroidKotlinAndJavaSourceCodeCompilation
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
@@ -65,7 +65,7 @@ interface BPAndroidLibraryPlugin: Plugin<Project> {
                     }
                 }
 
-                configureKotlinAndAndroidSourceCodeCompilation()
+                configureAndroidKotlinAndJavaSourceCodeCompilation()
             }
         }
     }

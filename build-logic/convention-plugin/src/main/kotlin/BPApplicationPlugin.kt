@@ -11,7 +11,7 @@ import com.demo.buildlogic.DEFAULT_RELEASE_PROGUARD_FILES
 import com.demo.buildlogic.DEFAULT_TARGET_SDK
 import com.demo.buildlogic.DEFAULT_TEST_INSTRUMENTATION_RUNNER
 import com.demo.buildlogic._libs
-import com.demo.buildlogic.configureKotlinAndAndroidSourceCodeCompilation
+import com.demo.buildlogic.configureAndroidKotlinAndJavaSourceCodeCompilation
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
@@ -81,7 +81,7 @@ interface BPApplicationPlugin: Plugin<Project> {
                     localeFilters.add("es")
                 }
 
-                configureKotlinAndAndroidSourceCodeCompilation()
+                configureAndroidKotlinAndJavaSourceCodeCompilation()
             }
 
 //            val components = extensions.getByType(AndroidComponentsExtension::class.java)
