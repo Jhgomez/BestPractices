@@ -48,6 +48,11 @@ gradlePlugin {
             id = libs.plugins.bp.domain.get().pluginId
             implementationClass = "BPDomainPlugin"
         }
+
+        register("BPDataPlugin") {
+            id = libs.plugins.bp.data.get().pluginId
+            implementationClass = "BPDataPlugin"
+        }
     }
 }
 
