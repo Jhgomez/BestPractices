@@ -22,6 +22,11 @@ interface BPDataPlugin: Plugin<Project> {
         with(target) {
             val libs = _libs
 
+            // I'm only using the library plugin because I want to use build variants. I could have
+            // split this into different kotlin modules and then import those from the consuming
+            // modules but that would create too much modules, in a project not tyring to demo
+            // all these libraries I could use dagger(explicitly not hilt) will allow us to add
+            // the source code from a pure Kotlin module
             apply(plugin = libs.findPlugin("bp.android.library").get().get().pluginId)
             apply(plugin = libs.findPlugin("ktx.serialization").get().get().pluginId)
             apply(plugin = libs.findPlugin("ksp").get().get().pluginId)
