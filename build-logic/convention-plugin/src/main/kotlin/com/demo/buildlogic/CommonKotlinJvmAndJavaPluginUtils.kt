@@ -5,7 +5,6 @@ import org.gradle.api.Project
 import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.kotlin.dsl.assign
 import org.gradle.kotlin.dsl.configure
-import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinBaseExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
@@ -38,12 +37,12 @@ fun Project.configureKotlinAndJavaSourceCodeCompilation() {
 }
 
 private inline fun <reified T: KotlinBaseExtension> Project.configureKotlin() {
-    if (this is KotlinJvmProjectExtension || this is KotlinAndroidExtension) {
-        //  AGP now includes Kotlin, it provides KotlinAndroidProjectExtension in android app
-        //  and libraries modules and KotlinJvmProjectExtension in pure Kotlin modules.
-        //  "kotlinOptions" was replaced recently by "compilerOptions". Below configurations
-        //  are the "kotlin" DSL
-        configure<T> {
+    //  AGP now includes Kotlin, it provides KotlinAndroidProjectExtension in android app
+    //  and libraries modules and KotlinJvmProjectExtension in pure Kotlin modules.
+    //  "kotlinOptions" was replaced recently by "compilerOptions". Below configurations
+    //  are the "kotlin" DSL
+    configure<T> {
+        if (this is KotlinJvmProjectExtension || this is KotlinAndroidProjectExtension) {
             // jvmTarget.set(JvmTarget.JVM_21) // jvm target was (in the previous extension) set like this line
             // jvmToolchain(21) // this does the same as setting jvmTarget but also does a lot more
 
@@ -58,8 +57,8 @@ private inline fun <reified T: KotlinBaseExtension> Project.configureKotlin() {
                 jvmTarget.set(KOTLIN_JVM_TARGET)
                 allWarningsAsErrors = true
             }
+        } else {
+            throw IllegalStateException("Kotlin Extension Implementation not supported")
         }
-    } else {
-        throw IllegalStateException("Kotlin Extension Implementation not supported")
     }
 }
