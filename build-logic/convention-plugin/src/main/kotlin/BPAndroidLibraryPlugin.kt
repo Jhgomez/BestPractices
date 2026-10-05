@@ -48,11 +48,6 @@ interface BPAndroidLibraryPlugin: Plugin<Project> {
                     }
                 }
 
-                compileOptions {
-                    sourceCompatibility = DEFAULT_SOURCE_COMPATIBILITY
-                    targetCompatibility = DEFAULT_TARGET_COMPATIBILITY
-                }
-
                 flavorDimensions += APP_DIMENSIONS
 
                 productFlavors {
