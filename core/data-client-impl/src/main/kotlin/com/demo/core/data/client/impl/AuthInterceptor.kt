@@ -1,4 +1,4 @@
-package com.demo.core.data.client
+package com.demo.core.data.client.impl
 
 import com.demo.data.client.BuildConfig
 import okhttp3.Interceptor

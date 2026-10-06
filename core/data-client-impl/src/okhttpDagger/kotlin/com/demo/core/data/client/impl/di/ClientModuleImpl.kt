@@ -1,4 +1,4 @@
-package com.demo.core.data.client.di
+package com.demo.core.data.client.impl.di
 
 import dagger.Module
 import dagger.Provides

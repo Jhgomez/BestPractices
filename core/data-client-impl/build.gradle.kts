@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.demo.data.client"
+    namespace = "com.demo.data.client.impl"
     compileSdk {
         version = release(37) {
             minorApiLevel = 1
