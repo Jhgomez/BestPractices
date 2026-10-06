@@ -5,5 +5,5 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":core:domain:common"))
+    implementation(projects.core.domain.common)
 }
