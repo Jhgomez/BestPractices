@@ -11,9 +11,9 @@ import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 
 @Serializable
-data class SessionResponseDto(
+data class TokenResponseDto(
     val success: Boolean,
-    val guest_session_id: String,
+    val request_token: String,
     @Serializable(TMDBInstantSerializer::class)
     val expires_at: Instant
 )
