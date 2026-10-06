@@ -7,6 +7,6 @@ android {
 }
 
 dependencies {
-    implementation(project(":feature:home:presentation:api"))
-    implementation(project(":feature:home:domain"))
+    implementation(projects.feature.home.presentation.api)
+    implementation(projects.feature.home.domain)
 }
