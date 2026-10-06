@@ -1,14 +1,12 @@
-package com.demo.core.data.client.common
+package com.demo.core.data.client.api
 
 import com.demo.data.client.utils.BuildConfig
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.serializer
 import okhttp3.HttpUrl.Companion.toHttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.coroutines.executeAsync
-import kotlin.reflect.KType
 
 //private val dispatcher = Dispatcher().apply {
 //    maxRequestsPerHost = 128

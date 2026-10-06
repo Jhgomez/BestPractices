@@ -32,7 +32,7 @@ interface BPDataPlugin: Plugin<Project> {
             apply(plugin = libs.findPlugin("ksp").get().get().pluginId)
 
             dependencies {
-                "implementation"(project(":core:data-client-common"))
+                "implementation"(project(":core:data-client-api"))
                 "implementation"(project(":core:data-model-common"))
                 "implementation"(project(":core:domain:common"))
 

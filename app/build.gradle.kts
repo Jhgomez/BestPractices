@@ -21,7 +21,7 @@ tasks.withType<KotlinCompilationTask<*>>().configureEach {
 }
 
 dependencies {
-    implementation(projects.core.dataClient)
+    implementation(projects.core.dataClientImpl)
     implementation(projects.core.navigation)
     implementation(projects.feature.home.data)
     implementation(projects.feature.home.domain)
