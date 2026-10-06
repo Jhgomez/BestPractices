@@ -7,6 +7,8 @@ import okhttp3.HttpUrl.Companion.toHttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.coroutines.executeAsync
+import okio.IOException
+import kotlin.coroutines.cancellation.CancellationException
 
 //private val dispatcher = Dispatcher().apply {
 //    maxRequestsPerHost = 128
@@ -47,7 +49,7 @@ suspend fun <T: Any> OkHttpClient.get(
     path: String,
     serializer: KSerializer<T>,
     vararg params: Pair<String, String>
-): T {
+): DataResult<T> {
     urlBuilder.apply {
         addPathSegment(path)
 
@@ -63,26 +65,42 @@ suspend fun <T: Any> OkHttpClient.get(
 
     val call = newCall(request)
 
-    return call.executeAsync().use { response ->
-        when(response.code) {
-            200 -> {
-                json.decodeFromString(string = response.body.string(), deserializer = serializer)
-            }
-            400 -> {
-                // bad request
-                throw Exception("")
-            }
-            401 -> {
-                // unauthorized
-                throw Exception("")
-            }
-            500 -> {
-                // internal server error
-                throw Exception("")
-            }
-            else -> {
-                throw Exception(response.body.string())
+    try {
+        call.executeAsync().use { response ->
+            when (response.code) {
+                in 200..299 -> {
+                    json.decodeFromString(
+                        string = response.body.string(),
+                        deserializer = serializer
+                    )
+                }
+
+                400 -> {
+                    // bad request
+                    throw Exception("")
+                }
+
+                401 -> {
+                    // unauthorized
+                    throw Exception("")
+                }
+
+                500 -> {
+                    // internal server error
+                    throw Exception("")
+                }
+
+                else -> {
+                    throw Exception(response.body.string())
+                }
             }
         }
+    } catch (exception: IOException) {
+        throw Exception("")
+    } catch (exception: CancellationException) {
+        // I could have left this uncaught, but I want it to be visually explicit
+        throw exception
     }
+
+    return NetworkError("")
 }
