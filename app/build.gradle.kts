@@ -21,12 +21,12 @@ tasks.withType<KotlinCompilationTask<*>>().configureEach {
 }
 
 dependencies {
-    implementation(project(":core:data-client"))
-    implementation(project(":core:navigation"))
-    implementation(project(":feature:home:data"))
-    implementation(project(":feature:home:domain"))
-    implementation(project(":feature:home:presentation:api"))
-    implementation(project(":feature:home:presentation:impl"))
+    implementation(projects.core.dataClient)
+    implementation(projects.core.navigation)
+    implementation(projects.feature.home.data)
+    implementation(projects.feature.home.domain)
+    implementation(projects.feature.home.presentation.api)
+    implementation(projects.feature.home.presentation.impl)
 
     "okhttpImplementation"(platform(libs.okhttp.bom))
     "okhttpImplementation"(libs.okhttp)
