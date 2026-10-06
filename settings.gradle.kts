@@ -42,3 +42,4 @@ include(":feature:home:presentation:impl")
 include(":feature:home:presentation:api")
 
 include(":feature:login:data")
+include(":feature:login:domain")
