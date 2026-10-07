@@ -22,6 +22,10 @@ interface BPDomainPlugin: Plugin<Project> {
             apply(plugin = libs.findPlugin("jetbrains.kotlin.jvm").get().get().pluginId)
 
             configureKotlinAndJavaSourceCodeCompilation()
+
+            dependencies {
+                "implementation"(project(":core:domain-api"))
+            }
         }
     }
 }
