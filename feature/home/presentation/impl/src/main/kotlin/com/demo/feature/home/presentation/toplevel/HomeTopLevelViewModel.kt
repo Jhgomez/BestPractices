@@ -13,7 +13,7 @@ internal class HomeTopLevelViewModel @Inject constructor(private val repo: TvSho
 
     fun getTvShows() {
         viewModelScope.launch {
-            movies.value = repo.getTvShow(1).results
+//            movies.value = repo.getTvShow(1).results
         }
     }
 }

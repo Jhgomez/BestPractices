@@ -1,5 +1,6 @@
 package com.demo.feature.home.data.api
 
+import com.demo.core.data.client.api.DataResult
 import com.demo.core.data.client.api.get
 import com.demo.core.data.model.common.PaginatedResponseDto
 import com.demo.feature.home.data.model.TvShowDto
@@ -11,7 +12,7 @@ import javax.inject.Singleton
 internal class TvShowServiceImpl @Inject constructor(private val httpClient: OkHttpClient)
     : TvShowService {
 
-    override suspend fun getTvShows(page: Int): PaginatedResponseDto<TvShowDto> =
+    override suspend fun getTvShows(page: Int): DataResult<PaginatedResponseDto<TvShowDto>> =
         httpClient.get(
             path = "movie/now_playing",
             serializer =  PaginatedResponseDto.serializer(TvShowDto.serializer()),

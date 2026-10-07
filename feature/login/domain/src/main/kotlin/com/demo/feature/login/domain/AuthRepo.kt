@@ -1,6 +1,5 @@
 package com.demo.feature.login.domain
 
-import com.demo.core.domain.common.model.Page
 
 interface AuthRepo {
 

@@ -2,7 +2,7 @@ package com.demo.feature.tvshow.com.demo.feature.home.presentation.di
 
 import androidx.lifecycle.ViewModel
 import com.demo.feature.home.presentation.toplevel.HomeTopLevelViewModel
-import com.demo.di.ViewModelKey
+import com.demo.di.ViewMapModelKey
 import com.demo.feature.home.presentation.di.HomePresentationModule
 import dagger.Binds
 import dagger.Module
@@ -13,7 +13,7 @@ internal interface HomePresentationModuleImpl: HomePresentationModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(HomeTopLevelViewModel::class)
+    @ViewMapModelKey(HomeTopLevelViewModel::class)
     override fun bindsHomeTopLevelViewModel(viewModel: HomeTopLevelViewModel): ViewModel
 }
 
