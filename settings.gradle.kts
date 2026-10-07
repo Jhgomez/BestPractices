@@ -33,7 +33,7 @@ include(":core:di")
 include(":core:data-client-impl")
 include(":core:data-client-api")
 include(":core:data-model-common")
-include(":core:domain:common")
+include(":core:domain-api")
 include(":core:navigation")
 
 include(":feature:home:data")

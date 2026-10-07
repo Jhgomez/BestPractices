@@ -34,7 +34,7 @@ interface BPDataPlugin: Plugin<Project> {
             dependencies {
                 "implementation"(project(":core:data-client-api"))
                 "implementation"(project(":core:data-model-common"))
-                "implementation"(project(":core:domain:common"))
+                "implementation"(project(":core:domain-api"))
 
                 "okhttpImplementation"(platform(libs.findLibrary("okhttp.bom").get()))
                 "okhttpImplementation"(libs.findLibrary("okhttp").get())

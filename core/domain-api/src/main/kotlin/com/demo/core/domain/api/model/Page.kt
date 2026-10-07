@@ -1,4 +1,4 @@
-package com.demo.core.domain.common.model
+package com.demo.core.domain.api.model
 
 data class Page<T>(
     val page: Int,
