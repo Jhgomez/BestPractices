@@ -8,7 +8,7 @@ class DemoApplication: Application() {
     private var appComponent: ApplicationComponent? = null
 
     fun getAppComponent(): ApplicationComponent = if (appComponent == null)
-        DaggerApplicationComponent.create().also {
+        DaggerApplicationComponent.factory().create(applicationContext).also {
             appComponent = it
         } else appComponent!!
 }

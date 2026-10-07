@@ -48,6 +48,6 @@ interface ViewModelBuilderModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(MainViewModel::class)
+    @ViewMapModelKey(MainViewModel::class)
     fun bindMainViewModel(viewModel: MainViewModel): ViewModel
 }
