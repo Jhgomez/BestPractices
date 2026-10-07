@@ -1,6 +1,7 @@
 package com.demo.core.data.client.api
 
-import com.demo.data.client.utils.BuildConfig
+import com.demo.data.client.api.R
+import com.demo.data.client.api.BuildConfig
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.json.Json
 import okhttp3.HttpUrl.Companion.toHttpUrl
@@ -65,42 +66,52 @@ suspend fun <T: Any> OkHttpClient.get(
 
     val call = newCall(request)
 
-    try {
+    return try {
         call.executeAsync().use { response ->
             when (response.code) {
                 in 200..299 -> {
-                    json.decodeFromString(
-                        string = response.body.string(),
-                        deserializer = serializer
+                    Success(
+                        result = json.decodeFromString(
+                            string = response.body.string(),
+                            deserializer = serializer
+                        )
                     )
                 }
 
                 400 -> {
-                    // bad request
-                    throw Exception("")
+                    BadRequest(
+                        code = response.code.toShort(),
+                        message = response.body.toString()
+                    )
                 }
 
                 401 -> {
-                    // unauthorized
-                    throw Exception("")
+                    Unauthorized(
+                        code = response.code.toShort(),
+                        message = response.body.toString()
+                    )
                 }
 
                 500 -> {
-                    // internal server error
-                    throw Exception("")
+                    InternalServerError(
+                        code = response.code.toShort(),
+                        message = response.body.toString()
+                    )
                 }
-
                 else -> {
-                    throw Exception(response.body.string())
+                    UnhandledHttpCode(
+                        code = response.code.toShort(),
+                        message = response.body.toString()
+                    )
                 }
             }
         }
     } catch (exception: IOException) {
-        throw Exception("")
+        NetworkError(
+            message = exception.message ?: "IOException"
+        )
     } catch (exception: CancellationException) {
         // I could have left this uncaught, but I want it to be visually explicit
         throw exception
     }
-
-    return NetworkError("")
 }
