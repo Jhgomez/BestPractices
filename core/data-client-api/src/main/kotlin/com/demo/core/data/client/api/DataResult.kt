@@ -10,10 +10,10 @@ sealed interface Error<R>: DataResult<R> {
 }
 
 class BadRequest<R>(override val code: Short, override val message: String): Error<R>
-class Unauthorized(override val code: Short, override val message: String): Error
-class InternalServerError(override val code: Short, override val message: String): Error
-class UnhandledHttpCode(override val code: Short, override val message: String): Error
-class NetworkError(override val message: String): Error {
+class Unauthorized<R>(override val code: Short, override val message: String): Error<R>
+class InternalServerError<R>(override val code: Short, override val message: String): Error<R>
+class UnhandledHttpCode<R>(override val code: Short, override val message: String): Error<R>
+class NetworkError<R>(override val message: String): Error<R> {
     override val code: Short = 0
 }
 
