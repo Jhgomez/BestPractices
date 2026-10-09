@@ -4,9 +4,7 @@ import kotlinx.serialization.Serializable
 import kotlin.time.Instant
 
 @Serializable
-data class GuestSessionResponseDto(
+data class SessionResponseDto(
     val success: Boolean,
-    val guest_session_id: String,
-    @Serializable(TMDBInstantSerializer::class)
-    val expires_at: Instant
+    val session_id: String
 )
