@@ -8,7 +8,9 @@ import javax.inject.Singleton
 
 
 @Singleton
-class AuthRepoImpl @Inject constructor(private val authService: AuthService): AuthRepo {
+class AuthRepoImpl @Inject constructor(
+    private val authService: AuthService
+): AuthRepo {
 
     override suspend fun createRequestToken(): DomainResult<Unit> {
 //        authService.createRequestToken()

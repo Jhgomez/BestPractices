@@ -2,6 +2,7 @@ package com.demo.feature.login.data.api
 
 import com.demo.core.data.client.api.DataResult
 import com.demo.core.data.client.api.get
+import com.demo.feature.login.data.model.GuestSessionResponseDto
 import com.demo.feature.login.data.model.SessionResponseDto
 import com.demo.feature.login.data.model.TokenResponseDto
 import okhttp3.OkHttpClient
@@ -17,7 +18,7 @@ class AuthServiceImpl @Inject constructor(private val okHttpClient: OkHttpClient
             serializer = TokenResponseDto.serializer()
         )
 
-    override suspend fun createGuestSession(): DataResult<SessionResponseDto> =
+    override suspend fun createSession(): DataResult<SessionResponseDto> =
         okHttpClient.get(
             path = "authentication/guest_session/new",
             serializer = SessionResponseDto.serializer()

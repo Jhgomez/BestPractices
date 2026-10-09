@@ -7,5 +7,5 @@ import com.demo.feature.login.data.model.TokenResponseDto
 interface AuthService {
     suspend fun createRequestToken(): DataResult<TokenResponseDto>
 
-    suspend fun createGuestSession(): DataResult<SessionResponseDto>
+    suspend fun createSession(): DataResult<SessionResponseDto>
 }
