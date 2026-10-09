@@ -29,6 +29,7 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 includeBuild("build-logic")
 
 include(":app")
+include(":core:datastore")
 include(":core:di")
 include(":core:data-client-impl")
 include(":core:data-client-api")
