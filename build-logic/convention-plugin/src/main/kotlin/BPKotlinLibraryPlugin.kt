@@ -17,7 +17,7 @@ interface BPKotlinLibraryPlugin: Plugin<Project> {
             // java's library core plugin that which tells gradle that this is not a
             // kotlin app module, instead is a kotlin library
             apply(plugin = "java-library")
-            apply(plugin = _libs.findPlugin("etbrains-kotlin-jvm").get().get().pluginId)
+            apply(plugin = _libs.findPlugin("jetbrains-kotlin-jvm").get().get().pluginId)
 
             configureKotlinAndJavaSourceCodeCompilation()
         }

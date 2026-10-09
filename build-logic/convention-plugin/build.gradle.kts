@@ -53,6 +53,11 @@ gradlePlugin {
             id = libs.plugins.bp.data.get().pluginId
             implementationClass = "BPDataPlugin"
         }
+
+        register("BPKotlinLibraryPlugin") {
+            id = libs.plugins.bp.kotlin.jvm.get().pluginId
+            implementationClass = "BPKotlinLibraryPlugin"
+        }
     }
 }
 
