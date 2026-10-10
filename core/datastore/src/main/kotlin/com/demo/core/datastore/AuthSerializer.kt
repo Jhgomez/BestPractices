@@ -6,8 +6,9 @@ import com.demo.core.datastore.proto.Auth
 import com.google.protobuf.InvalidProtocolBufferException
 import java.io.InputStream
 import java.io.OutputStream
+import javax.inject.Inject
 
-internal object AuthSerializer : Serializer<Auth> {
+internal class AuthSerializer @Inject constructor(): Serializer<Auth> {
     override val defaultValue: Auth = Auth.getDefaultInstance()
 
     override suspend fun readFrom(input: InputStream): Auth {
