@@ -12,6 +12,7 @@ internal object AuthSerializer : Serializer<Auth> {
 
     override suspend fun readFrom(input: InputStream): Auth {
         try {
+            // readFrom is already called on the data store background thread
             return Auth.parseFrom(input)
         } catch (e: InvalidProtocolBufferException) {
             throw CorruptionException("Cannot read proto.", e)
@@ -22,6 +23,7 @@ internal object AuthSerializer : Serializer<Auth> {
         t: Auth,
         output: OutputStream
     ) {
+        // writeTo is already called on the data store background thread
         t.writeTo(output)
     }
 }

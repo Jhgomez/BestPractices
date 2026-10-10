@@ -1,27 +1,14 @@
 plugins {
-    alias(libs.plugins.bp.kotlin.jvm)
-    alias(libs.plugins.protobuf)
+    alias(libs.plugins.bp.android.library)
 }
 
-protobuf {
-    protoc {
-        artifact = libs.protobuf.compiler.get().toString()
-    }
-    generateProtoTasks {
-        all().configureEach {
-            builtins {
-                named("java") {
-                    option("lite")
-                }
-                register("kotlin") {
-                    option("lite")
-                }
-            }
-        }
-    }
+android {
+    namespace = "com.demo.core.datastore"
 }
 
 dependencies {
-    implementation(libs.androidx.datastore.core)
+    implementation(libs.androidx.datastore)
     implementation(libs.protobuf.kotlin.lite)
+
+    implementation(projects.core.datastoreProto)
 }
