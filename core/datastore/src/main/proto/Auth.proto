@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+import "Token.proto";
+import "GuestSession.proto";
+
+option java_package = "com.demo.core.datastore.proto";
+option java_multiple_files = true;
+
+/**
+ * check here https://protobuf.dev/programming-guides/proto3/#location to know
+ * how to organize your messages. You could add directories representing packages
+ * inside the proto directory if you want to express your app's package
+ */
+message Auth {
+  Token requestToken = 1;
+  string session = 2; // this is the session id of existing user's(we're not given an expiration time)
+  GuestSession guestSession = 3; // very specific type of session
+}
+
