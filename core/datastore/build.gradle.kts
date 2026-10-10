@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.bp.android.library)
+    alias(libs.plugins.bp.di)
 }
 
 android {
