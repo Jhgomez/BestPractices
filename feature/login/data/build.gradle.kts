@@ -9,4 +9,7 @@ android {
 dependencies {
     implementation(projects.feature.login.domain)
     implementation(projects.core.datastoreProto)
+
+    implementation(libs.androidx.datastore)
+    implementation(libs.protobuf.kotlin.lite)
 }
