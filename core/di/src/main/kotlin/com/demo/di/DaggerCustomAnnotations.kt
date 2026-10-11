@@ -15,3 +15,12 @@ annotation class ViewMapModelKey(val value: KClass<out ViewModel>)
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
 annotation class AppContext
+
+enum class Dispatcher {
+    IO,
+    DEFAULT
+}
+
+@Qualifier
+@Retention(AnnotationRetention.RUNTIME)
+annotation class ContextDispatcher(val dispatcher: Dispatcher)
