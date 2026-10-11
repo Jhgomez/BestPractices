@@ -1,5 +1,6 @@
 package com.demo.feature.login.data.repository
 
+import android.util.Log
 import androidx.datastore.core.DataStore
 import com.demo.core.data.client.api.BadRequest
 import com.demo.core.data.client.api.InternalServerError
@@ -15,6 +16,7 @@ import com.demo.core.domain.api.model.DomainSuccess
 import com.demo.feature.login.data.api.AuthService
 import com.demo.feature.login.data.model.RequestTokenResponseDto
 import com.demo.feature.login.data.repository.mapper.toDataStoreModel
+import com.demo.feature.login.data.repository.mapper.toDomainResult
 import com.demo.feature.login.domain.AuthRepo
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -26,20 +28,12 @@ class AuthRepoImpl @Inject constructor(
 ): AuthRepo {
 
     override suspend fun createRequestToken(): DomainResult<Unit> =
-        when (val requestToken = authService.createRequestToken()) {
-            is BadRequest<RequestTokenResponseDto> -> DomainBadRequest()
-            is InternalServerError<RequestTokenResponseDto> -> DomainSuccess(Unit)
-            is NetworkError<RequestTokenResponseDto> -> DomainSuccess(Unit)
-            is Unauthorized<RequestTokenResponseDto> -> DomainSuccess(Unit)
-            is UnhandledHttpCode<RequestTokenResponseDto> -> DomainSuccess(Unit)
-            is Success<RequestTokenResponseDto> -> {
-                dataStore.updateData { store ->
-                    store.copy {
-                        this.requestToken = requestToken.result.toDataStoreModel()
-                    }
+        authService.createRequestToken().toDomainResult {
+            dataStore.updateData { store ->
+                store.copy {
+                    requestToken = toDataStoreModel()
+                    Log.d("request token", requestToken.toString())
                 }
-
-                DomainSuccess(Unit)
             }
         }
 
