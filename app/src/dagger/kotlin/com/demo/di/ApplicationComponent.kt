@@ -12,6 +12,7 @@ import javax.inject.Singleton
 @Component(modules = [
     ClientModuleImpl::class,
     ViewModelBuilderModule::class,
+    CoroutineDispatcherModule::class,
     PublicTvShowDataModule::class,
     PublicHomePresentationModule::class
 ])
