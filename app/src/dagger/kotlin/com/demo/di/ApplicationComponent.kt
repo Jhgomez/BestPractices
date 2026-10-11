@@ -3,6 +3,7 @@ package com.demo.di
 import android.content.Context
 import com.demo.MainActivity
 import com.demo.core.data.client.impl.di.ClientModuleImpl
+import com.demo.core.datastore.di.PublicDataStoreModule
 import com.demo.feature.home.data.di.PublicTvShowDataModule
 import com.demo.feature.tvshow.com.demo.feature.home.presentation.di.PublicHomePresentationModule
 import dagger.BindsInstance
@@ -13,6 +14,7 @@ import javax.inject.Singleton
     ClientModuleImpl::class,
     ViewModelBuilderModule::class,
     CoroutineDispatcherModule::class,
+    PublicDataStoreModule::class,
     PublicTvShowDataModule::class,
     PublicHomePresentationModule::class
 ])
