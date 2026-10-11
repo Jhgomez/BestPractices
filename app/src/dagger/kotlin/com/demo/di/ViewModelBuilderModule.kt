@@ -10,6 +10,23 @@ import javax.inject.Inject
 import javax.inject.Provider
 
 /**
+ * App is responsible for providing the viewmodel factory that all viemodels need
+ */
+@Module
+interface ViewModelBuilderModule {
+
+    @Binds
+    fun bindViewModelFactory(
+        factory: DemoAppViewModelFactory
+    ): ViewModelProvider.Factory
+
+    @Binds
+    @IntoMap
+    @ViewMapModelKey(MainViewModel::class)
+    fun bindMainViewModel(viewModel: MainViewModel): ViewModel
+}
+
+/**
  * Class defined here to make app responsible for providing a factory for each of the
  * ViewModel's Factory living throughout the app
  */
@@ -38,16 +55,3 @@ class DemoAppViewModelFactory @Inject constructor(
     }
 }
 
-@Module
-interface ViewModelBuilderModule {
-
-    @Binds
-    fun bindViewModelFactory(
-        factory: DemoAppViewModelFactory
-    ): ViewModelProvider.Factory
-
-    @Binds
-    @IntoMap
-    @ViewMapModelKey(MainViewModel::class)
-    fun bindMainViewModel(viewModel: MainViewModel): ViewModel
-}
