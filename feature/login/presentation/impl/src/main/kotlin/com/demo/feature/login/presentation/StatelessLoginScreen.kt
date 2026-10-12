@@ -115,8 +115,9 @@ internal fun LoginScreen(
             contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
         )
 
+        Spacer(modifier = Modifier.height(16.dp))
+
         Button(
-            modifier = Modifier.wrapContentSize(align = Alignment.BottomCenter),
             onClick = {
                 onLogin(username, password.text.toString())
             }
