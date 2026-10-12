@@ -40,6 +40,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PlatformImeOptions
 import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.text.intl.LocaleList
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.demo.feature.login.presentation.impl.R
 
@@ -61,7 +62,8 @@ internal fun LoginScreen(
         
         OutlinedTextField(
             value = username,
-            onValueChange = { username = it }
+            onValueChange = { username = it },
+            isError = didLoginFail,
         )
         
         Spacer(modifier = Modifier.height(16.dp))
@@ -69,8 +71,7 @@ internal fun LoginScreen(
         OutlinedSecureTextField(
             state = password,
             modifier = Modifier,
-            enabled = true,
-            textStyle = LocalTextStyle.current,
+            isError = didLoginFail,
             labelPosition = TextFieldLabelPosition.Attached(),
             label = { Text("My Label")},
             placeholder = { Text("My Placeholder") },
@@ -123,4 +124,14 @@ internal fun LoginScreen(
             Text("Login")
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun LoginScreenPreview() {
+    LoginScreen(
+        modifier = Modifier.fillMaxSize(),
+        onLogin = { _, _ -> },
+        didLoginFail = false
+    )
 }
