@@ -1,5 +1,5 @@
 plugins {
-    alias(libs.plugins.bp.feature.api)
+    alias(libs.plugins.bp.feature.impl)
 }
 
 android {
@@ -9,5 +9,4 @@ android {
 dependencies {
     implementation(projects.feature.login.domain)
     implementation(projects.feature.login.presentation.api)
-    implementation(projects.feature.login.domain)
 }
