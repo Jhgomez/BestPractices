@@ -64,6 +64,7 @@ internal fun LoginScreen(
             value = username,
             onValueChange = { username = it },
             isError = didLoginFail,
+            shape = MaterialTheme.shapes.large,
         )
         
         Spacer(modifier = Modifier.height(16.dp))
