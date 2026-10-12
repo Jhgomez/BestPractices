@@ -1,25 +1,17 @@
 package com.demo.feature.login.presentation
 
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.text.input.InputTransformation
-import androidx.compose.foundation.text.input.TextFieldBuffer
 import androidx.compose.foundation.text.input.TextObfuscationMode
 import androidx.compose.foundation.text.input.rememberTextFieldState
-import androidx.compose.foundation.text.input.then
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedSecureTextField
 import androidx.compose.material3.OutlinedTextField
@@ -49,7 +41,9 @@ import com.demo.feature.login.presentation.impl.R
 @Composable
 internal fun LoginScreen(
     modifier: Modifier,
-    onLogin: (username: String, password: String) -> Unit,
+    username: String,
+    password: String,
+    handleIntent: (LoginIntent) -> Unit,
     didLoginFail: Boolean
 ) {
 
@@ -58,13 +52,12 @@ internal fun LoginScreen(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        var username by rememberSaveable(null) { mutableStateOf("") }
-        val password = rememberTextFieldState()
+        val passwordState = rememberTextFieldState()
         var isPasswordVisible by rememberSaveable(null) { mutableStateOf(false) }
         
         OutlinedTextField(
             value = username,
-            onValueChange = { username = it },
+            onValueChange = { handleIntent(LoginIntent.UpdateUserNameInput(it)) },
             isError = didLoginFail,
             trailingIcon = {
                 val showIcon by remember {
@@ -75,7 +68,7 @@ internal fun LoginScreen(
 
                 if (showIcon) {
                     IconButton(
-                        onClick = { username = "" }
+                        onClick = { handleIntent(LoginIntent.UpdateUserNameInput("")) }
                     ) {
                         Icon(
                             imageVector = ImageVector.vectorResource(id = R.drawable.close),
@@ -92,7 +85,7 @@ internal fun LoginScreen(
         Spacer(modifier = Modifier.height(16.dp))
 
         OutlinedSecureTextField(
-            state = password,
+            state = passwordState,
             modifier = Modifier,
             isError = didLoginFail,
             labelPosition = TextFieldLabelPosition.Attached(),
@@ -132,7 +125,7 @@ internal fun LoginScreen(
                 )
             ),
             onKeyboardAction = {
-                onLogin(username, password.text.toString())
+                handleIntent(LoginIntent.Login)
             },
             shape = MaterialTheme.shapes.large,
             contentPadding = PaddingValues(horizontal = 16.dp)
@@ -142,7 +135,7 @@ internal fun LoginScreen(
 
         Button(
             onClick = {
-                onLogin(username, password.text.toString())
+                handleIntent(LoginIntent.Login)
             }
         ) {
             Text("Login")
@@ -155,7 +148,9 @@ internal fun LoginScreen(
 private fun LoginScreenPreview() {
     LoginScreen(
         modifier = Modifier.fillMaxSize(),
-        onLogin = { _, _ -> },
-        didLoginFail = false
+        handleIntent = {},
+        didLoginFail = false,
+        username = "",
+        password = ""
     )
 }
