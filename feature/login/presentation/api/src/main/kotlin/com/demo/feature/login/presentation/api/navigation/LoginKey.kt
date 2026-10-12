@@ -2,4 +2,4 @@ package com.demo.feature.login.presentation.api.navigation
 
 import com.demo.core.navigation.AppNavKey
 
-object LoginScreen : AppNavKey
+object LoginScreenKey : AppNavKey
