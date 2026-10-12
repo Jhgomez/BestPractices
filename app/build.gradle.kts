@@ -24,10 +24,16 @@ dependencies {
     implementation(projects.core.dataClientImpl)
     implementation(projects.core.navigation)
     implementation(projects.core.datastore)
+
     implementation(projects.feature.home.data)
     implementation(projects.feature.home.domain)
     implementation(projects.feature.home.presentation.api)
     implementation(projects.feature.home.presentation.impl)
+
+    implementation(projects.feature.login.data)
+    implementation(projects.feature.login.domain)
+    implementation(projects.feature.login.presentation.api)
+    implementation(projects.feature.login.presentation.impl)
 
     "okhttpImplementation"(platform(libs.okhttp.bom))
     "okhttpImplementation"(libs.okhttp)
