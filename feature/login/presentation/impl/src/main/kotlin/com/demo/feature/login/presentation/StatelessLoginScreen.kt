@@ -26,9 +26,11 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldLabelPosition
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -64,7 +66,27 @@ internal fun LoginScreen(
             value = username,
             onValueChange = { username = it },
             isError = didLoginFail,
+            trailingIcon = {
+                val showIcon by remember {
+                    derivedStateOf {
+                        username.isNotEmpty()
+                    }
+                }
+
+                if (showIcon) {
+                    IconButton(
+                        onClick = { username = "" }
+                    ) {
+                        Icon(
+                            imageVector = ImageVector.vectorResource(id = R.drawable.close),
+                            contentDescription = null
+                        )
+                    }
+                }
+            },
             shape = MaterialTheme.shapes.large,
+            label = { Text("Username")},
+            placeholder = { Text("Username") },
         )
         
         Spacer(modifier = Modifier.height(16.dp))
@@ -113,7 +135,7 @@ internal fun LoginScreen(
                 onLogin(username, password.text.toString())
             },
             shape = MaterialTheme.shapes.large,
-            contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
+            contentPadding = PaddingValues(horizontal = 16.dp)
         )
 
         Spacer(modifier = Modifier.height(16.dp))
