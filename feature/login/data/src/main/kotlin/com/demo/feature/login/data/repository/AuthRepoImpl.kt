@@ -22,7 +22,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class AuthRepoImpl @Inject constructor(
+internal class AuthRepoImpl @Inject constructor(
     private val authService: AuthService,
     private val dataStore: DataStore<Auth>
 ): AuthRepo {

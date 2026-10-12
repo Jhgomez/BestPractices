@@ -9,7 +9,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class AuthServiceImpl @Inject constructor(private val okHttpClient: OkHttpClient): AuthService {
+internal class AuthServiceImpl @Inject constructor(private val okHttpClient: OkHttpClient): AuthService {
 
     override suspend fun createRequestToken(): DataResult<RequestTokenResponseDto> =
         okHttpClient.get(
