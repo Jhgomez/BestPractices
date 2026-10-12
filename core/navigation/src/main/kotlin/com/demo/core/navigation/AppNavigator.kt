@@ -1,7 +1,4 @@
-package com.demo.ui.navigation
-
-import androidx.navigation3.runtime.NavKey
-import com.demo.core.navigation.AppNavKey
+package com.demo.core.navigation
 
 class AppNavigator(private val state: ExitThroughHomeNavState) {
 
