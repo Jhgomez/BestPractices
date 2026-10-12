@@ -3,5 +3,5 @@ plugins {
 }
 
 android {
-    namespace = "com.demo.feature.presentation.api"
+    namespace = "com.demo.feature.login.presentation.api"
 }
