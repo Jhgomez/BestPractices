@@ -8,6 +8,7 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 import javax.inject.Inject
 import javax.inject.Provider
+import javax.inject.Singleton
 
 /**
  * App is responsible for providing the viewmodel factory that all viemodels need
@@ -16,6 +17,7 @@ import javax.inject.Provider
 interface ViewModelBuilderModule {
 
     @Binds
+    @Singleton
     fun bindViewModelFactory(
         factory: DemoAppViewModelFactory
     ): ViewModelProvider.Factory
