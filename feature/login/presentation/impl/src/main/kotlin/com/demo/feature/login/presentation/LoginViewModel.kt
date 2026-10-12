@@ -40,7 +40,7 @@ internal sealed interface LoginEvent {
     class NavigateToHome : LoginEvent
 }
 
-class LoginViewModel @Inject constructor(private val repo: AuthRepo): ViewModel() {
+internal class LoginViewModel @Inject constructor(private val repo: AuthRepo): ViewModel() {
 
     internal val state: State<LoginScreeState>
         field = mutableStateOf(LoginScreeState())
