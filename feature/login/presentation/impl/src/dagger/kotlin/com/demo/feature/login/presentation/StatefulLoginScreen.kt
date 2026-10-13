@@ -1,6 +1,7 @@
 package com.demo.feature.login.presentation
 
 import android.util.Log
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
@@ -25,10 +26,8 @@ fun LoginScreen(
     }
 
     LoginScreen(
-        modifier = modifier,
-        username = vm.state.value.userName,
+        modifier = modifier.imePadding(),
         isUsernameWrong = vm.state.value.isUsernameWrong,
-        password = vm.state.value.password,
         isPasswordWrong = vm.state.value.isPasswordWrong,
         handleIntent = { intent ->
             vm.handleIntent(intent)

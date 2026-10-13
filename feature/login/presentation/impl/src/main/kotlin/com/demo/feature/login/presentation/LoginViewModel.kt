@@ -1,5 +1,6 @@
 package com.demo.feature.login.presentation
 
+import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -17,20 +18,16 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 internal data class LoginScreeState(
-    val userName: String = "",
     val isUsernameWrong: Boolean = false,
-    val password: String = "",
     val isPasswordWrong: Boolean = false,
 )
 
 internal sealed interface LoginIntent {
-    object Login: LoginIntent
+    data class Login(val username: String, val password: String): LoginIntent
 
-    @JvmInline
-    value class UpdateUserNameInput(val userName: String): LoginIntent
+    object UpdateUserNameInput: LoginIntent
 
-    @JvmInline
-    value class UpdatePasswordInput(val password: String): LoginIntent
+    object UpdatePasswordInput: LoginIntent
 }
 
 internal sealed interface LoginEvent {
@@ -47,21 +44,23 @@ internal class LoginViewModel @Inject constructor(private val repo: AuthRepo): V
 
     internal fun handleIntent(intent: LoginIntent) {
         when (intent) {
-            LoginIntent.Login -> login()
-            is LoginIntent.UpdatePasswordInput ->
-                state.value = state.value.copy(
-                    password = intent.password,
-                    isPasswordWrong = false
-                )
-            is LoginIntent.UpdateUserNameInput ->
-                state.value = state.value.copy(
-                    userName = intent.userName,
-                    isUsernameWrong = false
-                )
+            is LoginIntent.Login -> login(username = intent.username, password = intent.password)
+            LoginIntent.UpdatePasswordInput ->
+                if (state.value.isPasswordWrong) {
+                    state.value = state.value.copy(
+                        isPasswordWrong = false
+                    )
+                }
+            LoginIntent.UpdateUserNameInput ->
+                if (state.value.isUsernameWrong) {
+                    state.value = state.value.copy(
+                        isUsernameWrong = false
+                    )
+                }
         }
     }
 
-    private fun login() {
+    private fun login(username: String, password: String) {
         viewModelScope.launch {
             when (repo.createRequestToken()) {
                 is DomainBadRequest<Unit>,
@@ -70,7 +69,10 @@ internal class LoginViewModel @Inject constructor(private val repo: AuthRepo): V
                 is DomainUnauthorized<Unit>,
                 is DomainUnhandledHttpCode<Unit> ->
                     state.value = state.value.copy(isPasswordWrong = true, isUsernameWrong = true)
-                is DomainSuccess<Unit> -> eventChannel.send(LoginEvent.NavigateToHome())
+                is DomainSuccess<Unit> -> {
+                    Log.d("User Auth", "U $username P $password")
+                    eventChannel.send(LoginEvent.NavigateToHome())
+                }
             }
         }
     }
