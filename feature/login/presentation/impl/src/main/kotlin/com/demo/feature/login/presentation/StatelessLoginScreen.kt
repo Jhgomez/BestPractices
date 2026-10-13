@@ -116,7 +116,10 @@ internal fun LoginScreen(
                     )
                 }
             },
-            textObfuscationMode = TextObfuscationMode.RevealLastTyped,
+            textObfuscationMode = if (isPasswordVisible)
+                TextObfuscationMode.Visible
+            else
+                TextObfuscationMode.RevealLastTyped,
             textObfuscationCharacter = '#',
             keyboardOptions = KeyboardOptions(
                 capitalization = KeyboardCapitalization.Words,
