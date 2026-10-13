@@ -10,6 +10,10 @@ interface AppNavKey {
     val shouldShowTopBar: Boolean
         get() = true
 
+    // NavRail, NavigationBar
+    val shouldShowAppNavigationUi: Boolean
+        get() = true
+
     val topBarTitle: @Composable (() -> Unit)
         get() = {}
 
