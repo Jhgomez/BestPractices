@@ -19,7 +19,6 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldLabelPosition
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.mutableStateOf
@@ -45,9 +44,10 @@ import com.demo.feature.login.presentation.impl.R
 internal fun LoginScreen(
     modifier: Modifier,
     username: String,
+    isUsernameWrong: Boolean,
     password: String,
-    handleIntent: (LoginIntent) -> Unit,
-    didLoginFail: Boolean
+    isPasswordWrong: Boolean,
+    handleIntent: (LoginIntent) -> Unit
 ) {
     val focusManager = LocalFocusManager.current
 
@@ -62,7 +62,7 @@ internal fun LoginScreen(
         OutlinedTextField(
             value = username,
             onValueChange = { handleIntent(LoginIntent.UpdateUserNameInput(it)) },
-            isError = didLoginFail,
+            isError = isUsernameWrong,
             trailingIcon = {
                 val showIcon = remember(username.isNotEmpty()) { username.isNotEmpty() }
 
@@ -95,7 +95,7 @@ internal fun LoginScreen(
         OutlinedSecureTextField(
             state = passwordState,
             modifier = Modifier,
-            isError = didLoginFail,
+            isError = isPasswordWrong,
             labelPosition = TextFieldLabelPosition.Attached(),
             label = { Text("My Label")},
             placeholder = { Text("My Placeholder") },
@@ -160,8 +160,9 @@ private fun LoginScreenPreview() {
     LoginScreen(
         modifier = Modifier.fillMaxSize(),
         handleIntent = {},
-        didLoginFail = false,
         username = "",
-        password = ""
+        isUsernameWrong = false,
+        password = "",
+        isPasswordWrong = false
     )
 }
