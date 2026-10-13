@@ -16,8 +16,11 @@ import com.demo.core.domain.api.model.DomainSuccess
 import com.demo.feature.login.data.api.AuthService
 import com.demo.feature.login.data.model.RequestTokenResponseDto
 import com.demo.feature.login.data.repository.mapper.toDataStoreModel
+import com.demo.feature.login.data.repository.mapper.toDomainModel
 import com.demo.feature.login.data.repository.mapper.toDomainResult
 import com.demo.feature.login.domain.AuthRepo
+import com.demo.feature.login.domain.model.RequestToken
+import kotlinx.coroutines.flow.last
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -27,14 +30,14 @@ internal class AuthRepoImpl @Inject constructor(
     private val dataStore: DataStore<Auth>
 ): AuthRepo {
 
-    override suspend fun createRequestToken(): DomainResult<Unit> =
+    override suspend fun createRequestToken(): DomainResult<RequestToken> =
         authService.createRequestToken().toDomainResult {
             dataStore.updateData { store ->
                 store.copy {
-                    requestToken = toDataStoreModel()
                     Log.d("request token", requestToken.toString())
+                    requestToken = toDataStoreModel()
                 }
-            }
+            }.requestToken.toDomainModel()
         }
 
     override suspend fun createGuestSession(): DomainResult<Unit> {
