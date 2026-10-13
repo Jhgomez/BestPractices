@@ -1,5 +1,6 @@
 package com.demo.feature.login.presentation
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
@@ -11,15 +12,16 @@ import com.demo.feature.login.presentation.LoginEvent.*
 
 @Composable
 fun LoginScreen(
-    modifier: Modifier = Modifier,
-    onNavigateToHome: () -> Unit
+    modifier: Modifier = Modifier
 ) {
     val vm = viewModel<LoginViewModel>(factory = AppViewModelFactory.current)
 
     LaunchedEffect(null) {
         vm.events.collect { event ->
             when (event) {
-                is NavigateToHome -> onNavigateToHome()
+                is NavigateToHome -> {
+                    Log.d("User Auth", "Navigate to home triggered")
+                }
             }
         }
     }
