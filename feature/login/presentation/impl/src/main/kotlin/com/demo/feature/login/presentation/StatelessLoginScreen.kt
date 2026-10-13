@@ -8,7 +8,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.input.InputTransformation
 import androidx.compose.foundation.text.input.TextObfuscationMode
+import androidx.compose.foundation.text.input.clearText
 import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
@@ -19,11 +21,14 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldLabelPosition
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
@@ -43,9 +48,7 @@ import com.demo.feature.login.presentation.impl.R
 @Composable
 internal fun LoginScreen(
     modifier: Modifier,
-    username: String,
     isUsernameWrong: Boolean,
-    password: String,
     isPasswordWrong: Boolean,
     handleIntent: (LoginIntent) -> Unit
 ) {
@@ -56,19 +59,26 @@ internal fun LoginScreen(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        val usernameState = rememberTextFieldState()
         val passwordState = rememberTextFieldState()
         var isPasswordVisible by rememberSaveable(null) { mutableStateOf(false) }
-        
+
+//        LaunchedEffect(passwordState) {
+//            snapshotFlow { passwordState.text }
+//                .collect { currentPassword ->
+//                    handleIntent(LoginIntent.UpdatePasswordInput(currentPassword.toString()))
+//                }
+//        }
+
         OutlinedTextField(
-            value = username,
-            onValueChange = { handleIntent(LoginIntent.UpdateUserNameInput(it)) },
+            state = usernameState,
             isError = isUsernameWrong,
             trailingIcon = {
-                val showIcon = remember(username.isNotEmpty()) { username.isNotEmpty() }
+                val showIcon by remember { derivedStateOf { usernameState.text.isNotEmpty() } }
 
                 if (showIcon) {
                     IconButton(
-                        onClick = { handleIntent(LoginIntent.UpdateUserNameInput("")) }
+                        onClick = { usernameState.clearText() }
                     ) {
                         Icon(
                             imageVector = ImageVector.vectorResource(id = R.drawable.close),
@@ -77,17 +87,18 @@ internal fun LoginScreen(
                     }
                 }
             },
+            inputTransformation = InputTransformation {
+                handleIntent(LoginIntent.UpdateUserNameInput)
+            },
             shape = MaterialTheme.shapes.large,
             label = { Text("Username")},
             placeholder = { Text("Username") },
             keyboardOptions = KeyboardOptions(
                 imeAction = ImeAction.Next
             ),
-            keyboardActions = KeyboardActions(
-                onDone = {
-                    focusManager.moveFocus(FocusDirection.Next)
-                }
-            )
+            onKeyboardAction = {
+                focusManager.moveFocus(FocusDirection.Next)
+            }
         )
         
         Spacer(modifier = Modifier.height(16.dp))
@@ -116,6 +127,9 @@ internal fun LoginScreen(
                     )
                 }
             },
+            inputTransformation = InputTransformation {
+                handleIntent(LoginIntent.UpdatePasswordInput)
+            },
             textObfuscationMode = if (isPasswordVisible)
                 TextObfuscationMode.Visible
             else
@@ -136,7 +150,12 @@ internal fun LoginScreen(
                 )
             ),
             onKeyboardAction = {
-                handleIntent(LoginIntent.Login)
+                handleIntent(
+                    LoginIntent.Login(
+                        username = usernameState.text.toString(),
+                        password = passwordState.text.toString()
+                    )
+                )
             },
             shape = MaterialTheme.shapes.large,
             contentPadding = PaddingValues(horizontal = 16.dp)
@@ -146,7 +165,12 @@ internal fun LoginScreen(
 
         Button(
             onClick = {
-                handleIntent(LoginIntent.Login)
+                handleIntent(
+                    LoginIntent.Login(
+                        username = usernameState.text.toString(),
+                        password = passwordState.text.toString()
+                    )
+                )
             }
         ) {
             Text("Login")
@@ -160,9 +184,7 @@ private fun LoginScreenPreview() {
     LoginScreen(
         modifier = Modifier.fillMaxSize(),
         handleIntent = {},
-        username = "",
         isUsernameWrong = false,
-        password = "",
         isPasswordWrong = false
     )
 }
