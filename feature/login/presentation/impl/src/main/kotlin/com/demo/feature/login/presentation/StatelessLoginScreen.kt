@@ -1,13 +1,9 @@
 package com.demo.feature.login.presentation
 
 import android.util.Log
-import androidx.compose.animation.core.Ease
-import androidx.compose.animation.core.EaseInOutCubic
 import androidx.compose.animation.core.EaseOutCirc
-import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateIntAsState
-import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
@@ -20,6 +16,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.ime
+import androidx.compose.foundation.layout.imeAnimationSource
+import androidx.compose.foundation.layout.imeAnimationTarget
 import androidx.compose.foundation.layout.isImeVisible
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.input.InputTransformation
@@ -35,7 +33,6 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldLabelPosition
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
@@ -113,22 +110,11 @@ internal fun LoginScreen(
 //                }
 //        }
 
-            with(LocalDensity.current) {
-                val imeInsets = WindowInsets.ime
-//            LaunchedEffect(imeInsets.getBottom(this)) {
-                Log.d("IME top changed OS", imeInsets.getBottom(this@with).toDp().value.toString())
-//            }
-            }
+            val imeHeightDp = WindowInsets.ime.getBottom(LocalDensity.current) /
+                    LocalDensity.current.density
 
-            SideEffect {
-                Log.d("IME top changed", "recomposition")
-            }
-
-            val imeInsets = WindowInsets.ime
-            val density = LocalDensity.current
-
-            val usernameAnimation by animateIntAsState(
-                targetValue = imeInsets.getBottom(density),
+            val usernameAnimation by animateDpAsState(
+                targetValue = imeHeightDp.dp,
                 animationSpec = tween(
                     durationMillis = 450,
                     easing = EaseOutCirc
@@ -142,9 +128,7 @@ internal fun LoginScreen(
 
             OutlinedTextField(
                 modifier = Modifier.graphicsLayer {
-                    with(density) {
-                        translationY -= usernameAnimation.toDp().value
-                    }
+                    translationY -= usernameAnimation.value
                 },
                 state = usernameState,
                 isError = isUsernameWrong,
@@ -180,9 +164,7 @@ internal fun LoginScreen(
 
             OutlinedSecureTextField(
                 modifier = Modifier.graphicsLayer {
-                    with(density) {
-                        translationY -= usernameAnimation.toDp().value
-                    }
+                    translationY -= usernameAnimation.value
                 },
                 state = passwordState,
                 isError = isPasswordWrong,
@@ -244,10 +226,7 @@ internal fun LoginScreen(
 
             Button(
                 modifier = Modifier.graphicsLayer {
-                    with(density) {
-                        translationY -= usernameAnimation.toDp().value
-                        Log.d("IME top changed", imeInsets.getBottom(density).toDp().value.toString())
-                    }
+                    translationY -= usernameAnimation.value
                 },
                 onClick = {
                     handleIntent(
