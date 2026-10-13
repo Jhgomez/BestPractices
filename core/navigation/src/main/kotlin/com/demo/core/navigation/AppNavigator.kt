@@ -2,6 +2,21 @@ package com.demo.core.navigation
 
 class AppNavigator(private val state: ExitThroughHomeNavState) {
 
+    fun navigate(navKey: AppNavKey, popupTo: AppNavKey, inclusive: Boolean) {
+//        val currentTopLevelNestedNav = state.nestedNavStacks.find { (topLevelKey, _) ->
+//            topLevelKey == state.currentNestedNav.topLevelKey
+//        } ?: throw IllegalStateException("Nav state configured incorrectly")
+//
+//        val topLevelStack = state.nestedNavStacks
+//            .find { (topLevelKey, _) -> topLevelKey == navKey }
+//
+//        val isTopLevel = topLevelStack != null
+//
+//        if (isTopLevel) {
+//            topLevelStack.nestedStack.clear()
+//        }
+    }
+
     fun navigate(navKey: AppNavKey) {
         val isTopLevel = state.nestedNavStacks
             .find { (topLevelKey, _) -> topLevelKey == navKey } != null
@@ -20,27 +35,27 @@ class AppNavigator(private val state: ExitThroughHomeNavState) {
             return
         }
 
-        val currentTopLevelNestedNav = state.nestedNavStacks.find { (topLevelKey, _) ->
-            topLevelKey == state.selectedTopLevelKey
-        } ?: throw IllegalStateException("Nav state configured incorrectly")
+//        val currentTopLevelNestedNav = state.nestedNavStacks.find { (topLevelKey, _) ->
+//            topLevelKey == state.currentNestedNav
+//        } ?: throw IllegalStateException("Nav state configured incorrectly")
 
-        currentTopLevelNestedNav.nestedStack.add(navKey)
+        state.currentNestedNav.nestedStack.add(navKey)
     }
 
     fun onBack() {
-        val currentTopLevelNestedNav = state.nestedNavStacks.find { (topLevelKey, _) ->
-            topLevelKey == state.selectedTopLevelKey
-        } ?: throw IllegalStateException("Nav state configured incorrectly")
+//        val currentTopLevelNestedNav = state.nestedNavStacks.find { (topLevelKey, _) ->
+//            topLevelKey == state.currentNestedNav
+//        } ?: throw IllegalStateException("Nav state configured incorrectly")
 
         // means we need to remove a top level nested nav stack but we should not remove home key
-        if (currentTopLevelNestedNav.nestedStack.size == 1 && state.currentTopLevelKeys.size > 1) {
+        if ( state.currentNestedNav.nestedStack.size == 1 && state.currentTopLevelKeys.size > 1) {
             state.currentTopLevelKeys.removeAt(state.currentTopLevelKeys.size)
 
             return
         }
 
-        currentTopLevelNestedNav.nestedStack.removeAt(
-            currentTopLevelNestedNav.nestedStack.size
+        state.currentNestedNav.nestedStack.removeAt(
+            state.currentNestedNav.nestedStack.size
         )
     }
 }

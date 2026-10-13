@@ -67,7 +67,10 @@ class ExitThroughHomeNavState @OptIn(ExperimentalMaterial3Api::class) constructo
     val nestedNavStacks: Array<NestedNav>,
     val currentTopLevelKeys: SnapshotStateList<AppNavKey>
 ) {
-    val selectedTopLevelKey = derivedStateOf { currentTopLevelKeys.last() }
+    val currentNestedNav by derivedStateOf {
+        nestedNavStacks.find { nestedNav -> currentTopLevelKeys.last() == nestedNav.topLevelKey }
+            ?: throw IllegalStateException("Nav state configured incorrectly")
+    }
 
     @Composable
     fun decorateAndRememberNavEntries(
