@@ -5,6 +5,8 @@ import com.demo.MainActivity
 import com.demo.core.data.client.impl.di.ClientModuleImpl
 import com.demo.core.datastore.di.PublicDataStoreModule
 import com.demo.feature.home.data.di.PublicTvShowDataModule
+import com.demo.feature.login.data.di.PublicLoginDataModule
+import com.demo.feature.login.presentation.di.PublicLoginPresentationModule
 import com.demo.feature.tvshow.com.demo.feature.home.presentation.di.PublicHomePresentationModule
 import dagger.BindsInstance
 import dagger.Component
@@ -16,7 +18,9 @@ import javax.inject.Singleton
     CoroutineDispatcherModule::class,
     PublicDataStoreModule::class,
     PublicTvShowDataModule::class,
-    PublicHomePresentationModule::class
+    PublicHomePresentationModule::class,
+    PublicLoginDataModule::class,
+    PublicLoginPresentationModule::class,
 ])
 @Singleton
 interface ApplicationComponent {
