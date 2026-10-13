@@ -12,6 +12,7 @@ import com.demo.core.domain.api.model.DomainSuccess
 import com.demo.core.domain.api.model.DomainUnauthorized
 import com.demo.core.domain.api.model.DomainUnhandledHttpCode
 import com.demo.feature.login.domain.AuthRepo
+import com.demo.feature.login.domain.model.RequestToken
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
@@ -31,6 +32,9 @@ internal sealed interface LoginIntent {
 }
 
 internal sealed interface LoginEvent {
+    @JvmInline
+    value class RedirectToAuthorizeToken(val token: String) : LoginEvent
+
     class NavigateToHome : LoginEvent
 }
 
@@ -67,16 +71,19 @@ internal class LoginViewModel @Inject constructor(private val repo: AuthRepo): V
         }
 
         viewModelScope.launch {
-            when (repo.createRequestToken()) {
-                is DomainBadRequest<Unit>,
-                is DomainInternalServerError<Unit>,
-                is DomainNetworkError<Unit>,
-                is DomainUnauthorized<Unit>,
-                is DomainUnhandledHttpCode<Unit> ->
+            when (val token = repo.createRequestToken()) {
+                is DomainBadRequest<RequestToken>,
+                is DomainInternalServerError<RequestToken>,
+                is DomainNetworkError<RequestToken>,
+                is DomainUnauthorized<RequestToken>,
+                is DomainUnhandledHttpCode<RequestToken> ->
                     state.value = state.value.copy(isPasswordWrong = true, isUsernameWrong = true)
-                is DomainSuccess<Unit> -> {
+                is DomainSuccess<RequestToken> -> {
                     Log.d("User Auth", "U $username P $password")
-                    eventChannel.send(LoginEvent.NavigateToHome())
+
+                    eventChannel.send(
+                        LoginEvent.RedirectToAuthorizeToken(token.result.token)
+                    )
                 }
             }
         }
