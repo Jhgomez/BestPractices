@@ -16,6 +16,12 @@ import com.demo.core.domain.api.model.DomainSuccess
 import com.demo.core.domain.api.model.DomainUnauthorized
 import com.demo.core.domain.api.model.DomainUnhandledHttpCode
 import com.demo.feature.login.data.model.RequestTokenResponseDto
+import com.demo.feature.login.domain.model.RequestToken
+
+fun Token.toDomainModel(): RequestToken = RequestToken(
+    token = requestToken,
+    expiresAt = expiresAt
+)
 
 fun RequestTokenResponseDto.toDataStoreModel(): Token = Token.newBuilder().let { builder ->
     builder.requestToken = request_token
