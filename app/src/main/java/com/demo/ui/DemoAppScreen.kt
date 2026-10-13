@@ -1,6 +1,5 @@
 package com.demo.ui
 
-
 import androidx.compose.animation.ContentTransform
 import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.animation.SizeTransform
@@ -12,7 +11,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffold
+import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffoldValue
+import androidx.compose.material3.adaptive.navigationsuite.rememberNavigationSuiteScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
@@ -21,21 +23,36 @@ import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
 import androidx.navigation3.ui.defaultPredictivePopTransitionSpec
 import com.demo.feature.home.presentation.navigation.addHomeTopLevel
-import com.demo.feature.home.presentation.api.navigation.HomeTopLevel
-import com.demo.ui.navigation.AppNavigator
+import com.demo.feature.login.presentation.api.navigation.LoginScreenKey
+import com.demo.feature.login.presentation.navigation.addLogin
+import com.demo.core.navigation.AppNavigator
 import com.demo.ui.navigation.TopLevelDestination
-import com.demo.ui.navigation.rememberAppNavState
+import com.demo.core.navigation.rememberAppNavState
 
 @Composable
 fun DemoAppScreen(
     modifier: Modifier
 ) {
     val navState = rememberAppNavState(
-        homeKey = HomeTopLevel,
-        topLevelKeys = arrayOf(HomeTopLevel)
+        homeKey = LoginScreenKey,
+        topLevelKeys = arrayOf(LoginScreenKey)
     )
 
     val navigator = AppNavigator(navState)
+
+    val navigationSuiteScaffoldState = rememberNavigationSuiteScaffoldState()
+
+    LaunchedEffect(
+        navState.currentNestedNav.nestedStack.last().shouldShowAppNavigationUi
+    ) {
+        navigationSuiteScaffoldState.snapTo(
+            if (navState.currentNestedNav.nestedStack.last().shouldShowAppNavigationUi)
+                NavigationSuiteScaffoldValue.Visible
+            else
+                NavigationSuiteScaffoldValue.Hidden
+        )
+    }
+
 
     // This composable saves us the need to configure a screen strategy for showing navigation UI
     // but only the nav bottom bar and nav rail, a top bar is not included, and since I want a top
@@ -44,7 +61,7 @@ fun DemoAppScreen(
         navigationSuiteItems = {
             TopLevelDestination.entries.forEach { destination ->
                 item(
-                    selected = destination.navKey === navState.selectedTopLevelKey.value,
+                    selected = destination.navKey === navState.currentNestedNav.topLevelKey,
                     onClick = {
 
                     },
@@ -68,12 +85,14 @@ fun DemoAppScreen(
                 )
             }
         },
+        state = navigationSuiteScaffoldState,
         modifier = modifier
     ) {
         SharedTransitionLayout(
             modifier = Modifier.fillMaxSize()
         ) {
             val provider = entryProvider {
+                addLogin()
                 addHomeTopLevel()
             }
 
