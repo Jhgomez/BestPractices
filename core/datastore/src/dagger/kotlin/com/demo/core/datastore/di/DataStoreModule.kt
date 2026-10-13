@@ -18,19 +18,19 @@ import kotlinx.coroutines.Dispatchers
 import javax.inject.Singleton
 
 @Module
-internal interface DataStoreModuleImpl: DataStoreModule {
+internal object DataStoreModuleImpl: DataStoreModule {
 
     @Provides
-    override fun providesAuhSerializer(serializer: AuthSerializer): Serializer<Auth>
+    override fun providesAuhSerializer(): Serializer<Auth> = AuthSerializer()
 
-    @Binds
+    @Provides
     @Singleton
     override fun providesAuthDataStore(
-        serializer: Serializer<Auth>,
+        serial: Serializer<Auth>,
         @AppContext context: Context
     ): DataStore<Auth> =
         DataStoreFactory.create(
-            serializer = serializer
+            serializer = serial
         ) {
             context.dataStoreFile("auth_store.pb")
         }

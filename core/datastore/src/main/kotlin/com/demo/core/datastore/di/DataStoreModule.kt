@@ -8,6 +8,6 @@ import com.demo.core.datastore.proto.Auth
 import com.demo.di.AppContext
 
 internal interface DataStoreModule {
-    fun providesAuhSerializer(serializer: AuthSerializer): Serializer<Auth>
-    fun providesAuthDataStore(serializer: Serializer<Auth>, context: Context): DataStore<Auth>
+    fun providesAuhSerializer(): Serializer<Auth>
+    fun providesAuthDataStore(serial: Serializer<Auth>, context: Context): DataStore<Auth>
 }
