@@ -1,14 +1,18 @@
 package com.demo.feature.login.presentation
 
 import android.util.Log
+import androidx.compose.animation.core.Ease
+import androidx.compose.animation.core.EaseInOutCubic
+import androidx.compose.animation.core.EaseOutCirc
 import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateIntAsState
 import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
@@ -16,6 +20,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.ime
+import androidx.compose.foundation.layout.isImeVisible
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.input.InputTransformation
 import androidx.compose.foundation.text.input.TextObfuscationMode
@@ -57,6 +62,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.demo.feature.login.presentation.impl.R
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun LoginScreen(
     modifier: Modifier,
@@ -64,15 +70,24 @@ internal fun LoginScreen(
     isPasswordWrong: Boolean,
     handleIntent: (LoginIntent) -> Unit
 ) {
-    val focusManager = LocalFocusManager.current
 
     Box(modifier = modifier) {
-
         Column(
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Spacer(modifier = Modifier.height(160.dp))
+            val iconSpacingAnim by animateDpAsState(
+                targetValue = if (WindowInsets.isImeVisible)
+                    120.dp
+                else
+                    160.dp,
+                animationSpec = tween(
+                    durationMillis = 450,
+                    easing = EaseOutCirc
+                )
+            )
+
+            Spacer(modifier = Modifier.height(iconSpacingAnim))
 
             Image(
                 colorFilter = ColorFilter.tint(color = Color.Black),
@@ -85,6 +100,8 @@ internal fun LoginScreen(
             modifier = modifier,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            val focusManager = LocalFocusManager.current
+
             val usernameState = rememberTextFieldState()
             val passwordState = rememberTextFieldState()
             var isPasswordVisible by rememberSaveable(null) { mutableStateOf(false) }
@@ -99,39 +116,22 @@ internal fun LoginScreen(
             with(LocalDensity.current) {
                 val imeInsets = WindowInsets.ime
 //            LaunchedEffect(imeInsets.getBottom(this)) {
-                Log.d("IME top changed", imeInsets.getBottom(this@with).toDp().value.toString())
+                Log.d("IME top changed OS", imeInsets.getBottom(this@with).toDp().value.toString())
 //            }
             }
 
             SideEffect {
                 Log.d("IME top changed", "recomposition")
             }
+
             val imeInsets = WindowInsets.ime
             val density = LocalDensity.current
 
             val usernameAnimation by animateIntAsState(
                 targetValue = imeInsets.getBottom(density),
-                animationSpec = spring(
-                    dampingRatio = Spring.DampingRatioLowBouncy,
-                    stiffness = 40f
-                ),
-                label = "ime_animation"
-            )
-
-            val passwordAnimation by animateIntAsState(
-                targetValue = imeInsets.getBottom(density),
-                animationSpec = spring(
-                    dampingRatio = Spring.DampingRatioLowBouncy,
-                    stiffness = 100f
-                ),
-                label = "ime_animation"
-            )
-
-            val bottonAnimation by animateIntAsState(
-                targetValue = imeInsets.getBottom(density),
-                animationSpec = spring(
-                    dampingRatio = Spring.DampingRatioLowBouncy,
-                    stiffness = 170f
+                animationSpec = tween(
+                    durationMillis = 450,
+                    easing = EaseOutCirc
                 ),
                 label = "ime_animation"
             )
@@ -142,15 +142,9 @@ internal fun LoginScreen(
 
             OutlinedTextField(
                 modifier = Modifier.graphicsLayer {
-//                with(density) {
                     with(density) {
                         translationY -= usernameAnimation.toDp().value
-//            LaunchedEffect(imeInsets.getBottom(this)) {
-                        Log.d("IME top changed", imeInsets.getBottom(density).toDp().value.toString())
-
                     }
-//            }
-//                }
                 },
                 state = usernameState,
                 isError = isUsernameWrong,
@@ -187,9 +181,7 @@ internal fun LoginScreen(
             OutlinedSecureTextField(
                 modifier = Modifier.graphicsLayer {
                     with(density) {
-                        translationY -= passwordAnimation.toDp().value
-                        Log.d("IME top changed", imeInsets.getBottom(density).toDp().value.toString())
-
+                        translationY -= usernameAnimation.toDp().value
                     }
                 },
                 state = passwordState,
@@ -252,15 +244,10 @@ internal fun LoginScreen(
 
             Button(
                 modifier = Modifier.graphicsLayer {
-//                with(density) {
                     with(density) {
-                        translationY -= bottonAnimation.toDp().value
-//            LaunchedEffect(imeInsets.getBottom(this)) {
+                        translationY -= usernameAnimation.toDp().value
                         Log.d("IME top changed", imeInsets.getBottom(density).toDp().value.toString())
-
                     }
-//            }
-//                }
                 },
                 onClick = {
                     handleIntent(
