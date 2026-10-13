@@ -26,7 +26,7 @@ fun LoginScreen(
     }
 
     LoginScreen(
-        modifier = modifier.imePadding(),
+        modifier = modifier,
         isUsernameWrong = vm.state.value.isUsernameWrong,
         isPasswordWrong = vm.state.value.isPasswordWrong,
         handleIntent = { intent ->

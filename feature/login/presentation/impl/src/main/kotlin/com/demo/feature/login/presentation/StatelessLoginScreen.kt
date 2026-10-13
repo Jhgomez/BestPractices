@@ -1,12 +1,21 @@
 package com.demo.feature.login.presentation
 
+import android.util.Log
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.animateIntAsState
+import androidx.compose.animation.core.spring
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.layout.ime
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.input.InputTransformation
 import androidx.compose.foundation.text.input.TextObfuscationMode
@@ -21,18 +30,21 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldLabelPosition
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.input.ImeAction
@@ -54,14 +66,28 @@ internal fun LoginScreen(
 ) {
     val focusManager = LocalFocusManager.current
 
-    Column(
-        modifier = modifier,
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        val usernameState = rememberTextFieldState()
-        val passwordState = rememberTextFieldState()
-        var isPasswordVisible by rememberSaveable(null) { mutableStateOf(false) }
+    Box(modifier = modifier) {
+
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Spacer(modifier = Modifier.height(160.dp))
+
+            Image(
+                colorFilter = ColorFilter.tint(color = Color.Black),
+                imageVector = ImageVector.vectorResource(id = R.drawable.enable_visibility),
+                contentDescription = null
+            )
+        }
+
+        Column(
+            modifier = modifier,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            val usernameState = rememberTextFieldState()
+            val passwordState = rememberTextFieldState()
+            var isPasswordVisible by rememberSaveable(null) { mutableStateOf(false) }
 
 //        LaunchedEffect(passwordState) {
 //            snapshotFlow { passwordState.text }
@@ -70,110 +96,185 @@ internal fun LoginScreen(
 //                }
 //        }
 
-        OutlinedTextField(
-            state = usernameState,
-            isError = isUsernameWrong,
-            trailingIcon = {
-                val showIcon by remember { derivedStateOf { usernameState.text.isNotEmpty() } }
+            with(LocalDensity.current) {
+                val imeInsets = WindowInsets.ime
+//            LaunchedEffect(imeInsets.getBottom(this)) {
+                Log.d("IME top changed", imeInsets.getBottom(this@with).toDp().value.toString())
+//            }
+            }
 
-                if (showIcon) {
+            SideEffect {
+                Log.d("IME top changed", "recomposition")
+            }
+            val imeInsets = WindowInsets.ime
+            val density = LocalDensity.current
+
+            val usernameAnimation by animateIntAsState(
+                targetValue = imeInsets.getBottom(density),
+                animationSpec = spring(
+                    dampingRatio = Spring.DampingRatioLowBouncy,
+                    stiffness = 40f
+                ),
+                label = "ime_animation"
+            )
+
+            val passwordAnimation by animateIntAsState(
+                targetValue = imeInsets.getBottom(density),
+                animationSpec = spring(
+                    dampingRatio = Spring.DampingRatioLowBouncy,
+                    stiffness = 100f
+                ),
+                label = "ime_animation"
+            )
+
+            val bottonAnimation by animateIntAsState(
+                targetValue = imeInsets.getBottom(density),
+                animationSpec = spring(
+                    dampingRatio = Spring.DampingRatioLowBouncy,
+                    stiffness = 170f
+                ),
+                label = "ime_animation"
+            )
+
+            Spacer(modifier = Modifier.weight(1f))
+
+            Spacer(modifier = Modifier.height(32.dp))
+
+            OutlinedTextField(
+                modifier = Modifier.graphicsLayer {
+//                with(density) {
+                    with(density) {
+                        translationY -= usernameAnimation.toDp().value
+//            LaunchedEffect(imeInsets.getBottom(this)) {
+                        Log.d("IME top changed", imeInsets.getBottom(density).toDp().value.toString())
+
+                    }
+//            }
+//                }
+                },
+                state = usernameState,
+                isError = isUsernameWrong,
+                trailingIcon = {
+                    val showIcon by remember { derivedStateOf { usernameState.text.isNotEmpty() } }
+
+                    if (showIcon) {
+                        IconButton(
+                            onClick = { usernameState.clearText() }
+                        ) {
+                            Icon(
+                                imageVector = ImageVector.vectorResource(id = R.drawable.close),
+                                contentDescription = null
+                            )
+                        }
+                    }
+                },
+                inputTransformation = InputTransformation {
+                    handleIntent(LoginIntent.UpdateUserNameInput)
+                },
+                shape = MaterialTheme.shapes.large,
+                label = { Text("Username")},
+                placeholder = { Text("Username") },
+                keyboardOptions = KeyboardOptions(
+                    imeAction = ImeAction.Next
+                ),
+                onKeyboardAction = {
+                    focusManager.moveFocus(FocusDirection.Next)
+                }
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            OutlinedSecureTextField(
+                modifier = Modifier.graphicsLayer {
+                    with(density) {
+                        translationY -= passwordAnimation.toDp().value
+                        Log.d("IME top changed", imeInsets.getBottom(density).toDp().value.toString())
+
+                    }
+                },
+                state = passwordState,
+                isError = isPasswordWrong,
+                labelPosition = TextFieldLabelPosition.Attached(),
+                label = { Text("My Label")},
+                placeholder = { Text("My Placeholder") },
+                trailingIcon = {
                     IconButton(
-                        onClick = { usernameState.clearText() }
+                        onClick = {
+                            isPasswordVisible = !isPasswordVisible
+                        }
                     ) {
                         Icon(
-                            imageVector = ImageVector.vectorResource(id = R.drawable.close),
+                            imageVector = ImageVector.vectorResource(
+                                id = if (isPasswordVisible)
+                                    R.drawable.disable_visibility
+                                else
+                                    R.drawable.enable_visibility
+                            ),
                             contentDescription = null
                         )
                     }
-                }
-            },
-            inputTransformation = InputTransformation {
-                handleIntent(LoginIntent.UpdateUserNameInput)
-            },
-            shape = MaterialTheme.shapes.large,
-            label = { Text("Username")},
-            placeholder = { Text("Username") },
-            keyboardOptions = KeyboardOptions(
-                imeAction = ImeAction.Next
-            ),
-            onKeyboardAction = {
-                focusManager.moveFocus(FocusDirection.Next)
-            }
-        )
-        
-        Spacer(modifier = Modifier.height(16.dp))
-
-        OutlinedSecureTextField(
-            state = passwordState,
-            modifier = Modifier,
-            isError = isPasswordWrong,
-            labelPosition = TextFieldLabelPosition.Attached(),
-            label = { Text("My Label")},
-            placeholder = { Text("My Placeholder") },
-            trailingIcon = {
-                IconButton(
-                    onClick = {
-                        isPasswordVisible = !isPasswordVisible
-                    }
-                ) {
-                    Icon(
-                        imageVector = ImageVector.vectorResource(
-                            id = if (isPasswordVisible)
-                                R.drawable.disable_visibility
-                            else
-                                R.drawable.enable_visibility
-                        ),
-                        contentDescription = null
+                },
+                inputTransformation = InputTransformation {
+                    handleIntent(LoginIntent.UpdatePasswordInput)
+                },
+                textObfuscationMode = if (isPasswordVisible)
+                    TextObfuscationMode.Visible
+                else
+                    TextObfuscationMode.RevealLastTyped,
+                textObfuscationCharacter = '#',
+                keyboardOptions = KeyboardOptions(
+                    capitalization = KeyboardCapitalization.Words,
+                    autoCorrectEnabled = true,
+                    keyboardType = KeyboardType.Password,
+                    imeAction = ImeAction.Done,
+                    platformImeOptions = PlatformImeOptions(
+                        privateImeOptions = "Private options"
+                    ),
+                    showKeyboardOnFocus = true,
+                    hintLocales = LocaleList(
+                        Locale("en"),
+                        Locale("es")
                     )
-                }
-            },
-            inputTransformation = InputTransformation {
-                handleIntent(LoginIntent.UpdatePasswordInput)
-            },
-            textObfuscationMode = if (isPasswordVisible)
-                TextObfuscationMode.Visible
-            else
-                TextObfuscationMode.RevealLastTyped,
-            textObfuscationCharacter = '#',
-            keyboardOptions = KeyboardOptions(
-                capitalization = KeyboardCapitalization.Words,
-                autoCorrectEnabled = true,
-                keyboardType = KeyboardType.Password,
-                imeAction = ImeAction.Done,
-                platformImeOptions = PlatformImeOptions(
-                    privateImeOptions = "Private options"
                 ),
-                showKeyboardOnFocus = true,
-                hintLocales = LocaleList(
-                    Locale("en"),
-                    Locale("es")
-                )
-            ),
-            onKeyboardAction = {
-                handleIntent(
-                    LoginIntent.Login(
-                        username = usernameState.text.toString(),
-                        password = passwordState.text.toString()
+                onKeyboardAction = {
+                    handleIntent(
+                        LoginIntent.Login(
+                            username = usernameState.text.toString(),
+                            password = passwordState.text.toString()
+                        )
                     )
-                )
-            },
-            shape = MaterialTheme.shapes.large,
-            contentPadding = PaddingValues(horizontal = 16.dp)
-        )
+                },
+                shape = MaterialTheme.shapes.large,
+                contentPadding = PaddingValues(horizontal = 16.dp)
+            )
 
-        Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
-        Button(
-            onClick = {
-                handleIntent(
-                    LoginIntent.Login(
-                        username = usernameState.text.toString(),
-                        password = passwordState.text.toString()
+            Button(
+                modifier = Modifier.graphicsLayer {
+//                with(density) {
+                    with(density) {
+                        translationY -= bottonAnimation.toDp().value
+//            LaunchedEffect(imeInsets.getBottom(this)) {
+                        Log.d("IME top changed", imeInsets.getBottom(density).toDp().value.toString())
+
+                    }
+//            }
+//                }
+                },
+                onClick = {
+                    handleIntent(
+                        LoginIntent.Login(
+                            username = usernameState.text.toString(),
+                            password = passwordState.text.toString()
+                        )
                     )
-                )
+                }
+            ) {
+                Text("Login")
             }
-        ) {
-            Text("Login")
+
+            Spacer(modifier = Modifier.weight(1f))
         }
     }
 }
