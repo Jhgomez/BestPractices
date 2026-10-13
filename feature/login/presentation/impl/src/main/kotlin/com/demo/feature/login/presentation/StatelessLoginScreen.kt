@@ -60,11 +60,7 @@ internal fun LoginScreen(
             onValueChange = { handleIntent(LoginIntent.UpdateUserNameInput(it)) },
             isError = didLoginFail,
             trailingIcon = {
-                val showIcon by remember {
-                    derivedStateOf {
-                        username.isNotEmpty()
-                    }
-                }
+                val showIcon = remember(username.isNotEmpty()) { username.isNotEmpty() }
 
                 if (showIcon) {
                     IconButton(
