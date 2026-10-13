@@ -24,7 +24,7 @@ object TMDBInstantSerializer: KSerializer<Instant> {
         val instantString = decoder.decodeString()
             .replaceFirst(" ", "T")
             .replaceFirst(" ", "Z")
-            .substring(0..20)
+            .substring(0..19)
 
         Log.d("UTC to Inst", instantString)
 
