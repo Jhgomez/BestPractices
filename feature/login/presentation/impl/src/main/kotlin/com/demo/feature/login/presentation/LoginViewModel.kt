@@ -61,6 +61,11 @@ internal class LoginViewModel @Inject constructor(private val repo: AuthRepo): V
     }
 
     private fun login(username: String, password: String) {
+        if (username.isEmpty() || password.isEmpty()) {
+            state.value = state.value.copy(isPasswordWrong = true, isUsernameWrong = true)
+            return
+        }
+
         viewModelScope.launch {
             when (repo.createRequestToken()) {
                 is DomainBadRequest<Unit>,
