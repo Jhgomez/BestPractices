@@ -13,13 +13,13 @@ internal class AuthServiceImpl @Inject constructor(private val okHttpClient: OkH
 
     override suspend fun createRequestToken(): DataResult<RequestTokenResponseDto> =
         okHttpClient.get(
-            path = "authentication/token/new",
+            path = "3/authentication/token/new",
             serializer = RequestTokenResponseDto.serializer()
         )
 
     override suspend fun createSession(): DataResult<SessionResponseDto> =
         okHttpClient.get(
-            path = "authentication/guest_session/new",
+            path = "3/authentication/guest_session/new",
             serializer = SessionResponseDto.serializer()
         )
 }
