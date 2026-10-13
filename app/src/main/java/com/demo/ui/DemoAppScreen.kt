@@ -40,7 +40,12 @@ fun DemoAppScreen(
 
     val navigator = AppNavigator(navState)
 
-    val navigationSuiteScaffoldState = rememberNavigationSuiteScaffoldState()
+    val navigationSuiteScaffoldState = rememberNavigationSuiteScaffoldState(
+        initialValue = if (navState.currentNestedNav.nestedStack.last().shouldShowAppNavigationUi)
+            NavigationSuiteScaffoldValue.Visible
+        else
+            NavigationSuiteScaffoldValue.Hidden
+    )
 
     LaunchedEffect(
         navState.currentNestedNav.nestedStack.last().shouldShowAppNavigationUi
