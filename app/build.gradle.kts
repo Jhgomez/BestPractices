@@ -24,6 +24,7 @@ dependencies {
     implementation(projects.core.dataClientImpl)
     implementation(projects.core.navigation)
     implementation(projects.core.datastore)
+    implementation(projects.core.datastoreProto)
 
     implementation(projects.feature.home.data)
     implementation(projects.feature.home.domain)
@@ -47,6 +48,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.navigation3.ui)
     implementation(libs.androidx.material3.adaptive.navigation3)
+    implementation(libs.androidx.datastore)
 
     testImplementation(libs.junit)
     androidTestImplementation(platform(libs.androidx.compose.bom))
