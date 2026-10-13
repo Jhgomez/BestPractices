@@ -12,18 +12,15 @@ import com.demo.core.domain.api.model.DomainUnauthorized
 import com.demo.core.domain.api.model.DomainUnhandledHttpCode
 import com.demo.feature.login.domain.AuthRepo
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 internal data class LoginScreeState(
     val userName: String = "",
-    val wrongUserName: Boolean = false,
+    val isUsernameWrong: Boolean = false,
     val password: String = "",
-    val wrongPassword: Boolean = false,
+    val isPasswordWrong: Boolean = false,
 )
 
 internal sealed interface LoginIntent {
@@ -54,12 +51,12 @@ internal class LoginViewModel @Inject constructor(private val repo: AuthRepo): V
             is LoginIntent.UpdatePasswordInput ->
                 state.value = state.value.copy(
                     password = intent.password,
-                    wrongPassword = false
+                    isPasswordWrong = false
                 )
             is LoginIntent.UpdateUserNameInput ->
                 state.value = state.value.copy(
                     userName = intent.userName,
-                    wrongUserName = false
+                    isUsernameWrong = false
                 )
         }
     }
@@ -72,7 +69,7 @@ internal class LoginViewModel @Inject constructor(private val repo: AuthRepo): V
                 is DomainNetworkError<Unit>,
                 is DomainUnauthorized<Unit>,
                 is DomainUnhandledHttpCode<Unit> ->
-                    state.value = state.value.copy(wrongPassword = true, wrongUserName = true)
+                    state.value = state.value.copy(isPasswordWrong = true, isUsernameWrong = true)
                 is DomainSuccess<Unit> -> eventChannel.send(LoginEvent.NavigateToHome())
             }
         }

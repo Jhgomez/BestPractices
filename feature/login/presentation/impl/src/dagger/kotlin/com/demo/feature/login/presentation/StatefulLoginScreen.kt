@@ -27,8 +27,11 @@ fun LoginScreen(
     LoginScreen(
         modifier = modifier,
         username = vm.state.value.userName,
+        isUsernameWrong = vm.state.value.isUsernameWrong,
         password = vm.state.value.password,
-        handleIntent = { intent -> vm.handleIntent(intent) },
-        didLoginFail = vm.state.value.wrongPassword || vm.state.value.wrongUserName
+        isPasswordWrong = vm.state.value.isPasswordWrong,
+        handleIntent = { intent ->
+            vm.handleIntent(intent)
+        },
     )
 }
