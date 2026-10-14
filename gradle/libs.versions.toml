@@ -28,6 +28,7 @@ ksp = "2.3.12"
 nav3Core = "1.2.0"
 lifecycleViewmodelNav3 = "2.12.0-alpha04"
 material3AdaptiveNav3 = "1.4.0-alpha03"
+parcelize = "2.4.21"
 
 [libraries]
 androidbrowserhelper = { module = "com.google.androidbrowserhelper:androidbrowserhelper", version.ref = "androidbrowserhelper" }
@@ -88,6 +89,7 @@ ktx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 protobuf = { id = "com.google.protobuf", version.ref = "protobuf" }
+parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "parcelize" }
 
 # Convention Plugins
 bp-application = { id = "bp.application" }
