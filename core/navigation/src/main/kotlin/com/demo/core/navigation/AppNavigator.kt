@@ -55,7 +55,7 @@ class AppNavigator(private val state: ExitThroughHomeNavState) {
         }
 
         state.currentNestedNav.nestedStack.removeAt(
-            state.currentNestedNav.nestedStack.size
+            state.currentNestedNav.nestedStack.size - 1
         )
     }
 }
