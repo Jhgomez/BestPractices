@@ -110,4 +110,9 @@ internal class LoginViewModel @Inject constructor(private val repo: AuthRepo): V
         }
     }
 
+    fun onTokenAuthorization() {
+        viewModelScope.launch {
+            repo.createGuestSession()
+        }
+    }
 }
