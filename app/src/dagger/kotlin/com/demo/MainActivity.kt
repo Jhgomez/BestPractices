@@ -1,14 +1,17 @@
 package com.demo
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.result.ActivityResultCaller
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatCallback
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.view.ActionMode
+import androidx.browser.auth.AuthTabIntent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -25,18 +28,54 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.os.LocaleListCompat
 import androidx.lifecycle.ViewModelProvider
-import com.demo.core.navigation.viewmodel.AppViewModelFactory
+import com.demo.core.navigation.viewmodel.LocalAppViewModelFactory
 import com.demo.ui.DemoAppScreen
 import com.demo.ui.theme.DaggerRoomRetrofitPagingTestingTheme
 import javax.inject.Inject
 
-class MainActivity : ComponentActivity(), AppCompatCallback, ActivityResultCaller {
+class MainActivity : ComponentActivity(), AppCompatCallback {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private val vm: MainViewModel by viewModels { viewModelFactory }
 
     private lateinit var mDelegate: AppCompatDelegate
+
+    val mLauncher: ActivityResultLauncher<Intent> =
+        AuthTabIntent.registerActivityResultLauncher(
+            this,
+            { result ->
+                handleAuthResult(
+                    result = result,
+                    onSuccess = {
+
+                    },
+                    onFail = { message ->
+                        Log.d("authorization failed", message)
+                        // 2DO show Snackbar
+                    }
+                )
+            }
+        )
+
+    inline fun handleAuthResult(
+        result: AuthTabIntent.AuthResult,
+        onSuccess: () -> Unit,
+        onFail: (String) -> Unit
+    ) {
+        if (result.resultCode == AuthTabIntent.RESULT_OK) {
+            onSuccess()
+        } else {
+            onFail(
+                when (result.resultCode) {
+                    AuthTabIntent.RESULT_CANCELED -> "AuthTab canceled."
+                    AuthTabIntent.RESULT_VERIFICATION_FAILED -> "Verification failed.";
+                    AuthTabIntent.RESULT_VERIFICATION_TIMED_OUT -> "Verification timed out.";
+                    else -> "Unknown error."
+                }
+            )
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         mDelegate = AppCompatDelegate.create(this, this)
@@ -67,7 +106,7 @@ class MainActivity : ComponentActivity(), AppCompatCallback, ActivityResultCalle
 //
 //                }
 
-                CompositionLocalProvider(AppViewModelFactory provides viewModelFactory) {
+                CompositionLocalProvider(LocalAppViewModelFactory provides viewModelFactory) {
                     DemoAppScreen(modifier = Modifier.fillMaxSize())
                 }
             }
