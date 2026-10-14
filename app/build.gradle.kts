@@ -41,7 +41,6 @@ dependencies {
     "okhttpImplementation"(libs.okhttp)
 
     implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.activity.compose)
 
     implementation(libs.androidx.compose.material3.adaptive.navigation.suite)
 
