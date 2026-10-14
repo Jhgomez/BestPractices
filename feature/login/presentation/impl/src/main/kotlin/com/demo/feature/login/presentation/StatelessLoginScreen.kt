@@ -150,7 +150,7 @@ internal inline fun LoginScreen(
                     }
                 },
                 inputTransformation = InputTransformation {
-                    handleIntent(LoginIntent.UpdateUserNameInput)
+                    handleIntent(UpdateUserNameInput)
                 },
                 shape = MaterialTheme.shapes.large,
                 label = { Text("Username")},
@@ -192,7 +192,7 @@ internal inline fun LoginScreen(
                     }
                 },
                 inputTransformation = InputTransformation {
-                    handleIntent(LoginIntent.UpdatePasswordInput)
+                    handleIntent(UpdatePasswordInput)
                 },
                 textObfuscationMode = if (isPasswordVisible)
                     TextObfuscationMode.Visible
@@ -215,7 +215,7 @@ internal inline fun LoginScreen(
                 ),
                 onKeyboardAction = {
                     handleIntent(
-                        LoginIntent.Login(
+                        Login(
                             username = usernameState.text.toString(),
                             password = passwordState.text.toString()
                         )
@@ -237,7 +237,7 @@ internal inline fun LoginScreen(
                     keyboardController?.hide()
 
                     handleIntent(
-                        LoginIntent.Login(
+                        Login(
                             username = usernameState.text.toString(),
                             password = passwordState.text.toString()
                         )

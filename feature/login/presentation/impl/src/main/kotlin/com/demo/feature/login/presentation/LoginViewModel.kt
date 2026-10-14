@@ -14,7 +14,11 @@ import com.demo.core.domain.api.model.DomainUnhandledHttpCode
 import com.demo.feature.login.domain.AuthRepo
 import com.demo.feature.login.domain.model.RequestToken
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -24,25 +28,20 @@ internal data class LoginScreeState(
     val isTokenRequestLoading: Boolean = false
 )
 
-internal sealed interface LoginIntent {
-    data class Login(val username: String, val password: String): LoginIntent
+internal sealed interface LoginIntent
+internal data class Login(val username: String, val password: String): LoginIntent
+internal object UpdateUserNameInput: LoginIntent
+internal object UpdatePasswordInput: LoginIntent
+
+internal sealed interface LoginEvent
+@JvmInline
+internal value class RedirectToAuthorizeToken(val token: String) : LoginEvent
+@JvmInline
+internal value class NavigateToHome(val placeHolder: String = ""): LoginEvent
+@JvmInline
+internal value class ShowSnackBar(val message: String): LoginEvent
 
 
-    object UpdateUserNameInput: LoginIntent
-
-    object UpdatePasswordInput: LoginIntent
-}
-
-internal sealed interface LoginEvent {
-    @JvmInline
-    value class RedirectToAuthorizeToken(val token: String) : LoginEvent
-
-    @JvmInline
-    value class NavigateToHome(val placeHolder: String = ""): LoginEvent
-
-    @JvmInline
-    value class ShowSnackBar(val message: String): LoginEvent
-}
 
 internal class LoginViewModel @Inject constructor(private val repo: AuthRepo): ViewModel() {
 
@@ -52,16 +51,29 @@ internal class LoginViewModel @Inject constructor(private val repo: AuthRepo): V
     private val eventChannel = Channel<LoginEvent>(Channel.BUFFERED)
     internal val events = eventChannel.receiveAsFlow()
 
+    internal val authenticationFlow = repo
+        .authenticationFlow()
+        .distinctUntilChanged()
+        .onEach { isAuthenticated ->
+            if (isAuthenticated)
+                eventChannel.send(NavigateToHome())
+        }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(500),
+            initialValue = false
+        )
+
     internal fun handleIntent(intent: LoginIntent) {
         when (intent) {
-            is LoginIntent.Login -> login(username = intent.username, password = intent.password)
-            LoginIntent.UpdatePasswordInput ->
+            is Login -> login(username = intent.username, password = intent.password)
+            UpdatePasswordInput ->
                 if (state.value.isPasswordWrong) {
                     state.value = state.value.copy(
                         isPasswordWrong = false
                     )
                 }
-            LoginIntent.UpdateUserNameInput ->
+            UpdateUserNameInput ->
                 if (state.value.isUsernameWrong) {
                     state.value = state.value.copy(
                         isUsernameWrong = false
@@ -108,32 +120,10 @@ internal class LoginViewModel @Inject constructor(private val repo: AuthRepo): V
                     state.value = state.value.copy(isTokenRequestLoading = false)
 
                     eventChannel.send(
-                        LoginEvent.RedirectToAuthorizeToken(token.result.token)
+                        RedirectToAuthorizeToken(token.result.token)
                     )
                 }
             }
-        }
-    }
-
-    /**
-     * Creates session
-     */
-    fun onTokenAuthorization() {
-        viewModelScope.launch {
-            eventChannel.send(
-            when (val response = repo.createSession()) {
-                is DomainBadRequest<Unit>,
-                is DomainInternalServerError<Unit>,
-                is DomainNetworkError<Unit>,
-                is DomainUnauthorized<Unit>,
-                is DomainUnhandledHttpCode<Unit> -> {
-                    Log.d("Error creating session", "${response.code} ${response.message}")
-                    LoginEvent.ShowSnackBar(message = response.message)
-                }
-                is DomainSuccess<Unit> ->
-                    LoginEvent.NavigateToHome()
-                }
-            )
         }
     }
 }
