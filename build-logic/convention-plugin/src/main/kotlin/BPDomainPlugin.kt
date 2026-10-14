@@ -25,6 +25,7 @@ interface BPDomainPlugin: Plugin<Project> {
 
             dependencies {
                 "implementation"(project(":core:domain-api"))
+                "implementation"(libs.findLibrary("kotlinx-coroutines").get())
             }
         }
     }
