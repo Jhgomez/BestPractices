@@ -41,14 +41,13 @@ dependencies {
     "okhttpImplementation"(libs.okhttp)
 
     implementation(libs.androidx.appcompat)
-
+    implementation(libs.androidx.browser)
     implementation(libs.androidx.compose.material3.adaptive.navigation.suite)
-
     implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.datastore)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.navigation3.ui)
     implementation(libs.androidx.material3.adaptive.navigation3)
-    implementation(libs.androidx.datastore)
 
     testImplementation(libs.junit)
     androidTestImplementation(platform(libs.androidx.compose.bom))
