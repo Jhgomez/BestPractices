@@ -5,7 +5,9 @@ import androidx.annotation.StringRes
 import com.demo.R
 import com.demo.core.navigation.AppNavKey
 import com.demo.feature.home.presentation.api.navigation.HomeTopLevel
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 object PlaceholderKey: AppNavKey
 
 enum class TopLevelDestination(
