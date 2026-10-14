@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.ActivityResultCaller
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatCallback
 import androidx.appcompat.app.AppCompatDelegate
@@ -29,7 +30,7 @@ import com.demo.ui.DemoAppScreen
 import com.demo.ui.theme.DaggerRoomRetrofitPagingTestingTheme
 import javax.inject.Inject
 
-class MainActivity : ComponentActivity(), AppCompatCallback {
+class MainActivity : ComponentActivity(), AppCompatCallback, ActivityResultCaller {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
