@@ -34,11 +34,24 @@ internal class AuthRepoImpl @Inject constructor(
         authService.createRequestToken().toDomainResult {
             dataStore.updateData { store ->
                 store.copy {
-                    Log.d("request token", requestToken.toString())
+                    Log.d("reqToken created", this@toDomainResult.toString())
                     requestToken = toDataStoreModel()
                 }
             }.requestToken.toDomainModel()
         }
+
+    override suspend fun createSession(): DomainResult<Unit> {
+        val token = dataStore.data.last().requestToken.requestToken
+
+        return authService.createSession(token).toDomainResult {
+            dataStore.updateData { store ->
+                store.copy {
+                    Log.d("session created", this@toDomainResult.toString())
+                    session = session_id
+                }
+            }
+        }
+    }
 
     override suspend fun createGuestSession(): DomainResult<Unit> {
         TODO("Not yet implemented")

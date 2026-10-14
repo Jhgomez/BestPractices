@@ -7,6 +7,7 @@ import com.demo.feature.login.domain.model.RequestToken
 interface AuthRepo {
 
     suspend fun createRequestToken(): DomainResult<RequestToken>
+    suspend fun createSession(): DomainResult<Unit>
 
     suspend fun createGuestSession(): DomainResult<Unit>
 }
