@@ -27,7 +27,7 @@ import com.demo.feature.login.presentation.api.navigation.LoginScreenKey
 import com.demo.feature.login.presentation.navigation.addLogin
 import com.demo.core.navigation.AppNavigator
 import com.demo.ui.navigation.TopLevelDestination
-import com.demo.core.navigation.rememberAppNavState
+import com.demo.core.presentation.navigation.rememberAppNavState
 
 @Composable
 fun DemoAppScreen(

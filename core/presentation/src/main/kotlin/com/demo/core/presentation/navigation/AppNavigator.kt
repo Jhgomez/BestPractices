@@ -1,5 +1,8 @@
 package com.demo.core.navigation
 
+import com.demo.core.presentation.navigation.AppNavKey
+import com.demo.core.presentation.navigation.ExitThroughHomeNavState
+
 class AppNavigator(private val state: ExitThroughHomeNavState) {
 
     fun navigate(navKey: AppNavKey, popupTo: AppNavKey, inclusive: Boolean) {

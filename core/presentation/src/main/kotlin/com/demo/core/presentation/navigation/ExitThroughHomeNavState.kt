@@ -1,4 +1,4 @@
-package com.demo.core.navigation
+package com.demo.core.presentation.navigation
 
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material3.ExperimentalMaterial3Api

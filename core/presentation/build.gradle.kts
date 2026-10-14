@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.demo.core.navigation"
+    namespace = "com.demo.core.presentation"
 }
 
 dependencies {

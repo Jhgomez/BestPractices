@@ -18,7 +18,7 @@ interface BPFeatureImplPlugin: Plugin<Project> {
 
             dependencies {
                 "implementation"(project(":core:domain-api"))
-                "implementation"(project(":core:navigation"))
+                "implementation"(project(":core:presentation"))
 
                 "implementation"(libs.findLibrary("androidx.compose.viewmodel").get())
                 "implementation"(libs.findLibrary("androidx.navigation3.runtime").get())

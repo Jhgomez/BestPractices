@@ -17,7 +17,7 @@ interface BPFeatureApiPlugin: Plugin<Project> {
             apply(plugin = libs.findPlugin("parcelize").get().get().pluginId)
 
             dependencies {
-                "implementation"(project(":core:navigation"))
+                "implementation"(project(":core:presentation"))
             }
         }
     }

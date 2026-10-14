@@ -28,7 +28,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.os.LocaleListCompat
 import androidx.lifecycle.ViewModelProvider
-import com.demo.core.navigation.viewmodel.LocalAppViewModelFactory
+import com.demo.core.presentation.LocalAppViewModelFactory
 import com.demo.ui.DemoAppScreen
 import com.demo.ui.theme.DaggerRoomRetrofitPagingTestingTheme
 import javax.inject.Inject

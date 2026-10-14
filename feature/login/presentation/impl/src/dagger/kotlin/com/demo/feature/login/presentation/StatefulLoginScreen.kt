@@ -9,7 +9,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.core.net.toUri
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.demo.core.navigation.viewmodel.LocalAppViewModelFactory
+import com.demo.core.presentation.LocalAppViewModelFactory
 import com.demo.feature.login.presentation.LoginEvent.*
 
 @Composable

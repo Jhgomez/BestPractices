@@ -1,4 +1,4 @@
-package com.demo.core.navigation
+package com.demo.core.presentation.navigation
 
 import android.os.Parcelable
 import androidx.compose.foundation.layout.RowScope

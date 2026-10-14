@@ -6,7 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation3.runtime.EntryProviderScope
-import com.demo.core.navigation.AppNavKey
+import com.demo.core.presentation.navigation.AppNavKey
 import com.demo.feature.home.presentation.HomeTopLevelScreen
 import com.demo.feature.home.presentation.api.navigation.HomeTopLevel
 

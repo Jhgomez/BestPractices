@@ -3,7 +3,7 @@ package com.demo.ui.navigation
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.demo.R
-import com.demo.core.navigation.AppNavKey
+import com.demo.core.presentation.navigation.AppNavKey
 import com.demo.feature.home.presentation.api.navigation.HomeTopLevel
 import kotlinx.parcelize.Parcelize
 

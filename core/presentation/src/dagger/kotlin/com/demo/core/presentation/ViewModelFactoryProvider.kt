@@ -1,6 +1,5 @@
-package com.demo.core.navigation.viewmodel
+package com.demo.core.presentation
 
-import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.lifecycle.ViewModelProvider
 
