@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.bp.application)
     alias(libs.plugins.bp.compose)
     alias(libs.plugins.bp.di)
+    alias(libs.plugins.parcelize)
 }
 
 android {
