@@ -2,7 +2,7 @@ package com.demo.feature.login.domain
 
 import com.demo.core.domain.api.model.DomainResult
 import com.demo.feature.login.domain.model.RequestToken
-
+import kotlinx.coroutines.flow.Flow
 
 interface AuthRepo {
 
@@ -10,4 +10,6 @@ interface AuthRepo {
     suspend fun createSession(): DomainResult<Unit>
 
     suspend fun createGuestSession(): DomainResult<Unit>
+
+    fun authenticationFlow(): Flow<Boolean>
 }
