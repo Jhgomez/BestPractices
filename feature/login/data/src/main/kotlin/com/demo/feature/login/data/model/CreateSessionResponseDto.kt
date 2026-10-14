@@ -1,10 +1,9 @@
 package com.demo.feature.login.data.model
 
 import kotlinx.serialization.Serializable
-import kotlin.time.Instant
 
 @Serializable
-data class SessionResponseDto(
+data class CreateSessionResponseDto(
     val success: Boolean,
     val session_id: String
 )
