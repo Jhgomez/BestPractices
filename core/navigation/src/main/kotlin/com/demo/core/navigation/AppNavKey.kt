@@ -1,12 +1,13 @@
 package com.demo.core.navigation
 
+import android.os.Parcelable
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 
-interface AppNavKey {
+interface AppNavKey: Parcelable {
     val shouldShowTopBar: Boolean
         get() = true
 
