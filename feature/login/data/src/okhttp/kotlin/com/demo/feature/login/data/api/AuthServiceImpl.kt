@@ -2,7 +2,9 @@ package com.demo.feature.login.data.api
 
 import com.demo.core.data.client.api.DataResult
 import com.demo.core.data.client.api.get
-import com.demo.feature.login.data.model.SessionResponseDto
+import com.demo.core.data.client.api.post
+import com.demo.feature.login.data.model.CreateSessionBodyDto
+import com.demo.feature.login.data.model.CreateSessionResponseDto
 import com.demo.feature.login.data.model.RequestTokenResponseDto
 import okhttp3.OkHttpClient
 import javax.inject.Inject
@@ -17,9 +19,11 @@ internal class AuthServiceImpl @Inject constructor(private val okHttpClient: OkH
             serializer = RequestTokenResponseDto.serializer()
         )
 
-    override suspend fun createSession(): DataResult<SessionResponseDto> =
-        okHttpClient.get(
+    override suspend fun createSession(token: String): DataResult<CreateSessionResponseDto> =
+        okHttpClient.post(
             path = "3/authentication/guest_session/new",
-            serializer = SessionResponseDto.serializer()
+            bodyObject = CreateSessionBodyDto(token),
+            bodySerializer = CreateSessionBodyDto.serializer(),
+            responseSerializer = CreateSessionResponseDto.serializer(),
         )
 }
