@@ -21,6 +21,7 @@ import javax.inject.Inject
 internal data class LoginScreeState(
     val isUsernameWrong: Boolean = false,
     val isPasswordWrong: Boolean = false,
+    val isTokenRequestLoading: Boolean = false
 )
 
 internal sealed interface LoginIntent {
@@ -65,19 +66,35 @@ internal class LoginViewModel @Inject constructor(private val repo: AuthRepo): V
     }
 
     private fun login(username: String, password: String) {
-        if (username.isEmpty() || password.isEmpty()) {
-            state.value = state.value.copy(isPasswordWrong = true, isUsernameWrong = true)
+        if (state.value.isTokenRequestLoading) {
             return
         }
 
+        if (username.isEmpty() || password.isEmpty()) {
+            state.value = state.value.copy(
+                isPasswordWrong = true,
+                isUsernameWrong = true,
+                isTokenRequestLoading = false
+            )
+
+            return
+        }
+
+        state.value = state.value.copy(isTokenRequestLoading = true)
+
         viewModelScope.launch {
+            Log.d("User Auth", "launch request")
             when (val token = repo.createRequestToken()) {
                 is DomainBadRequest<RequestToken>,
                 is DomainInternalServerError<RequestToken>,
                 is DomainNetworkError<RequestToken>,
                 is DomainUnauthorized<RequestToken>,
                 is DomainUnhandledHttpCode<RequestToken> ->
-                    state.value = state.value.copy(isPasswordWrong = true, isUsernameWrong = true)
+                    state.value = state.value.copy(
+                        isPasswordWrong = true,
+                        isUsernameWrong = true,
+                        isTokenRequestLoading = false
+                    )
                 is DomainSuccess<RequestToken> -> {
                     Log.d("User Auth", "U $username P $password")
 
