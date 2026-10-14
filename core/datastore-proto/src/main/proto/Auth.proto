@@ -13,7 +13,12 @@ option java_multiple_files = true;
  */
 message Auth {
   Token requestToken = 1;
-  string session = 2; // this is the session id of existing user's(we're not given an expiration time)
+  /**
+   * Session id of existing users(we're not given an expiration time as opposed to guest sessions).
+   * This never expires, can't be fetched again after generated, and there is no limit for sessions
+   * created as stated here https://www.themoviedb.org/talk/5caf6d169251412fa022562a
+   */
+  string session = 2;
   GuestSession guestSession = 3; // very specific type of session
 }
 
