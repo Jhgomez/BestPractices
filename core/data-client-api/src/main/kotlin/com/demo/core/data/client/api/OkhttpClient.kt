@@ -1,12 +1,13 @@
 package com.demo.core.data.client.api
 
-import com.demo.data.client.api.R
+import android.util.Log
 import com.demo.data.client.api.BuildConfig
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.json.Json
 import okhttp3.HttpUrl.Companion.toHttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import okhttp3.RequestBody
 import okhttp3.coroutines.executeAsync
 import okio.IOException
 import kotlin.coroutines.cancellation.CancellationException
@@ -112,6 +113,89 @@ suspend fun <T: Any> OkHttpClient.get(
         )
     } catch (exception: CancellationException) {
         // I could have left this uncaught, but I want it to be visually explicit
+        Log.d("Okhttp Client", "Rethrowing cancellation exception")
+        throw exception
+    }
+}
+
+suspend fun <T: Any, R: Any> OkHttpClient.post(
+    path: String,
+    bodyObject: T,
+    bodySerializer: KSerializer<T>,
+    responseSerializer: KSerializer<R>,
+    vararg params: Pair<String, String>
+): DataResult<R> {
+    urlBuilder.apply {
+        addPathSegment(path)
+
+        for (param in params) {
+            addQueryParameter(param.first, param.second)
+        }
+    }
+
+    val body = with(RequestBody) {
+        json.encodeToString(
+            serializer = bodySerializer,
+            value = bodyObject
+        ).toRequestBody()
+    }
+
+
+    val request = Request
+        .Builder()
+        .url(urlBuilder.build())
+        .method("POST", body)
+        .build()
+
+    val call = newCall(request)
+
+    return try {
+        call.executeAsync().use { response ->
+            when (response.code) {
+                in 200..299 -> {
+                    Success(
+                        result = json.decodeFromString(
+                            string = response.body.string(),
+                            deserializer = responseSerializer
+                        )
+                    )
+                }
+
+                400 -> {
+                    BadRequest(
+                        code = response.code.toShort(),
+                        message = response.body.toString()
+                    )
+                }
+
+                401 -> {
+                    Unauthorized(
+                        code = response.code.toShort(),
+                        message = response.body.toString()
+                    )
+                }
+
+                500 -> {
+                    InternalServerError(
+                        code = response.code.toShort(),
+                        message = response.body.toString()
+                    )
+                }
+                else -> {
+                    UnhandledHttpCode(
+                        code = response.code.toShort(),
+                        message = response.body.toString()
+                    )
+                }
+            }
+        }
+    } catch (exception: IOException) {
+        NetworkError(
+            message = exception.message ?: "IOException"
+        )
+    } catch (exception: CancellationException) {
+        // I could have left this uncaught, but I want it to be visually explicit
+        Log.d("Okhttp Client", "Rethrowing cancellation exception")
         throw exception
     }
 }
