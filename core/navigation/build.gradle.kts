@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.bp.android.library)
     alias(libs.plugins.bp.compose)
-    alias(libs.plugins.parcelize)
 }
 
 android {
