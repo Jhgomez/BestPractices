@@ -27,6 +27,7 @@ internal data class LoginScreeState(
 internal sealed interface LoginIntent {
     data class Login(val username: String, val password: String): LoginIntent
 
+
     object UpdateUserNameInput: LoginIntent
 
     object UpdatePasswordInput: LoginIntent
@@ -36,7 +37,11 @@ internal sealed interface LoginEvent {
     @JvmInline
     value class RedirectToAuthorizeToken(val token: String) : LoginEvent
 
-    class NavigateToHome : LoginEvent
+    @JvmInline
+    value class NavigateToHome(val placeHolder: String = ""): LoginEvent
+
+    @JvmInline
+    value class ShowSnackBar(val message: String): LoginEvent
 }
 
 internal class LoginViewModel @Inject constructor(private val repo: AuthRepo): ViewModel() {
@@ -110,9 +115,25 @@ internal class LoginViewModel @Inject constructor(private val repo: AuthRepo): V
         }
     }
 
+    /**
+     * Creates session
+     */
     fun onTokenAuthorization() {
         viewModelScope.launch {
-            repo.createGuestSession()
+            eventChannel.send(
+            when (val response = repo.createSession()) {
+                is DomainBadRequest<Unit>,
+                is DomainInternalServerError<Unit>,
+                is DomainNetworkError<Unit>,
+                is DomainUnauthorized<Unit>,
+                is DomainUnhandledHttpCode<Unit> -> {
+                    Log.d("Error creating session", "${response.code} ${response.message}")
+                    LoginEvent.ShowSnackBar(message = response.message)
+                }
+                is DomainSuccess<Unit> ->
+                    LoginEvent.NavigateToHome()
+                }
+            )
         }
     }
 }

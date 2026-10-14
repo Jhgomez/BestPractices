@@ -58,6 +58,10 @@ fun LoginScreen(
 
                     customTabIntent.launch(mLauncher, url.toUri(), appScheme)
                 }
+
+                is ShowSnackBar -> {
+
+                }
             }
         }
     }
