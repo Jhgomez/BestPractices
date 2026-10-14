@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.core.net.toUri
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.demo.core.presentation.LocalAppViewModelFactory
+import com.demo.core.presentation.LocalLoginActivityResultLauncher
 import com.demo.feature.login.presentation.LoginEvent.*
 
 @Composable
@@ -17,9 +18,7 @@ fun LoginScreen(
     modifier: Modifier = Modifier
 ) {
     val vm = viewModel<LoginViewModel>(factory = LocalAppViewModelFactory.current)
-    val activity: ActivityResultCaller = LocalActivity.current as? ActivityResultCaller
-        ?: throw IllegalStateException("composable should live inside an activity implementing ActivityResultCaller")
-
+    val mLauncher = LocalLoginActivityResultLauncher.current
 
     LaunchedEffect(null) {
         vm.events.collect { event ->

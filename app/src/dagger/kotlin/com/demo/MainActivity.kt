@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.os.LocaleListCompat
 import androidx.lifecycle.ViewModelProvider
 import com.demo.core.presentation.LocalAppViewModelFactory
+import com.demo.core.presentation.LocalLoginActivityResultLauncher
 import com.demo.ui.DemoAppScreen
 import com.demo.ui.theme.DaggerRoomRetrofitPagingTestingTheme
 import javax.inject.Inject
@@ -41,7 +42,7 @@ class MainActivity : ComponentActivity(), AppCompatCallback {
 
     private lateinit var mDelegate: AppCompatDelegate
 
-    val mLauncher: ActivityResultLauncher<Intent> =
+    private val mLauncher: ActivityResultLauncher<Intent> =
         AuthTabIntent.registerActivityResultLauncher(
             this,
             { result ->
@@ -106,7 +107,10 @@ class MainActivity : ComponentActivity(), AppCompatCallback {
 //
 //                }
 
-                CompositionLocalProvider(LocalAppViewModelFactory provides viewModelFactory) {
+                CompositionLocalProvider(
+                    LocalAppViewModelFactory provides viewModelFactory,
+                            LocalLoginActivityResultLauncher provides mLauncher
+                ) {
                     DemoAppScreen(modifier = Modifier.fillMaxSize())
                 }
             }
