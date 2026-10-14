@@ -14,6 +14,7 @@ interface BPFeatureApiPlugin: Plugin<Project> {
 
             apply(plugin = libs.findPlugin("bp.android.library").get().get().pluginId)
             apply(plugin = libs.findPlugin("bp.compose").get().get().pluginId)
+            apply(plugin = libs.findPlugin("parcelize").get().get().pluginId)
 
             dependencies {
                 "implementation"(project(":core:navigation"))
