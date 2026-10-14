@@ -64,11 +64,11 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-internal fun LoginScreen(
+internal inline fun LoginScreen(
     modifier: Modifier,
     isUsernameWrong: Boolean,
     isPasswordWrong: Boolean,
-    handleIntent: (LoginIntent) -> Unit
+    crossinline handleIntent: (LoginIntent) -> Unit
 ) {
 
     Box(modifier = modifier) {
