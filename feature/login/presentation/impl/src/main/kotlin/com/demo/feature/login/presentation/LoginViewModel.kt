@@ -89,14 +89,18 @@ internal class LoginViewModel @Inject constructor(private val repo: AuthRepo): V
                 is DomainInternalServerError<RequestToken>,
                 is DomainNetworkError<RequestToken>,
                 is DomainUnauthorized<RequestToken>,
-                is DomainUnhandledHttpCode<RequestToken> ->
+                is DomainUnhandledHttpCode<RequestToken> -> {
+                    Log.d("Error Tokek", token.toString() + " " + token.code + " " + token.message)
                     state.value = state.value.copy(
                         isPasswordWrong = true,
                         isUsernameWrong = true,
                         isTokenRequestLoading = false
                     )
+                }
                 is DomainSuccess<RequestToken> -> {
                     Log.d("User Auth", "U $username P $password")
+
+                    state.value = state.value.copy(isTokenRequestLoading = false)
 
                     eventChannel.send(
                         LoginEvent.RedirectToAuthorizeToken(token.result.token)
