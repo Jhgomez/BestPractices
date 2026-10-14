@@ -1,6 +1,7 @@
 package com.demo.core.data.client.impl.di
 
 import com.demo.core.data.client.impl.AuthInterceptor
+import com.demo.data.client.impl.BuildConfig
 import dagger.Module
 import dagger.Provides
 import okhttp3.ConnectionPool
@@ -28,8 +29,12 @@ internal object OkhttpBaseModule {
             timeUnit = TimeUnit.SECONDS
         )
 
+        val logger = HttpLoggingInterceptor()
+
+        logger.setLevel(HttpLoggingInterceptor.Level.BODY)
+
         return Builder()
-            .addInterceptor(HttpLoggingInterceptor())
+            .addInterceptor(logger)
             .addInterceptor(AuthInterceptor())
             .dispatcher(dispatcher)
             .connectionPool(connectionPool)
