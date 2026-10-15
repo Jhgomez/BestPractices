@@ -43,10 +43,11 @@ class MainViewModel @Inject constructor(
      */
     fun onTokenAuthorization() {
         viewModelScope.launch {
+            Log.d("User Auth", "creating session")
+
             val response = repo.createSession()
 
             if (response is DomainSuccess<Unit>) return@launch
-
             eventChannel.send(
                 when (response) {
                     is DomainBadRequest<Unit>,
@@ -54,10 +55,11 @@ class MainViewModel @Inject constructor(
                     is DomainNetworkError<Unit>,
                     is DomainUnauthorized<Unit>,
                     is DomainUnhandledHttpCode<Unit> -> {
-                        Log.d("Error creating session", "${response.code} ${response.message}")
+                        Log.d("User Auth", "error creating session ${response.code} ${response.message}")
                         MainActivityEvent.ShowSnackBar(message = response.message)
                     }
                     is DomainSuccess<Unit> -> {
+                        Log.d("User Auth", "MVM session created")
                         // success is handled reactively. The login viewmodel is listening for
                         // changes in datastore's "session" property
                         throw IllegalStateException("Impossible State")

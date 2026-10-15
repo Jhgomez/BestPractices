@@ -50,7 +50,7 @@ class MainActivity : ComponentActivity(), AppCompatCallback {
                     result = result,
                     onSuccess = vm::onTokenAuthorization,
                     onFail = { message ->
-                        Log.d("authorization failed", message)
+                        Log.d("User Auth", "token unauthorized $message")
                         // 2DO show Snackbar
                     }
                 )

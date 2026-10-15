@@ -13,9 +13,11 @@ import com.demo.core.domain.api.model.DomainUnauthorized
 import com.demo.core.domain.api.model.DomainUnhandledHttpCode
 import com.demo.feature.login.domain.AuthRepo
 import com.demo.feature.login.domain.model.RequestToken
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
@@ -54,15 +56,6 @@ internal class LoginViewModel @Inject constructor(private val repo: AuthRepo): V
     internal val authenticationFlow = repo
         .authenticationFlow()
         .distinctUntilChanged()
-        .onEach { isAuthenticated ->
-            if (isAuthenticated)
-                eventChannel.send(NavigateToHome())
-        }
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(500),
-            initialValue = false
-        )
 
     internal fun handleIntent(intent: LoginIntent) {
         when (intent) {
@@ -107,7 +100,7 @@ internal class LoginViewModel @Inject constructor(private val repo: AuthRepo): V
                 is DomainNetworkError<RequestToken>,
                 is DomainUnauthorized<RequestToken>,
                 is DomainUnhandledHttpCode<RequestToken> -> {
-                    Log.d("Error Tokek", token.toString() + " " + token.code + " " + token.message)
+                    Log.d("User Auth err", token.toString() + " " + token.code + " " + token.message)
                     state.value = state.value.copy(
                         isPasswordWrong = true,
                         isUsernameWrong = true,
