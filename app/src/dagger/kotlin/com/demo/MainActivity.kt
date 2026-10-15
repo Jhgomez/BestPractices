@@ -1,5 +1,6 @@
 package com.demo
 
+import android.app.ComponentCaller
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -12,6 +13,7 @@ import androidx.appcompat.app.AppCompatCallback
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.view.ActionMode
 import androidx.browser.auth.AuthTabIntent
+import androidx.browser.customtabs.CustomTabsClient
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -30,6 +32,7 @@ import androidx.core.os.LocaleListCompat
 import androidx.lifecycle.ViewModelProvider
 import com.demo.core.presentation.LocalAppViewModelFactory
 import com.demo.core.presentation.LocalLoginActivityResultLauncher
+import com.demo.core.presentation.R
 import com.demo.ui.DemoAppScreen
 import com.demo.ui.theme.DaggerRoomRetrofitPagingTestingTheme
 import javax.inject.Inject
@@ -115,6 +118,26 @@ class MainActivity : ComponentActivity(), AppCompatCallback {
         }
     }
 
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+
+        val redirectUri = getString(R.string.redirect_uri)
+
+        Log.d("User Auth", "Auth tabs not supported, $redirectUri uri")
+        Log.d("User Auth", "Auth tabs not supported, ${intent.dataString} received")
+
+        intent.apply {
+            val browser = CustomTabsClient.getPackageName(this@MainActivity, null)
+
+            // only process these intents if we know custom tabs are not supported
+            if (browser == null) {
+                Log.d("User Auth", "Auth tabs not supported, intent processed")
+                vm.onTokenAuthorization()
+            }
+        }
+    }
+
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
         mDelegate.onPostCreate(savedInstanceState)
@@ -173,24 +196,5 @@ private fun Count(count: Int, add: () -> Unit, modifier: Modifier) {
         }) {
             Text(text = "chagne Local")
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Column(
-        modifier = modifier,
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(text = stringResource(R.string.profile))
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    DaggerRoomRetrofitPagingTestingTheme {
-        Greeting("Android")
     }
 }
