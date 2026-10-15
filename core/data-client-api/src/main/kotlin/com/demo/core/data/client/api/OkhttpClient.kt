@@ -53,6 +53,9 @@ suspend fun <T: Any> OkHttpClient.get(
     vararg params: Pair<String, String>
 ): DataResult<T> {
     urlBuilder.apply {
+        // clear all segments previously present
+        encodedPath("/")
+
         addPathSegment(path)
 
         for (param in params) {
@@ -126,6 +129,9 @@ suspend fun <T: Any, R: Any> OkHttpClient.post(
     vararg params: Pair<String, String>
 ): DataResult<R> {
     urlBuilder.apply {
+        // clear all segments previously present
+        encodedPath("/")
+
         addPathSegment(path)
 
         for (param in params) {
@@ -145,6 +151,8 @@ suspend fun <T: Any, R: Any> OkHttpClient.post(
         .Builder()
         .url(urlBuilder.build())
         .method("POST", body)
+        .header("accept", "application/json")
+        .header("content-type", "application/json")
         .build()
 
     val call = newCall(request)
