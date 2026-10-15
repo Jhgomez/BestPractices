@@ -21,7 +21,7 @@ internal class AuthServiceImpl @Inject constructor(private val okHttpClient: OkH
 
     override suspend fun createSession(token: String): DataResult<CreateSessionResponseDto> =
         okHttpClient.post(
-            path = "3/authentication/guest_session/new",
+            path = "3/authentication/session/new",
             bodyObject = CreateSessionBodyDto(token),
             bodySerializer = CreateSessionBodyDto.serializer(),
             responseSerializer = CreateSessionResponseDto.serializer(),
