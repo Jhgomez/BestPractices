@@ -12,6 +12,7 @@ import com.demo.feature.login.data.repository.mapper.toDomainResult
 import com.demo.feature.login.domain.AuthRepo
 import com.demo.feature.login.domain.model.RequestToken
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -34,7 +35,7 @@ internal class AuthRepoImpl @Inject constructor(
         }
 
     override suspend fun createSession(): DomainResult<Unit> {
-        val token = dataStore.data.last().requestToken.requestToken
+        val token = dataStore.data.first().requestToken.requestToken
 
         return authService.createSession(token).toDomainResult {
             dataStore.updateData { store ->
