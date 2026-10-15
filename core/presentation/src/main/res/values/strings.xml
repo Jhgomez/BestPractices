@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--  only used as fallback when auth tabs are not available-->
+    <string name="redirect_uri">tmdbauth://callback/auth</string>
+    <string name="redirect_uri_auth_tab">tmdbauth://callback</string>
+</resources>
