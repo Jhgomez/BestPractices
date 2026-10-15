@@ -59,7 +59,6 @@ class MainViewModel @Inject constructor(
                         MainActivityEvent.ShowSnackBar(message = response.message)
                     }
                     is DomainSuccess<Unit> -> {
-                        Log.d("User Auth", "MVM session created")
                         // success is handled reactively. The login viewmodel is listening for
                         // changes in datastore's "session" property
                         throw IllegalStateException("Impossible State")

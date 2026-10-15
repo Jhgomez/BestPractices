@@ -127,7 +127,8 @@ class MainActivity : ComponentActivity(), AppCompatCallback {
         Log.d("User Auth", "Auth tabs not supported, $redirectUri uri")
         Log.d("User Auth", "Auth tabs not supported, ${intent.dataString} received")
 
-        intent.apply {
+        if (intent.dataString?.contains(redirectUri) == true) {
+            Log.d("User Auth", "Auth tabs not supported, intent match")
             val browser = CustomTabsClient.getPackageName(this@MainActivity, null)
 
             // only process these intents if we know custom tabs are not supported
