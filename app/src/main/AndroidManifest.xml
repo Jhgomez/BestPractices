@@ -30,7 +30,8 @@
 
                 <data
                     android:host="callback"
-                    android:path="/auth" />
+                    android:path="/auth"
+                    android:scheme="tmdbauth" />
             </intent-filter>
         </activity>
     </application>
