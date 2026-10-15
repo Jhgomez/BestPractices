@@ -51,10 +51,11 @@ internal class LoginViewModel @Inject constructor(private val repo: AuthRepo): V
         field = mutableStateOf(LoginScreeState())
 
     private val eventChannel = Channel<LoginEvent>(Channel.BUFFERED)
-    internal val events = eventChannel.receiveAsFlow()
+    internal val events = eventChannel.receiveAsFlow().flowOn(Dispatchers.Default)
 
     internal val authenticationFlow = repo
         .authenticationFlow()
+        .flowOn(Dispatchers.Default)
         .distinctUntilChanged()
 
     internal fun handleIntent(intent: LoginIntent) {

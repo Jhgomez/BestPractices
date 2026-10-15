@@ -40,7 +40,7 @@ internal class AuthRepoImpl @Inject constructor(
         return authService.createSession(token).toDomainResult {
             dataStore.updateData { store ->
                 store.copy {
-                    Log.d("session created", this@toDomainResult.toString())
+                    Log.d("User Auth", "session created  ${this@toDomainResult}")
                     session = session_id
                 }
             }
