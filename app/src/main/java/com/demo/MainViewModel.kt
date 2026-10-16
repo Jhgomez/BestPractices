@@ -11,8 +11,13 @@ import com.demo.core.domain.api.model.DomainSuccess
 import com.demo.core.domain.api.model.DomainUnauthorized
 import com.demo.core.domain.api.model.DomainUnhandledHttpCode
 import com.demo.feature.login.domain.AuthRepo
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -30,6 +35,14 @@ class MainViewModel @Inject constructor(
     private val repo: AuthRepo
 ): ViewModel() {
     val state = mutableStateOf(MainState())
+
+    internal val authenticationFlow = repo
+        .authenticationFlow()
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(500),
+            initialValue = false
+        )
 
     private val eventChannel = Channel<MainActivityEvent>(Channel.BUFFERED)
     val events = eventChannel.receiveAsFlow()
