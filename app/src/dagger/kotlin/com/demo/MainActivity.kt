@@ -93,6 +93,12 @@ class MainActivity : ComponentActivity(), AppCompatCallback {
         (applicationContext as DemoApplication).getAppComponent().inject(this)
 
         setContent {
+            val auth = vm.authenticationFlow.collectAsStateWithLifecycle().value
+
+            splashScreen.setKeepOnScreenCondition {
+                auth == null
+            }
+
             DaggerRoomRetrofitPagingTestingTheme {
 //                Column(modifier = Modifier.fillMaxSize()) {
 //                    Count(
@@ -116,11 +122,12 @@ class MainActivity : ComponentActivity(), AppCompatCallback {
                     LocalAppViewModelFactory provides viewModelFactory,
                             LocalLoginActivityResultLauncher provides mLauncher
                 ) {
-                    DemoAppScreen(
-                        modifier = Modifier.fillMaxSize(),
-                        isUserAuthenticated =
-                            vm.authenticationFlow.collectAsStateWithLifecycle().value
-                    )
+                    if (auth != null) {
+                        DemoAppScreen(
+                            modifier = Modifier.fillMaxSize(),
+                            isUserAuthenticated = auth
+                        )
+                    }
                 }
             }
         }
