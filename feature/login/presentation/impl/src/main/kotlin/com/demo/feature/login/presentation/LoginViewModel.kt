@@ -53,11 +53,6 @@ internal class LoginViewModel @Inject constructor(private val repo: AuthRepo): V
     private val eventChannel = Channel<LoginEvent>(Channel.BUFFERED)
     internal val events = eventChannel.receiveAsFlow().flowOn(Dispatchers.Default)
 
-    internal val authenticationFlow = repo
-        .authenticationFlow()
-        .flowOn(Dispatchers.Default)
-        .distinctUntilChanged()
-
     internal fun handleIntent(intent: LoginIntent) {
         when (intent) {
             is Login -> login(username = intent.username, password = intent.password)
