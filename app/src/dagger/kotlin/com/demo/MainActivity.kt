@@ -1,6 +1,5 @@
 package com.demo
 
-import android.app.ComponentCaller
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -23,11 +22,8 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.os.LocaleListCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -37,7 +33,7 @@ import com.demo.core.presentation.LocalAppViewModelFactory
 import com.demo.core.presentation.LocalLoginActivityResultLauncher
 import com.demo.core.presentation.R
 import com.demo.ui.DemoAppScreen
-import com.demo.ui.theme.DaggerRoomRetrofitPagingTestingTheme
+import com.demo.core.presentation.designsystem.theme.DaggerRoomRetrofitPagingTestingTheme
 import javax.inject.Inject
 
 class MainActivity : ComponentActivity(), AppCompatCallback {

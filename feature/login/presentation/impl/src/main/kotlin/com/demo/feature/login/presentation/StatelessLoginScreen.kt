@@ -82,7 +82,7 @@ internal inline fun LoginScreen(
             Image(
                 colorFilter = ColorFilter.tint(color = Color.Black),
                 imageVector = ImageVector.vectorResource(id = R.drawable.enable_visibility),
-                contentDescription = null
+                contentDescription = null,
             )
         }
 
@@ -104,6 +104,7 @@ internal inline fun LoginScreen(
             }
 
             Button(
+
                 modifier = Modifier.fillMaxWidth(),
                 onClick = {
                     handleIntent(Login())

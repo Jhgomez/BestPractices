@@ -1,6 +1,5 @@
-package com.demo.ui.theme
+package com.demo.core.presentation.designsystem.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
