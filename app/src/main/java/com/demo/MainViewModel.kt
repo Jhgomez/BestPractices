@@ -11,11 +11,11 @@ import com.demo.core.domain.api.model.DomainSuccess
 import com.demo.core.domain.api.model.DomainUnauthorized
 import com.demo.core.domain.api.model.DomainUnhandledHttpCode
 import com.demo.feature.login.domain.AuthRepo
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -41,7 +41,7 @@ class MainViewModel @Inject constructor(
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(500),
-            initialValue = false
+            initialValue = null
         )
 
     private val eventChannel = Channel<MainActivityEvent>(Channel.BUFFERED)
