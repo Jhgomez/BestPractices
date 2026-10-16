@@ -73,7 +73,7 @@ internal class LoginViewModel @Inject constructor(private val repo: AuthRepo): V
                     state.value = state.value.copy(isTokenRequestLoading = false)
                 }
                 is DomainSuccess<RequestToken> -> {
-                    Log.d("User Auth", "U $username P $password")
+                    Log.d("User Auth", "Token created")
 
                     state.value = state.value.copy(isTokenRequestLoading = false)
 
