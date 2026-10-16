@@ -1,5 +1,6 @@
 package com.demo.ui
 
+import android.util.Log
 import androidx.compose.animation.ContentTransform
 import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.animation.SizeTransform
@@ -7,6 +8,8 @@ import androidx.compose.animation.core.snap
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -15,6 +18,11 @@ import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffo
 import androidx.compose.material3.adaptive.navigationsuite.rememberNavigationSuiteScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
@@ -26,16 +34,23 @@ import com.demo.feature.home.presentation.navigation.addHomeTopLevel
 import com.demo.feature.login.presentation.api.navigation.LoginScreenKey
 import com.demo.feature.login.presentation.navigation.addLogin
 import com.demo.core.navigation.AppNavigator
+import com.demo.core.presentation.navigation.ExitThroughHomeNavState
 import com.demo.ui.navigation.TopLevelDestination
 import com.demo.core.presentation.navigation.rememberAppNavState
+import com.demo.feature.home.presentation.api.navigation.HomeTopLevel
+import com.demo.ui.navigation.PlaceholderKey
 
 @Composable
 fun DemoAppScreen(
-    modifier: Modifier
+    modifier: Modifier,
+    isUserAuthenticated: Boolean
 ) {
     val navState = rememberAppNavState(
-        homeKey = LoginScreenKey,
-        topLevelKeys = arrayOf(LoginScreenKey)
+        homeKey = if (isUserAuthenticated) HomeTopLevel else LoginScreenKey,
+        topLevelKeys = if (isUserAuthenticated)
+            TopLevelDestination.entries.map(TopLevelDestination::navKey).toTypedArray()
+        else
+            arrayOf(LoginScreenKey)
     )
 
     val navigator = AppNavigator(navState)
@@ -98,8 +113,19 @@ fun DemoAppScreen(
         ) {
             val provider = entryProvider {
                 addLogin()
+
                 addHomeTopLevel()
+
+                entry<PlaceholderKey> {
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text("Placeholder")
+                    }
+                }
             }
+
 
             NavDisplay(
                 entries = navState.decorateAndRememberNavEntries(provider),
