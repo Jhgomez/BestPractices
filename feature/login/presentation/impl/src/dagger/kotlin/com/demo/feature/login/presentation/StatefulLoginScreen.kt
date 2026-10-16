@@ -34,13 +34,6 @@ fun LoginScreen(
         stringResource(R.string.redirect_uri_auth_tab)
 
     LaunchedEffect(null) {
-        launch {
-            vm.authenticationFlow.collect {
-                if (it) {
-                    Log.d("User Auth", "login screen auth ok")
-                }
-            }
-        }
 
         vm.events.collect { event ->
             when (event) {
