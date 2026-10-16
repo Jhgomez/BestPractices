@@ -66,8 +66,6 @@ import kotlinx.coroutines.launch
 @Composable
 internal inline fun LoginScreen(
     modifier: Modifier,
-    isUsernameWrong: Boolean,
-    isPasswordWrong: Boolean,
     crossinline handleIntent: (LoginIntent) -> Unit
 ) {
 
@@ -134,7 +132,6 @@ internal inline fun LoginScreen(
                     translationY -= usernameAnimation.value
                 },
                 state = usernameState,
-                isError = isUsernameWrong,
                 trailingIcon = {
                     val showIcon by remember { derivedStateOf { usernameState.text.isNotEmpty() } }
 
@@ -150,7 +147,7 @@ internal inline fun LoginScreen(
                     }
                 },
                 inputTransformation = InputTransformation {
-                    handleIntent(UpdateUserNameInput)
+
                 },
                 shape = MaterialTheme.shapes.large,
                 label = { Text("Username")},
@@ -170,7 +167,6 @@ internal inline fun LoginScreen(
                     translationY -= usernameAnimation.value
                 },
                 state = passwordState,
-                isError = isPasswordWrong,
                 labelPosition = TextFieldLabelPosition.Attached(),
                 label = { Text("My Label")},
                 placeholder = { Text("My Placeholder") },
@@ -192,7 +188,7 @@ internal inline fun LoginScreen(
                     }
                 },
                 inputTransformation = InputTransformation {
-                    handleIntent(UpdatePasswordInput)
+
                 },
                 textObfuscationMode = if (isPasswordVisible)
                     TextObfuscationMode.Visible
@@ -214,12 +210,7 @@ internal inline fun LoginScreen(
                     )
                 ),
                 onKeyboardAction = {
-                    handleIntent(
-                        Login(
-                            username = usernameState.text.toString(),
-                            password = passwordState.text.toString()
-                        )
-                    )
+                    handleIntent(Login())
                 },
                 shape = MaterialTheme.shapes.large,
                 contentPadding = PaddingValues(horizontal = 16.dp)
@@ -236,12 +227,7 @@ internal inline fun LoginScreen(
                 onClick = {
                     keyboardController?.hide()
 
-                    handleIntent(
-                        Login(
-                            username = usernameState.text.toString(),
-                            password = passwordState.text.toString()
-                        )
-                    )
+                    handleIntent(Login())
                 }
             ) {
                 Text("Login")
@@ -258,7 +244,5 @@ private fun LoginScreenPreview() {
     LoginScreen(
         modifier = Modifier.fillMaxSize(),
         handleIntent = {},
-        isUsernameWrong = false,
-        isPasswordWrong = false
     )
 }

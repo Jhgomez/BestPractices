@@ -25,15 +25,12 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 internal data class LoginScreeState(
-    val isUsernameWrong: Boolean = false,
-    val isPasswordWrong: Boolean = false,
     val isTokenRequestLoading: Boolean = false
 )
 
 internal sealed interface LoginIntent
-internal data class Login(val username: String, val password: String): LoginIntent
-internal object UpdateUserNameInput: LoginIntent
-internal object UpdatePasswordInput: LoginIntent
+@JvmInline
+internal value class Login(val placeholder: String = ""): LoginIntent
 
 internal sealed interface LoginEvent
 @JvmInline
@@ -53,34 +50,12 @@ internal class LoginViewModel @Inject constructor(private val repo: AuthRepo): V
 
     internal fun handleIntent(intent: LoginIntent) {
         when (intent) {
-            is Login -> login(username = intent.username, password = intent.password)
-            UpdatePasswordInput ->
-                if (state.value.isPasswordWrong) {
-                    state.value = state.value.copy(
-                        isPasswordWrong = false
-                    )
-                }
-            UpdateUserNameInput ->
-                if (state.value.isUsernameWrong) {
-                    state.value = state.value.copy(
-                        isUsernameWrong = false
-                    )
-                }
+            is Login -> login()
         }
     }
 
-    private fun login(username: String, password: String) {
+    private fun login() {
         if (state.value.isTokenRequestLoading) {
-            return
-        }
-
-        if (username.isEmpty() || password.isEmpty()) {
-            state.value = state.value.copy(
-                isPasswordWrong = true,
-                isUsernameWrong = true,
-                isTokenRequestLoading = false
-            )
-
             return
         }
 
@@ -95,11 +70,7 @@ internal class LoginViewModel @Inject constructor(private val repo: AuthRepo): V
                 is DomainUnauthorized<RequestToken>,
                 is DomainUnhandledHttpCode<RequestToken> -> {
                     Log.d("User Auth err", token.toString() + " " + token.code + " " + token.message)
-                    state.value = state.value.copy(
-                        isPasswordWrong = true,
-                        isUsernameWrong = true,
-                        isTokenRequestLoading = false
-                    )
+                    state.value = state.value.copy(isTokenRequestLoading = false)
                 }
                 is DomainSuccess<RequestToken> -> {
                     Log.d("User Auth", "U $username P $password")

@@ -65,8 +65,6 @@ fun LoginScreen(
 
     LoginScreen(
         modifier = modifier,
-        isUsernameWrong = vm.state.value.isUsernameWrong,
-        isPasswordWrong = vm.state.value.isPasswordWrong,
         handleIntent = { intent ->
             vm.handleIntent(intent)
         },
