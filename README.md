@@ -1,3 +1,9 @@
+
+https://m3.material.io/foundations/customization
+https://m3.material.io/styles/color/roles
+https://github.com/android/compose-samples/blob/main/Jetsnack/app/src/main/java/com/example/jetsnack/ui/components/Button.kt
+https://developer.android.com/develop/ui/compose/styles/theming
+
 # Encryption
 The android app sandboxing model makes our files secure, another app just can't access our files 
 (database, SharedPreferences, DataStore). But also, Android encrypts these files at an OS level. 
