@@ -111,7 +111,7 @@ fun DemoAppScreen(
         SharedTransitionLayout(
             modifier = Modifier.fillMaxSize()
         ) {
-            val provider = entryProvider {
+            val provider = if (isUserAuthenticated) entryProvider {
                 addLogin()
 
                 addHomeTopLevel()
@@ -123,6 +123,10 @@ fun DemoAppScreen(
                     ) {
                         Text("Placeholder")
                     }
+                }
+            } else {
+                entryProvider {
+                    addLogin()
                 }
             }
 
