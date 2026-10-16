@@ -39,8 +39,6 @@ internal sealed interface LoginEvent
 @JvmInline
 internal value class RedirectToAuthorizeToken(val token: String) : LoginEvent
 @JvmInline
-internal value class NavigateToHome(val placeHolder: String = ""): LoginEvent
-@JvmInline
 internal value class ShowSnackBar(val message: String): LoginEvent
 
 

@@ -37,10 +37,6 @@ fun LoginScreen(
 
         vm.events.collect { event ->
             when (event) {
-                is NavigateToHome -> {
-                    Log.d("User Auth", "Navigate to home triggered")
-                }
-
                 is RedirectToAuthorizeToken -> {
                     val url =
                         "https://www.themoviedb.org/authenticate/${event.token}?redirect_to=${Uri.encode(redirectUri)}"
