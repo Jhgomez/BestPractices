@@ -5,6 +5,8 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
@@ -35,15 +37,15 @@ fun rememberAppNavState(
     homeKey: AppNavKey,
     topLevelKeys: Array<AppNavKey>,
 ): ExitThroughHomeNavState {
-    val currentTopLevelKeys = rememberSaveable {  mutableStateListOf(homeKey) }
+    val currentTopLevelKeys = rememberSaveable(homeKey) {  mutableStateListOf(homeKey) }
     val nestedNavStacks = Array(topLevelKeys.size) { index ->
         NestedNav(
             topLevelKey = topLevelKeys[index],
-            nestedStack = rememberSaveable { mutableStateListOf(topLevelKeys[index]) }
+            nestedStack = rememberSaveable(homeKey) { mutableStateListOf(topLevelKeys[index]) }
         )
     }
 
-    return remember {
+    return remember(homeKey) {
         ExitThroughHomeNavState(
             nestedNavStacks = nestedNavStacks,
             currentTopLevelKeys = currentTopLevelKeys
