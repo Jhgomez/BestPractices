@@ -15,12 +15,8 @@ import com.demo.feature.login.domain.AuthRepo
 import com.demo.feature.login.domain.model.RequestToken
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.receiveAsFlow
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -30,7 +26,7 @@ internal data class LoginScreeState(
 
 internal sealed interface LoginIntent
 @JvmInline
-internal value class Login(val placeholder: String = ""): LoginIntent
+internal value class TMDBLogin(val placeholder: String = ""): LoginIntent
 
 internal sealed interface LoginEvent
 @JvmInline
@@ -50,7 +46,7 @@ internal class LoginViewModel @Inject constructor(private val repo: AuthRepo): V
 
     internal fun handleIntent(intent: LoginIntent) {
         when (intent) {
-            is Login -> login()
+            is TMDBLogin -> login()
         }
     }
 
