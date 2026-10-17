@@ -18,6 +18,7 @@ import com.demo.core.domain.api.model.DomainUnauthorized
 import com.demo.core.domain.api.model.DomainUnhandledHttpCode
 import com.demo.feature.login.data.model.GuestSessionResponseDto
 import com.demo.feature.login.data.model.RequestTokenResponseDto
+import com.demo.feature.login.domain.model.DomainGuestSession
 import com.demo.feature.login.domain.model.RequestToken
 
 fun Token.toDomainModel(): RequestToken = RequestToken(
@@ -36,6 +37,12 @@ fun GuestSessionResponseDto.toDataStoreModel(): GuestSession = GuestSession.newB
     builder.expiresAt = expires_at.toEpochMilliseconds()
     builder.build()
 }
+
+fun GuestSession.toDomainModel(): DomainGuestSession =
+    DomainGuestSession(
+        id = guestSessionId,
+        expiresAt = expiresAt
+    )
 
 suspend fun <T, R> DataResult<T>.toDomainResult(successMapper: suspend T.() -> R): DomainResult<R> =
     when(this) {
