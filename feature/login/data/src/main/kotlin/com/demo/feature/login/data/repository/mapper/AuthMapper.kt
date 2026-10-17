@@ -7,6 +7,7 @@ import com.demo.core.data.client.api.NetworkError
 import com.demo.core.data.client.api.Success
 import com.demo.core.data.client.api.Unauthorized
 import com.demo.core.data.client.api.UnhandledHttpCode
+import com.demo.core.datastore.proto.GuestSession
 import com.demo.core.datastore.proto.Token
 import com.demo.core.domain.api.model.DomainBadRequest
 import com.demo.core.domain.api.model.DomainInternalServerError
@@ -15,6 +16,7 @@ import com.demo.core.domain.api.model.DomainResult
 import com.demo.core.domain.api.model.DomainSuccess
 import com.demo.core.domain.api.model.DomainUnauthorized
 import com.demo.core.domain.api.model.DomainUnhandledHttpCode
+import com.demo.feature.login.data.model.GuestSessionResponseDto
 import com.demo.feature.login.data.model.RequestTokenResponseDto
 import com.demo.feature.login.domain.model.RequestToken
 
@@ -25,6 +27,12 @@ fun Token.toDomainModel(): RequestToken = RequestToken(
 
 fun RequestTokenResponseDto.toDataStoreModel(): Token = Token.newBuilder().let { builder ->
     builder.requestToken = request_token
+    builder.expiresAt = expires_at.toEpochMilliseconds()
+    builder.build()
+}
+
+fun GuestSessionResponseDto.toDataStoreModel(): GuestSession = GuestSession.newBuilder().let { builder ->
+    builder.guestSessionId = guest_session_id
     builder.expiresAt = expires_at.toEpochMilliseconds()
     builder.build()
 }
