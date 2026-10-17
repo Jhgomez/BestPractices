@@ -44,7 +44,7 @@ fun GuestSession.toDomainModel(): DomainGuestSession =
         expiresAt = expiresAt
     )
 
-suspend fun <T, R> DataResult<T>.toDomainResult(successMapper: suspend T.() -> R): DomainResult<R> =
+suspend fun <T, R> DataResult<T>.handleResponse(successMapper: suspend T.() -> R): DomainResult<R> =
     when(this) {
         is BadRequest<T> -> DomainBadRequest(code = code, message = message)
         is InternalServerError<T> -> DomainInternalServerError(code = code, message = message)
