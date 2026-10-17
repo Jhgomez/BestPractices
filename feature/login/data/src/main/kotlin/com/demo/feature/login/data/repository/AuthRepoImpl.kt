@@ -10,10 +10,10 @@ import com.demo.feature.login.data.repository.mapper.toDataStoreModel
 import com.demo.feature.login.data.repository.mapper.toDomainModel
 import com.demo.feature.login.data.repository.mapper.toDomainResult
 import com.demo.feature.login.domain.AuthRepo
+import com.demo.feature.login.domain.model.DomainGuestSession
 import com.demo.feature.login.domain.model.RequestToken
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -47,9 +47,14 @@ internal class AuthRepoImpl @Inject constructor(
         }
     }
 
-    override suspend fun createGuestSession(): DomainResult<Unit> {
-        TODO("Not yet implemented")
-    }
+    override suspend fun createGuestSession(): DomainResult<DomainGuestSession> =
+        authService.createGuestSession().toDomainResult {
+            dataStore.updateData { store ->
+                store.copy {
+                    guestSession = toDataStoreModel()
+                }
+            }.guestSession.toDomainModel()
+        }
 
     override fun authenticationFlow(): Flow<Boolean> = dataStore.data.map { store -> store.session.isNotEmpty() }
 }
