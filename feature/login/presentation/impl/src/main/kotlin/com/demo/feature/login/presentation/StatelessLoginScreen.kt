@@ -65,7 +65,7 @@ internal inline fun LoginScreen(
 
             ElevatedButton(
                 onClick = {
-                    handleIntent(TMDBLogin())
+                    handleIntent(GuestLogin())
                 }
             ) {
                 Text(
