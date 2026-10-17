@@ -27,6 +27,8 @@ import androidx.compose.foundation.text.input.TextObfuscationMode
 import androidx.compose.foundation.text.input.clearText
 import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -62,6 +64,7 @@ import androidx.compose.ui.text.intl.LocaleList
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.demo.core.presentation.designsystem.theme.DaggerRoomRetrofitPagingTestingTheme
 import com.demo.feature.login.presentation.impl.R
 import kotlinx.coroutines.launch
 
@@ -91,7 +94,6 @@ internal inline fun LoginScreen(
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             Button(
-                modifier = Modifier.fillMaxWidth(),
                 onClick = {
                     handleIntent(Login())
                 }
@@ -103,9 +105,7 @@ internal inline fun LoginScreen(
                 )
             }
 
-            Button(
-
-                modifier = Modifier.fillMaxWidth(),
+            ElevatedButton(
                 onClick = {
                     handleIntent(Login())
                 }
@@ -123,8 +123,10 @@ internal inline fun LoginScreen(
 @Preview(showBackground = true)
 @Composable
 private fun LoginScreenPreview() {
-    LoginScreen(
-        modifier = Modifier.fillMaxSize(),
-        handleIntent = {},
-    )
+    DaggerRoomRetrofitPagingTestingTheme() {
+        LoginScreen(
+            modifier = Modifier.fillMaxSize(),
+            handleIntent = {},
+        )
+    }
 }
