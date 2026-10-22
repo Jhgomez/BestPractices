@@ -3,4 +3,5 @@
     <color name="primary_green">#5B631E</color>
     <color name="surface">#FFFCFAED</color>
     <color name="icon_hole_border">#000000</color>
+    <color name="adaptive_icon_steady_background_color">#FFFCFAED</color>
 </resources>
