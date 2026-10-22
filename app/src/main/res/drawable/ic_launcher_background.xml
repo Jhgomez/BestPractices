@@ -26,7 +26,7 @@
         android:fillColor="#5B631E"
         android:strokeColor="#5B631E"/>
     <path
-        android:strokeWidth="1"
+        android:strokeWidth="@integer/last_film_hole"
         android:pathData="M82.29,80.43C82.29,80.73 82.56,80.97 82.86,80.9C84.66,80.49 85.71,79.36 86.02,78.98C86.09,78.9 86.12,78.8 86.12,78.7L86.17,73.57C86.18,73.2 85.77,72.94 85.43,73.08C84.83,73.33 83.91,73.67 82.74,73.99C82.52,74.05 82.36,74.24 82.36,74.47L82.29,80.43Z"
         android:fillColor="#5B631E"
         android:strokeColor="#5B631E"/>
@@ -46,7 +46,7 @@
         android:fillColor="#5B631E"
         android:strokeColor="#5B631E"/>
     <path
-        android:strokeWidth="1"
+        android:strokeWidth="@integer/last_film_hole"
         android:pathData="M82.29,27.32C82.29,27.02 82.56,26.78 82.86,26.85C84.66,27.26 85.71,28.4 86.02,28.77C86.09,28.85 86.12,28.95 86.12,29.05L86.17,34.18C86.18,34.56 85.77,34.81 85.43,34.67C84.83,34.42 83.91,34.08 82.74,33.77C82.52,33.71 82.36,33.51 82.36,33.28L82.29,27.32Z"
         android:fillColor="#5B631E"
         android:strokeColor="#5B631E"/>
