@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="last_film_hole" format="float" type="integer">0.2</item>
+    <item name="film_edge_stroke_width" format="float" type="integer">0.3</item>
+    <item name="last_film_hole_stroke_width" format="float" type="integer">0.0</item>
 </resources>
