@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="icon_hole_border">#ffffff</color>
     <color name="surface">#FF13140D</color>
+    <color name="film_hole_border">@color/surface</color>
+    <color name="film_edge_border">#FFFCFAED</color>
 </resources>
