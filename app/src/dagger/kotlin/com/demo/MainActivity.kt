@@ -1,8 +1,14 @@
 package com.demo
 
 import android.content.Intent
+import android.graphics.drawable.AnimatedVectorDrawable
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
 import android.util.Log
+import android.view.SurfaceView
+import android.widget.ImageView
+import android.window.SplashScreenView
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -85,6 +91,46 @@ class MainActivity : ComponentActivity(), AppCompatCallback {
         mDelegate.onCreate(savedInstanceState)
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        // Add a callback that's called when the splash screen is animating to the
+        // app content.
+        splashScreen.setOnExitAnimationListener { splashScreenView ->
+
+            (splashScreenView.view.findViewById<ImageView>(androidx.core.splashscreen.R.id.splashscreen_icon_view).drawable as BitmapDrawable).let {
+
+            }
+//            // Get the duration of the animated vector drawable.
+//            val animationDuration = splashScreenView.iconAnimationDurationMillis
+//            // Get the start time of the animation.
+//            val animationStart = splashScreenView.iconAnimationStartMillis
+//            // Calculate the remaining duration of the animation.
+//            val remainingDuration = if (animationDuration != null && animationStart != null) {
+//                (animationDuration - Duration.between(animationStart, Instant.now()))
+//                    .toMillis()
+//                    .coerceAtLeast(0L)
+//            } else {
+//                0L
+//            }
+//
+//
+//
+//
+//            // Create your custom animation.
+//            val slideUp = ObjectAnimator.ofFloat(
+//                splashScreenView,
+//                View.TRANSLATION_Y,
+//                0f,
+//                -splashScreenView.view.height.toFloat()
+//            )
+//            slideUp.interpolator = AnticipateInterpolator()
+//            slideUp.duration = 200L
+//
+//            // Call SplashScreenView.remove at the end of your custom animation.
+//            slideUp.doOnEnd { splashScreenView.remove() }
+//
+//            // Run your animation.
+//            slideUp.start()
+        }
 
         (applicationContext as DemoApplication).getAppComponent().inject(this)
 
