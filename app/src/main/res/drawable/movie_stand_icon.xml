@@ -4,11 +4,16 @@
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-  <group android:scaleX="0.73"
+  <group
+      android:name="rotationGroup"
+      android:pivotY=".5"
+      android:pivotX=".5"
+      android:scaleX="0.73"
       android:scaleY="0.73"
       android:translateX="14.58"
       android:translateY="14.58">
     <path
+        android:name="v"
         android:strokeWidth="1"
         android:pathData="M26,79.56C26,79.77 26.12,79.95 26.31,80.02C28.7,80.92 32.57,81.8 35.42,82.3C35.72,82.35 36,82.12 36,81.81V75.54C36,75.29 35.81,75.08 35.56,75.04C31.14,74.44 27.75,73.34 26.49,73C26.22,72.93 26,73.12 26,73.4L26,79.56Z"
         android:fillColor="#5B631E"
