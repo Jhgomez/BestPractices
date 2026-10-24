@@ -96,9 +96,6 @@ class MainActivity : ComponentActivity(), AppCompatCallback {
         // app content.
         splashScreen.setOnExitAnimationListener { splashScreenView ->
 
-            (splashScreenView.view.findViewById<ImageView>(androidx.core.splashscreen.R.id.splashscreen_icon_view).drawable as BitmapDrawable).let {
-
-            }
 //            // Get the duration of the animated vector drawable.
 //            val animationDuration = splashScreenView.iconAnimationDurationMillis
 //            // Get the start time of the animation.
